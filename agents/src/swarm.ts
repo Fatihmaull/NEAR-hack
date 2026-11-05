@@ -14,7 +14,7 @@ import { cu, formatCu, formatPrice, formatUsdc, notional, usdc } from "./engine/
 import { LocalNearRuntime, type KeyHandle } from "./engine/runtime";
 import { BASE_USDC_CONTRACT, INTENTS_ASSETS, OneClickIntentsBridge, paronFundingQuoteRequest, type OneClickQuoteResponse } from "./intents-bridge";
 import { YieldLpMarketMakerAgent } from "./market-maker-agent";
-import { DAY, DEMO_FINAL_WINDOW_END_MS, DEMO_INDEX_PATH, DEMO_JOBS_START_MS, DEMO_T0_MS, demoIndexRequest, happyJob, MINUTE, throttledJob, type AttestedCriIndex, type AttestedJobReceipt } from "./oracle/cri-oracle";
+import { customIndexRequest, DAY, DEMO_FINAL_WINDOW_END_MS, DEMO_INDEX_PATH, DEMO_JOBS_START_MS, DEMO_T0_MS, demoIndexRequest, happyJob, MINUTE, throttledJob, type AttestedCriIndex, type AttestedJobReceipt } from "./oracle/cri-oracle";
 import { LocalOutlayerOracle, type OutlayerOracle } from "./outlayer-client";
 import type { EmitFn, SwarmEvent } from "./swarm-events";
 
@@ -132,6 +132,7 @@ export class SwarmSimulation {
   private relayer!: LocalParonClient;
   private requestIds: number[] = [];
   private teeSignerPublicKey = "";
+  private readonly onboarded: string[] = [];
 
   private constructor(private readonly opts: SwarmOptions) {
     this.runtime = new LocalNearRuntime(SWARM_ACCOUNTS.contract, SWARM_ACCOUNTS.usdcToken, DEMO_T0_MS);
@@ -515,12 +516,157 @@ export class SwarmSimulation {
   }
 
   // -------------------------------------------------------------------------------------------
+  // Interactive operations (web terminal): every button is a signed transaction on the engine
+  // -------------------------------------------------------------------------------------------
+
+  /** Onboard an extra guardrailed agent (e.g. the judge's own desk) with a Function Call key. */
+  onboardAgent(accountId: string, opts: { fundingMicros: bigint; maxDailySpendMicros: bigint; slippageBps: number; methods: string[] }): LocalParonClient {
+    const rt = this.runtime;
+    const full = rt.createAccount(accountId);
+    const fc = rt.addFunctionCallKey(full, "desk-runtime", SWARM_ACCOUNTS.contract, opts.methods);
+    const policy = rt.call(this.fullKeys.treasury, "configure_agent_guardrail", {
+      agent_id: accountId,
+      max_daily_spend_micros: opts.maxDailySpendMicros.toString(),
+      max_slippage_bps: opts.slippageBps,
+    }, { depositYocto: 1n });
+    rt.creditUsdcWallet(SWARM_ACCOUNTS.treasury, opts.fundingMicros);
+    const fund = rt.ftTransferCall(this.fullKeys.treasury, opts.fundingMicros, JSON.stringify({ action: "deposit", beneficiary: accountId }));
+    this.push({
+      actor: "Swarm Treasury",
+      kind: "guardrail",
+      method: "configure_agent_guardrail",
+      ok: policy.ok && fund.ok,
+      txHash: policy.tx.tx_hash,
+      keyKind: "FullAccess",
+      title: `Onboarded ${accountId}: ${formatUsdc(opts.fundingMicros, 0)} margin, ${formatUsdc(opts.maxDailySpendMicros, 0)}/day, ${opts.slippageBps} bps band`,
+      detail: `Function Call key ${fc.publicKey.slice(0, 20)}… limited to ${opts.methods.join(", ")}`,
+    });
+    this.onboarded.push(accountId);
+    return new LocalParonClient(rt, fc);
+  }
+
+  latestAttestation(seriesId: string): AttestedCriIndex | undefined {
+    return [...this.attestations].reverse().find((a) => a.attestation.series_id === seriesId)?.attestation;
+  }
+
+  /** One OutLayer attestation for a window ending 24h later; the LP agent then reacts (risk, keeper, re-center). */
+  async attestCustom(seriesId: string, targetMicros: number, spoofMicros: number | null): Promise<{ ok: boolean; error?: string; flagged: number[]; purged: number[] }> {
+    const series = this.runtime.view<{ is_settled: boolean; maturity_timestamp_ms: number }>("get_series", { series_id: seriesId });
+    if (series.is_settled) return { ok: false, error: `${seriesId} is already settled`, flagged: [], purged: [] };
+    const windowEnd = this.runtime.nowMs + DAY;
+    const attestation = await this.oracle.attestIndex(customIndexRequest(seriesId, targetMicros, windowEnd, spoofMicros));
+    this.runtime.advanceTo(windowEnd + MINUTE);
+    const out = await this.relayer.call<{ flagged_vaults: number[]; purged_orders: number[] }>("submit_outlayer_index_attestation", {
+      series_id: seriesId,
+      twap_micros: attestation.twap_micros.toString(),
+      observed_at_ms: attestation.observed_at_ms,
+      tdx_quote_hash: attestation.tdx_quote_hash,
+      signature_hex: attestation.signature_hex,
+    });
+    this.push({
+      actor: "OutLayer TEE (Intel TDX)",
+      kind: "attestation",
+      method: "submit_outlayer_index_attestation",
+      ok: out.ok,
+      txHash: out.txHash,
+      keyKind: "FunctionCall",
+      title: out.ok ? `CRI-H100 ${seriesId} TWAP ${formatPrice(BigInt(attestation.twap_micros))} attested (${attestation.rejected_count} feeds rejected)` : `Attestation rejected on-chain`,
+      detail: out.ok
+        ? `quote ${attestation.tdx_quote_hash.slice(0, 16)}… · purged ${out.result?.purged_orders.length ?? 0} stale quotes · flagged ${out.result?.flagged_vaults.length ?? 0} vaults`
+        : out.error,
+      data: { attestation },
+    });
+    if (!out.ok) return { ok: false, error: out.error, flagged: [], purged: [] };
+    this.attestations.push({ label: `custom-${this.attestations.length}`, attestation, submittedTx: out.txHash, flaggedVaults: out.result?.flagged_vaults ?? [] });
+    if (this.runtime.nowMs < series.maturity_timestamp_ms) {
+      await this.mm.riskCheck(seriesId);
+      await this.mm.keeperSweep(seriesId);
+      await this.mm.onIndexUpdate(seriesId);
+    }
+    return { ok: true, flagged: out.result?.flagged_vaults ?? [], purged: out.result?.purged_orders ?? [] };
+  }
+
+  /** Fast-forward CU-2026-11 to maturity, attest the final TWAP and cash-settle the CFO hedge. */
+  async settleCfoAtMaturity(finalTwapMicros: number): Promise<{ ok: boolean; error?: string }> {
+    const nov = "CU-2026-11";
+    const series = this.runtime.view<{ is_settled: boolean; maturity_timestamp_ms: number }>("get_series", { series_id: nov });
+    if (!series.is_settled) {
+      const windowEnd = Math.max(this.runtime.nowMs + MINUTE, DEMO_FINAL_WINDOW_END_MS);
+      const attestation = await this.oracle.attestIndex(customIndexRequest(nov, finalTwapMicros, windowEnd, 1_250_000));
+      this.runtime.advanceTo(windowEnd + MINUTE);
+      const out = await this.relayer.call("submit_outlayer_index_attestation", {
+        series_id: nov,
+        twap_micros: attestation.twap_micros.toString(),
+        observed_at_ms: attestation.observed_at_ms,
+        tdx_quote_hash: attestation.tdx_quote_hash,
+        signature_hex: attestation.signature_hex,
+      });
+      if (!out.ok) return { ok: false, error: out.error };
+      this.attestations.push({ label: "final-settlement", attestation, submittedTx: out.txHash, flaggedVaults: [] });
+      this.push({ actor: "OutLayer TEE (Intel TDX)", kind: "attestation", ok: true, txHash: out.txHash, keyKind: "FunctionCall", title: `Final CRI-H100 TWAP ${formatPrice(BigInt(finalTwapMicros))} attested after maturity`, data: { attestation } });
+      const fin = await this.relayer.call("finalize_series_settlement", { series_id: nov });
+      if (!fin.ok) return { ok: false, error: fin.error };
+      this.push({ actor: "Protocol", kind: "settlement", ok: true, txHash: fin.txHash, keyKind: "FunctionCall", title: `${nov} finalised at ${formatPrice(BigInt(finalTwapMicros))}` });
+    }
+    const held = BigInt(this.runtime.view<string>("mt_balance_of", { account_id: SWARM_ACCOUNTS.cfo, token_id: nov }));
+    if (held === 0n) return { ok: false, error: "the CFO agent holds no CU-2026-11 to settle" };
+    await this.cfo.settleAtMaturity();
+    return { ok: true };
+  }
+
+  /** Mode B job against the provider: "happy" (in-SLA), "throttled" (sla_met=false) or "ghost" (timeout). */
+  async runRedemption(kind: "happy" | "throttled" | "ghost"): Promise<{ ok: boolean; error?: string; requestId?: number }> {
+    const dec = "CU-2026-12";
+    const rt = this.runtime;
+    const series = rt.view<{ maturity_timestamp_ms: number; index_twap_usdc_micros: string }>("get_series", { series_id: dec });
+    if (rt.nowMs >= series.maturity_timestamp_ms - 6 * 60 * MINUTE) return { ok: false, error: `${dec} is too close to maturity for a Mode B drawdown` };
+    const qty = cu(kind === "happy" ? 24 : kind === "throttled" ? 16 : 10);
+    try {
+      const vault = rt.view<{ shorted_cu_scaled: string } | null>("get_vault_by_provider", { provider_id: SWARM_ACCOUNTS.provider, series_id: dec });
+      if (!vault || BigInt(vault.shorted_cu_scaled) < qty) {
+        const book = rt.view<{ best_ask_micros: string | null }>("get_order_book", { series_id: dec });
+        const index = BigInt(series.index_twap_usdc_micros);
+        const price = book.best_ask_micros && BigInt(book.best_ask_micros) <= index ? BigInt(book.best_ask_micros) - 100n : index;
+        await this.provider.presell(dec, qty, price);
+        await this.consumer.acquireInventory(dec, qty);
+      }
+      const held = BigInt(rt.view<string>("mt_balance_of", { account_id: SWARM_ACCOUNTS.consumer, token_id: dec }));
+      if (held < qty) await this.consumer.acquireInventory(dec, qty - held);
+      const label = kind === "happy" ? "In-SLA job (8× H100)" : kind === "throttled" ? "Throttled job (2× B200)" : "Ghosted job";
+      const requestId = await this.consumer.requestJob(dec, SWARM_ACCOUNTS.provider, qty, label);
+      const startedAt = rt.nowMs;
+      if (kind === "ghost") {
+        rt.advanceBy(16 * MINUTE);
+        await this.consumer.enforceDeadline(requestId);
+        return { ok: true, requestId };
+      }
+      rt.advanceBy(2 * MINUTE);
+      await this.provider.acknowledge(requestId);
+      const log = kind === "happy" ? happyJob(requestId, startedAt) : throttledJob(requestId, startedAt);
+      rt.advanceTo(startedAt + log.total_duration_ms + 3 * MINUTE);
+      const receipt = await this.oracle.verifyJob(log);
+      this.jobReceipts.push(receipt);
+      this.push({
+        actor: "OutLayer TEE (Intel TDX)",
+        kind: "attestation",
+        title: `Job measured in-enclave: ${receipt.cu_consumed_scaled / 1e4} CU, TTFT ${receipt.ttft_ms} ms → sla_met=${receipt.sla_met}`,
+        detail: receipt.violations.join("; ") || `receipt ${receipt.tdx_quote_hash.slice(0, 16)}…`,
+        data: receipt,
+      });
+      await this.consumer.submitReceipt(receipt);
+      return { ok: true, requestId };
+    } catch (e) {
+      return { ok: false, error: (e as Error).message };
+    }
+  }
+
+  // -------------------------------------------------------------------------------------------
   // Snapshots & receipt
   // -------------------------------------------------------------------------------------------
 
   snapshot(): SwarmSnapshot {
     const rt = this.runtime;
-    const accounts = [SWARM_ACCOUNTS.cfo, SWARM_ACCOUNTS.marketMaker, SWARM_ACCOUNTS.consumer, SWARM_ACCOUNTS.provider, SWARM_ACCOUNTS.protocolOwner];
+    const accounts = [SWARM_ACCOUNTS.cfo, SWARM_ACCOUNTS.marketMaker, SWARM_ACCOUNTS.consumer, SWARM_ACCOUNTS.provider, SWARM_ACCOUNTS.protocolOwner, ...this.onboarded];
     const seriesIds = ["CU-2026-11", "CU-2026-12", "CU-2027-01"];
     return toJsonValue({
       now_ms: rt.nowMs,
@@ -537,7 +683,7 @@ export class SwarmSimulation {
           },
         ]),
       ),
-      guardrails: Object.fromEntries(Object.keys(GUARDRAILS).map((a) => [a, rt.view("get_agent_guardrail", { agent_id: a })])),
+      guardrails: Object.fromEntries([...Object.keys(GUARDRAILS), ...this.onboarded].map((a) => [a, rt.view("get_agent_guardrail", { agent_id: a })])),
       function_call_keys: Object.fromEntries(
         Object.entries(this.agentKeys).map(([role, k]) => {
           const record = rt.accessKey(k);

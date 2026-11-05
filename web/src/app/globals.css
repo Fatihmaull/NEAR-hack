@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: #04060a;
+  color: #e6ebf2;
+}
+
+body {
+  background-image:
+    radial-gradient(1200px 600px at 10% -10%, rgba(46, 230, 166, 0.07), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(76, 195, 255, 0.06), transparent 55%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  .panel {
+    @apply rounded-xl border border-ink-600/80 bg-ink-900/85 shadow-panel backdrop-blur;
+  }
+  .panel-header {
+    @apply flex items-center justify-between gap-3 border-b border-ink-600/70 px-4 py-3;
+  }
+  .panel-title {
+    @apply flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.12em] text-fg;
+  }
+  .num {
+    @apply font-mono tabular-nums;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-md border border-ink-500/70 bg-ink-800 px-1.5 py-0.5 font-mono text-[10.5px] text-fg-muted;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-40;
+  }
+  .btn-primary {
+    @apply btn bg-near text-ink-950 hover:bg-near/90;
+  }
+  .btn-ghost {
+    @apply btn border border-ink-500 bg-ink-800 text-fg hover:border-ink-400 hover:bg-ink-700;
+  }
+  .btn-danger {
+    @apply btn border border-danger/50 bg-danger/10 text-danger hover:bg-danger/20;
+  }
+  .input {
+    @apply w-full rounded-lg border border-ink-500 bg-ink-850 px-3 py-2 font-mono text-sm text-fg outline-none transition focus:border-near/70 focus:ring-1 focus:ring-near/40;
+  }
+  .label {
+    @apply mb-1 block text-[11px] font-medium uppercase tracking-wider text-fg-dim;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #1d2636;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+input[type="range"] {
+  accent-color: #2ee6a6;
+}
