@@ -32,6 +32,9 @@ pub const SLA_BREACH_PENALTY_BPS: u128 = 1_500;
 pub const LIQUIDATION_BONUS_BPS: u128 = 250;
 /// Circuit breaker: a single TEE attestation may not move a series index by more than 100%.
 pub const MAX_INDEX_MOVE_BPS: u128 = 10_000;
+/// Stale-quote band: on every attestation, asks below `index * 0.95` and bids above `index * 1.05` are
+/// purged so slow makers (and the genesis ladder) cannot be picked off after an attested jump.
+pub const STALE_QUOTE_BAND_BPS: u128 = 500;
 /// Hard ceiling for the per-agent slippage guard.
 pub const MAX_SLIPPAGE_BPS: u16 = 2_000;
 /// An index attestation must be submitted within 1 hour of the end of its observation window.
@@ -397,6 +400,7 @@ pub struct AttestationOutcome {
     pub twap_micros: U128,
     pub tdx_quote_hash: String,
     pub flagged_vaults: Vec<VaultId>,
+    pub purged_orders: Vec<OrderId>,
 }
 
 #[near(serializers = [json])]

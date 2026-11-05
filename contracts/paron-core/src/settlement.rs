@@ -4,7 +4,7 @@
 //! the outlier-clipped CRI-H100 TWAP and signs `"{series_id}:{twap_micros}:{observed_at_ms}:{tdx_quote_hash}"`
 //! with its enclave Ed25519 key. Anyone may relay it; the contract verifies the signature with
 //! `env::ed25519_verify`, rejects replays, stale or out-of-order observations and >100% jumps, then
-//! sweeps vault health.
+//! purges quotes outside the ±5% stale-quote band and sweeps vault health.
 //!
 //! **Mode A — cash settlement at maturity**: once an attestation observed at/after maturity lands, the
 //! series is finalised: every vault pays `Q * P_final` from escrow + collateral (insurance backstops
@@ -63,6 +63,7 @@ impl ParonCore {
         series.index_updated_at_ms = now;
         series.index_observed_at_ms = observed_at_ms;
         series.last_tee_attestation_hash = tdx_quote_hash.clone();
+        let purged = self.purge_off_band_orders(&series_id, twap);
 
         let flagged: Vec<VaultId> = self
             .vault_ids_of(&series_id)
@@ -79,6 +80,7 @@ impl ParonCore {
                 "observed_at_ms": observed_at_ms,
                 "tdx_quote_hash": tdx_quote_hash,
                 "flagged_vaults": flagged,
+                "purged_orders": purged,
             }),
         );
         for vault_id in &flagged {
@@ -90,6 +92,7 @@ impl ParonCore {
             twap_micros: U128(twap),
             tdx_quote_hash,
             flagged_vaults: flagged,
+            purged_orders: purged,
         }
     }
 

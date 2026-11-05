@@ -166,6 +166,8 @@ impl Default for SlaPolicy {
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct AttestedJobReceipt {
+    /// The full measured log, so anyone can recompute `tdx_quote_hash` from the receipt alone.
+    pub log: InferenceJobLog,
     pub request_id: u64,
     pub job_id: String,
     pub agent_account: String,
@@ -563,6 +565,7 @@ pub fn verify_inference_job(
     let signature = signer.sign(message.as_bytes())?;
     let pubkey = signer.public_key()?;
     Ok(AttestedJobReceipt {
+        log: log.clone(),
         request_id: log.request_id,
         job_id: log.job_id.clone(),
         agent_account: log.agent_account.clone(),
