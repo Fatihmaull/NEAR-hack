@@ -448,6 +448,13 @@ export function demoIndexRequest(seriesId: string, target: number, windowEndMs: 
   return { series_id: seriesId, window_start_ms: start, window_end_ms: windowEndMs, bucket_ms: 30 * MINUTE, observations };
 }
 
+/** Same honest feed set as `demoIndexRequest`, with the manipulated feed optional (interactive terminal). */
+export function customIndexRequest(seriesId: string, target: number, windowEndMs: number, manipulatedPrice: number | null): IndexRequest {
+  const req = demoIndexRequest(seriesId, target, windowEndMs, manipulatedPrice ?? target);
+  if (manipulatedPrice === null) req.observations = req.observations.filter((o) => o.source !== "unverified-spoof-feed");
+  return req;
+}
+
 export function happyJob(requestId: number, startedAtMs: number, agent = "consumer.swarm-treasury.testnet", provider = "batam-h100.testnet"): InferenceJobLog {
   return {
     request_id: requestId,
