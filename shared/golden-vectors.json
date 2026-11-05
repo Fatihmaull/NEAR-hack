@@ -1,0 +1,1165 @@
+{
+  "description": "Deterministic OutLayer CRI-H100 attestations and TDX execution receipts produced by the Rust worker with the public local-dev enclave key. agents/ (TypeScript) must reproduce them byte-for-byte.",
+  "index_attestations": [
+    {
+      "attestation": {
+        "accepted_count": 10,
+        "buckets": [
+          {
+            "accepted": 5,
+            "bucket": 0,
+            "mad_micros": 5000,
+            "median_micros": 2800000,
+            "rejected": 1,
+            "sigma_micros": 14000,
+            "vwap_micros": 2800000
+          },
+          {
+            "accepted": 5,
+            "bucket": 1,
+            "mad_micros": 6000,
+            "median_micros": 2800000,
+            "rejected": 1,
+            "sigma_micros": 14000,
+            "vwap_micros": 2800000
+          }
+        ],
+        "enclave_measurement_hex": "f536b1be98fe4df5b5d39a40803515f436f97124ef8a732226c092a1b0a5a80f",
+        "index_id": "CRI-H100",
+        "observations": [
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 714,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 2790000,
+            "observed_at_ms": 1793866500000,
+            "raw_price_micros": 2790000,
+            "source": "near-ai-cloud-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 714,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 2810000,
+            "observed_at_ms": 1793866560000,
+            "raw_price_micros": 2810000,
+            "source": "akash-h100-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "H200",
+            "h100_equivalent_micros": 2800000,
+            "observed_at_ms": 1793866620000,
+            "raw_price_micros": 3920000,
+            "source": "lambda-h200-reference",
+            "volume_gpu_hours": 80
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "A100",
+            "h100_equivalent_micros": 2800000,
+            "observed_at_ms": 1793866680000,
+            "raw_price_micros": 1260000,
+            "source": "asean-tier3-a100-wholesale",
+            "volume_gpu_hours": 60
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "B200",
+            "h100_equivalent_micros": 2800000,
+            "observed_at_ms": 1793866740000,
+            "raw_price_micros": 7000000,
+            "source": "render-b200-reference",
+            "volume_gpu_hours": 40
+          },
+          {
+            "accepted": false,
+            "bucket": 0,
+            "deviation_sigma_milli": 500000,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 9800000,
+            "observed_at_ms": 1793866800000,
+            "raw_price_micros": 9800000,
+            "source": "unverified-spoof-feed",
+            "volume_gpu_hours": 400
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 857,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 2788000,
+            "observed_at_ms": 1793868300000,
+            "raw_price_micros": 2788000,
+            "source": "near-ai-cloud-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 857,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 2812000,
+            "observed_at_ms": 1793868360000,
+            "raw_price_micros": 2812000,
+            "source": "akash-h100-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "H200",
+            "h100_equivalent_micros": 2800000,
+            "observed_at_ms": 1793868420000,
+            "raw_price_micros": 3920000,
+            "source": "lambda-h200-reference",
+            "volume_gpu_hours": 80
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "A100",
+            "h100_equivalent_micros": 2800000,
+            "observed_at_ms": 1793868480000,
+            "raw_price_micros": 1260000,
+            "source": "asean-tier3-a100-wholesale",
+            "volume_gpu_hours": 60
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "B200",
+            "h100_equivalent_micros": 2800000,
+            "observed_at_ms": 1793868540000,
+            "raw_price_micros": 7000000,
+            "source": "render-b200-reference",
+            "volume_gpu_hours": 40
+          },
+          {
+            "accepted": false,
+            "bucket": 1,
+            "deviation_sigma_milli": 500000,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 9800000,
+            "observed_at_ms": 1793868600000,
+            "raw_price_micros": 9800000,
+            "source": "unverified-spoof-feed",
+            "volume_gpu_hours": 400
+          }
+        ],
+        "observed_at_ms": 1793869500000,
+        "payload_sha256_hex": "0521e292888cdf2bc3ed1a32b591fafbb85820569edc121a43d3881e0c17328d",
+        "rejected_count": 2,
+        "series_id": "CU-2026-11",
+        "signature_hex": "243054d2a04384a7808be42884247372531ca1d545182dac0707a17ce07336054bfcd63d476972292a2e4e8140ef89e145d617b6acc300fc26a3a01edb86f400",
+        "signed_message": "CU-2026-11:2800000:1793869500000:49bc155f5214aadeffcc846cbc95f2537c2de5b0949dd5f2cb5525dac275c6c8",
+        "signer_mode": "local-dev-deterministic",
+        "signer_pubkey_hex": "03d4c61aae5f23b1be2761c5df550212213a8d08c79f2b1629cc335b661054d1",
+        "signer_public_key": "ed25519:FxQHBAxEn6Cy5ZhKdpEz5GunoEfkkNkFLVRP3ZrUSVn",
+        "tdx_quote_hash": "49bc155f5214aadeffcc846cbc95f2537c2de5b0949dd5f2cb5525dac275c6c8",
+        "twap_micros": 2800000,
+        "window_end_ms": 1793869500000,
+        "window_start_ms": 1793865900000,
+        "worker": "paron-outlayer-cri-oracle@0.2.0"
+      },
+      "label": "baseline"
+    },
+    {
+      "attestation": {
+        "accepted_count": 10,
+        "buckets": [
+          {
+            "accepted": 5,
+            "bucket": 0,
+            "mad_micros": 5000,
+            "median_micros": 3050000,
+            "rejected": 1,
+            "sigma_micros": 15250,
+            "vwap_micros": 3050000
+          },
+          {
+            "accepted": 5,
+            "bucket": 1,
+            "mad_micros": 6000,
+            "median_micros": 3050000,
+            "rejected": 1,
+            "sigma_micros": 15250,
+            "vwap_micros": 3050000
+          }
+        ],
+        "enclave_measurement_hex": "f536b1be98fe4df5b5d39a40803515f436f97124ef8a732226c092a1b0a5a80f",
+        "index_id": "CRI-H100",
+        "observations": [
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 655,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 3040000,
+            "observed_at_ms": 1794471000000,
+            "raw_price_micros": 3040000,
+            "source": "near-ai-cloud-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 655,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 3060000,
+            "observed_at_ms": 1794471060000,
+            "raw_price_micros": 3060000,
+            "source": "akash-h100-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "H200",
+            "h100_equivalent_micros": 3050000,
+            "observed_at_ms": 1794471120000,
+            "raw_price_micros": 4270000,
+            "source": "lambda-h200-reference",
+            "volume_gpu_hours": 80
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "A100",
+            "h100_equivalent_micros": 3050000,
+            "observed_at_ms": 1794471180000,
+            "raw_price_micros": 1372500,
+            "source": "asean-tier3-a100-wholesale",
+            "volume_gpu_hours": 60
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "B200",
+            "h100_equivalent_micros": 3050000,
+            "observed_at_ms": 1794471240000,
+            "raw_price_micros": 7625000,
+            "source": "render-b200-reference",
+            "volume_gpu_hours": 40
+          },
+          {
+            "accepted": false,
+            "bucket": 0,
+            "deviation_sigma_milli": 127868,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 1100000,
+            "observed_at_ms": 1794471300000,
+            "raw_price_micros": 1100000,
+            "source": "unverified-spoof-feed",
+            "volume_gpu_hours": 400
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 786,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 3038000,
+            "observed_at_ms": 1794472800000,
+            "raw_price_micros": 3038000,
+            "source": "near-ai-cloud-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 786,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 3062000,
+            "observed_at_ms": 1794472860000,
+            "raw_price_micros": 3062000,
+            "source": "akash-h100-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "H200",
+            "h100_equivalent_micros": 3050000,
+            "observed_at_ms": 1794472920000,
+            "raw_price_micros": 4270000,
+            "source": "lambda-h200-reference",
+            "volume_gpu_hours": 80
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "A100",
+            "h100_equivalent_micros": 3050000,
+            "observed_at_ms": 1794472980000,
+            "raw_price_micros": 1372500,
+            "source": "asean-tier3-a100-wholesale",
+            "volume_gpu_hours": 60
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "B200",
+            "h100_equivalent_micros": 3050000,
+            "observed_at_ms": 1794473040000,
+            "raw_price_micros": 7625000,
+            "source": "render-b200-reference",
+            "volume_gpu_hours": 40
+          },
+          {
+            "accepted": false,
+            "bucket": 1,
+            "deviation_sigma_milli": 127868,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 1100000,
+            "observed_at_ms": 1794473100000,
+            "raw_price_micros": 1100000,
+            "source": "unverified-spoof-feed",
+            "volume_gpu_hours": 400
+          }
+        ],
+        "observed_at_ms": 1794474000000,
+        "payload_sha256_hex": "a872e290df45af34a76ab952e05f5d67a4df6f7bced8c11c14e7b7a36a864015",
+        "rejected_count": 2,
+        "series_id": "CU-2026-11",
+        "signature_hex": "77a8c1cbd42bf2cdd1da499e89c75ecfd99ff44acdccd5e2ff080f3042e3ab3cd41db0888431a16056b7708fed2b0e24be98ecb37dd257ef4a68680819966301",
+        "signed_message": "CU-2026-11:3050000:1794474000000:c6e4e0bdb9bf4cd6074de80ab76704bfe57349b5714f22c42bfff20229a2792f",
+        "signer_mode": "local-dev-deterministic",
+        "signer_pubkey_hex": "03d4c61aae5f23b1be2761c5df550212213a8d08c79f2b1629cc335b661054d1",
+        "signer_public_key": "ed25519:FxQHBAxEn6Cy5ZhKdpEz5GunoEfkkNkFLVRP3ZrUSVn",
+        "tdx_quote_hash": "c6e4e0bdb9bf4cd6074de80ab76704bfe57349b5714f22c42bfff20229a2792f",
+        "twap_micros": 3050000,
+        "window_end_ms": 1794474000000,
+        "window_start_ms": 1794470400000,
+        "worker": "paron-outlayer-cri-oracle@0.2.0"
+      },
+      "label": "spike-1"
+    },
+    {
+      "attestation": {
+        "accepted_count": 10,
+        "buckets": [
+          {
+            "accepted": 5,
+            "bucket": 0,
+            "mad_micros": 5000,
+            "median_micros": 3350000,
+            "rejected": 1,
+            "sigma_micros": 16750,
+            "vwap_micros": 3350000
+          },
+          {
+            "accepted": 5,
+            "bucket": 1,
+            "mad_micros": 6000,
+            "median_micros": 3350000,
+            "rejected": 1,
+            "sigma_micros": 16750,
+            "vwap_micros": 3350000
+          }
+        ],
+        "enclave_measurement_hex": "f536b1be98fe4df5b5d39a40803515f436f97124ef8a732226c092a1b0a5a80f",
+        "index_id": "CRI-H100",
+        "observations": [
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 597,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 3340000,
+            "observed_at_ms": 1795075800000,
+            "raw_price_micros": 3340000,
+            "source": "near-ai-cloud-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 597,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 3360000,
+            "observed_at_ms": 1795075860000,
+            "raw_price_micros": 3360000,
+            "source": "akash-h100-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "H200",
+            "h100_equivalent_micros": 3350000,
+            "observed_at_ms": 1795075920000,
+            "raw_price_micros": 4690000,
+            "source": "lambda-h200-reference",
+            "volume_gpu_hours": 80
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "A100",
+            "h100_equivalent_micros": 3350000,
+            "observed_at_ms": 1795075980000,
+            "raw_price_micros": 1507500,
+            "source": "asean-tier3-a100-wholesale",
+            "volume_gpu_hours": 60
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "B200",
+            "h100_equivalent_micros": 3350000,
+            "observed_at_ms": 1795076040000,
+            "raw_price_micros": 8375000,
+            "source": "render-b200-reference",
+            "volume_gpu_hours": 40
+          },
+          {
+            "accepted": false,
+            "bucket": 0,
+            "deviation_sigma_milli": 131343,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 1150000,
+            "observed_at_ms": 1795076100000,
+            "raw_price_micros": 1150000,
+            "source": "unverified-spoof-feed",
+            "volume_gpu_hours": 400
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 716,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 3338000,
+            "observed_at_ms": 1795077600000,
+            "raw_price_micros": 3338000,
+            "source": "near-ai-cloud-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 716,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 3362000,
+            "observed_at_ms": 1795077660000,
+            "raw_price_micros": 3362000,
+            "source": "akash-h100-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "H200",
+            "h100_equivalent_micros": 3350000,
+            "observed_at_ms": 1795077720000,
+            "raw_price_micros": 4690000,
+            "source": "lambda-h200-reference",
+            "volume_gpu_hours": 80
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "A100",
+            "h100_equivalent_micros": 3350000,
+            "observed_at_ms": 1795077780000,
+            "raw_price_micros": 1507500,
+            "source": "asean-tier3-a100-wholesale",
+            "volume_gpu_hours": 60
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "B200",
+            "h100_equivalent_micros": 3350000,
+            "observed_at_ms": 1795077840000,
+            "raw_price_micros": 8375000,
+            "source": "render-b200-reference",
+            "volume_gpu_hours": 40
+          },
+          {
+            "accepted": false,
+            "bucket": 1,
+            "deviation_sigma_milli": 131343,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 1150000,
+            "observed_at_ms": 1795077900000,
+            "raw_price_micros": 1150000,
+            "source": "unverified-spoof-feed",
+            "volume_gpu_hours": 400
+          }
+        ],
+        "observed_at_ms": 1795078800000,
+        "payload_sha256_hex": "e1435d7ddec9dfed2a53d80e00160025e82cdea5f92ed59d54ef1fc90a72f849",
+        "rejected_count": 2,
+        "series_id": "CU-2026-11",
+        "signature_hex": "668113c3d7b6fd86c69dc4af317dd6dc559de61010094dc2bee1e4af0943dc298517cb2e5e50b6076caac734f66fddf773ac7093d6a1630a0b010c9893466203",
+        "signed_message": "CU-2026-11:3350000:1795078800000:86c219b3d736a49c5a50731f346356b453dffe843ee20e2b3301d8a72b2949fe",
+        "signer_mode": "local-dev-deterministic",
+        "signer_pubkey_hex": "03d4c61aae5f23b1be2761c5df550212213a8d08c79f2b1629cc335b661054d1",
+        "signer_public_key": "ed25519:FxQHBAxEn6Cy5ZhKdpEz5GunoEfkkNkFLVRP3ZrUSVn",
+        "tdx_quote_hash": "86c219b3d736a49c5a50731f346356b453dffe843ee20e2b3301d8a72b2949fe",
+        "twap_micros": 3350000,
+        "window_end_ms": 1795078800000,
+        "window_start_ms": 1795075200000,
+        "worker": "paron-outlayer-cri-oracle@0.2.0"
+      },
+      "label": "spike-2"
+    },
+    {
+      "attestation": {
+        "accepted_count": 10,
+        "buckets": [
+          {
+            "accepted": 5,
+            "bucket": 0,
+            "mad_micros": 5000,
+            "median_micros": 3700000,
+            "rejected": 1,
+            "sigma_micros": 18500,
+            "vwap_micros": 3700000
+          },
+          {
+            "accepted": 5,
+            "bucket": 1,
+            "mad_micros": 6000,
+            "median_micros": 3700000,
+            "rejected": 1,
+            "sigma_micros": 18500,
+            "vwap_micros": 3700000
+          }
+        ],
+        "enclave_measurement_hex": "f536b1be98fe4df5b5d39a40803515f436f97124ef8a732226c092a1b0a5a80f",
+        "index_id": "CRI-H100",
+        "observations": [
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 540,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 3690000,
+            "observed_at_ms": 1795594200000,
+            "raw_price_micros": 3690000,
+            "source": "near-ai-cloud-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 540,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 3710000,
+            "observed_at_ms": 1795594260000,
+            "raw_price_micros": 3710000,
+            "source": "akash-h100-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "H200",
+            "h100_equivalent_micros": 3700000,
+            "observed_at_ms": 1795594320000,
+            "raw_price_micros": 5180000,
+            "source": "lambda-h200-reference",
+            "volume_gpu_hours": 80
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "A100",
+            "h100_equivalent_micros": 3700000,
+            "observed_at_ms": 1795594380000,
+            "raw_price_micros": 1665000,
+            "source": "asean-tier3-a100-wholesale",
+            "volume_gpu_hours": 60
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "B200",
+            "h100_equivalent_micros": 3700000,
+            "observed_at_ms": 1795594440000,
+            "raw_price_micros": 9250000,
+            "source": "render-b200-reference",
+            "volume_gpu_hours": 40
+          },
+          {
+            "accepted": false,
+            "bucket": 0,
+            "deviation_sigma_milli": 135135,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 1200000,
+            "observed_at_ms": 1795594500000,
+            "raw_price_micros": 1200000,
+            "source": "unverified-spoof-feed",
+            "volume_gpu_hours": 400
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 648,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 3688000,
+            "observed_at_ms": 1795596000000,
+            "raw_price_micros": 3688000,
+            "source": "near-ai-cloud-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 648,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 3712000,
+            "observed_at_ms": 1795596060000,
+            "raw_price_micros": 3712000,
+            "source": "akash-h100-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "H200",
+            "h100_equivalent_micros": 3700000,
+            "observed_at_ms": 1795596120000,
+            "raw_price_micros": 5180000,
+            "source": "lambda-h200-reference",
+            "volume_gpu_hours": 80
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "A100",
+            "h100_equivalent_micros": 3700000,
+            "observed_at_ms": 1795596180000,
+            "raw_price_micros": 1665000,
+            "source": "asean-tier3-a100-wholesale",
+            "volume_gpu_hours": 60
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "B200",
+            "h100_equivalent_micros": 3700000,
+            "observed_at_ms": 1795596240000,
+            "raw_price_micros": 9250000,
+            "source": "render-b200-reference",
+            "volume_gpu_hours": 40
+          },
+          {
+            "accepted": false,
+            "bucket": 1,
+            "deviation_sigma_milli": 135135,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 1200000,
+            "observed_at_ms": 1795596300000,
+            "raw_price_micros": 1200000,
+            "source": "unverified-spoof-feed",
+            "volume_gpu_hours": 400
+          }
+        ],
+        "observed_at_ms": 1795597200000,
+        "payload_sha256_hex": "7ca0d39bdf451ec500744dc7f6df901636ae595a637b66fa8c8ab4360852e2ea",
+        "rejected_count": 2,
+        "series_id": "CU-2026-11",
+        "signature_hex": "8b8e5edb3e16e4400434db1b73bc28a5af52d115555a40c1d14c64518f9a286ec1fd65cd605a3d084c59ac68afc7a256651b25af59f0081005eef4b1eadcd801",
+        "signed_message": "CU-2026-11:3700000:1795597200000:17a1943606807cbb7b0e71a4a038aa8b53d690cc31f9bc7416595cdedb704e8f",
+        "signer_mode": "local-dev-deterministic",
+        "signer_pubkey_hex": "03d4c61aae5f23b1be2761c5df550212213a8d08c79f2b1629cc335b661054d1",
+        "signer_public_key": "ed25519:FxQHBAxEn6Cy5ZhKdpEz5GunoEfkkNkFLVRP3ZrUSVn",
+        "tdx_quote_hash": "17a1943606807cbb7b0e71a4a038aa8b53d690cc31f9bc7416595cdedb704e8f",
+        "twap_micros": 3700000,
+        "window_end_ms": 1795597200000,
+        "window_start_ms": 1795593600000,
+        "worker": "paron-outlayer-cri-oracle@0.2.0"
+      },
+      "label": "spike-3"
+    },
+    {
+      "attestation": {
+        "accepted_count": 10,
+        "buckets": [
+          {
+            "accepted": 5,
+            "bucket": 0,
+            "mad_micros": 5000,
+            "median_micros": 4100000,
+            "rejected": 1,
+            "sigma_micros": 20500,
+            "vwap_micros": 4100000
+          },
+          {
+            "accepted": 5,
+            "bucket": 1,
+            "mad_micros": 6000,
+            "median_micros": 4100000,
+            "rejected": 1,
+            "sigma_micros": 20500,
+            "vwap_micros": 4100000
+          }
+        ],
+        "enclave_measurement_hex": "f536b1be98fe4df5b5d39a40803515f436f97124ef8a732226c092a1b0a5a80f",
+        "index_id": "CRI-H100",
+        "observations": [
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 487,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 4090000,
+            "observed_at_ms": 1796080200000,
+            "raw_price_micros": 4090000,
+            "source": "near-ai-cloud-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 487,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 4110000,
+            "observed_at_ms": 1796080260000,
+            "raw_price_micros": 4110000,
+            "source": "akash-h100-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "H200",
+            "h100_equivalent_micros": 4100000,
+            "observed_at_ms": 1796080320000,
+            "raw_price_micros": 5740000,
+            "source": "lambda-h200-reference",
+            "volume_gpu_hours": 80
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "A100",
+            "h100_equivalent_micros": 4100000,
+            "observed_at_ms": 1796080380000,
+            "raw_price_micros": 1845000,
+            "source": "asean-tier3-a100-wholesale",
+            "volume_gpu_hours": 60
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "B200",
+            "h100_equivalent_micros": 4100000,
+            "observed_at_ms": 1796080440000,
+            "raw_price_micros": 10250000,
+            "source": "render-b200-reference",
+            "volume_gpu_hours": 40
+          },
+          {
+            "accepted": false,
+            "bucket": 0,
+            "deviation_sigma_milli": 139024,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 1250000,
+            "observed_at_ms": 1796080500000,
+            "raw_price_micros": 1250000,
+            "source": "unverified-spoof-feed",
+            "volume_gpu_hours": 400
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 585,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 4088000,
+            "observed_at_ms": 1796082000000,
+            "raw_price_micros": 4088000,
+            "source": "near-ai-cloud-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 585,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 4112000,
+            "observed_at_ms": 1796082060000,
+            "raw_price_micros": 4112000,
+            "source": "akash-h100-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "H200",
+            "h100_equivalent_micros": 4100000,
+            "observed_at_ms": 1796082120000,
+            "raw_price_micros": 5740000,
+            "source": "lambda-h200-reference",
+            "volume_gpu_hours": 80
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "A100",
+            "h100_equivalent_micros": 4100000,
+            "observed_at_ms": 1796082180000,
+            "raw_price_micros": 1845000,
+            "source": "asean-tier3-a100-wholesale",
+            "volume_gpu_hours": 60
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "B200",
+            "h100_equivalent_micros": 4100000,
+            "observed_at_ms": 1796082240000,
+            "raw_price_micros": 10250000,
+            "source": "render-b200-reference",
+            "volume_gpu_hours": 40
+          },
+          {
+            "accepted": false,
+            "bucket": 1,
+            "deviation_sigma_milli": 139024,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 1250000,
+            "observed_at_ms": 1796082300000,
+            "raw_price_micros": 1250000,
+            "source": "unverified-spoof-feed",
+            "volume_gpu_hours": 400
+          }
+        ],
+        "observed_at_ms": 1796083200000,
+        "payload_sha256_hex": "4ee0c45151edf1e666e877b4bdbb1108fb8b48a6055adc27fed442effc024af1",
+        "rejected_count": 2,
+        "series_id": "CU-2026-11",
+        "signature_hex": "efdaad8aab02b84bbaeeed5e92c8c85c3951d57aa9fb342f62602e5c15d3a8576060d1621060fc29bd398aeb49505843f59631351696ff03381240473b78b30c",
+        "signed_message": "CU-2026-11:4100000:1796083200000:b4ea0443d135cb5828831f67930395f00ebb51b9deeb6e57852d529da08b2f46",
+        "signer_mode": "local-dev-deterministic",
+        "signer_pubkey_hex": "03d4c61aae5f23b1be2761c5df550212213a8d08c79f2b1629cc335b661054d1",
+        "signer_public_key": "ed25519:FxQHBAxEn6Cy5ZhKdpEz5GunoEfkkNkFLVRP3ZrUSVn",
+        "tdx_quote_hash": "b4ea0443d135cb5828831f67930395f00ebb51b9deeb6e57852d529da08b2f46",
+        "twap_micros": 4100000,
+        "window_end_ms": 1796083200000,
+        "window_start_ms": 1796079600000,
+        "worker": "paron-outlayer-cri-oracle@0.2.0"
+      },
+      "label": "final-settlement"
+    },
+    {
+      "attestation": {
+        "accepted_count": 10,
+        "buckets": [
+          {
+            "accepted": 5,
+            "bucket": 0,
+            "mad_micros": 5000,
+            "median_micros": 3400000,
+            "rejected": 1,
+            "sigma_micros": 17000,
+            "vwap_micros": 3400000
+          },
+          {
+            "accepted": 5,
+            "bucket": 1,
+            "mad_micros": 6000,
+            "median_micros": 3400000,
+            "rejected": 1,
+            "sigma_micros": 17000,
+            "vwap_micros": 3400000
+          }
+        ],
+        "enclave_measurement_hex": "f536b1be98fe4df5b5d39a40803515f436f97124ef8a732226c092a1b0a5a80f",
+        "index_id": "CRI-H100",
+        "observations": [
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 588,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 3390000,
+            "observed_at_ms": 1796080200000,
+            "raw_price_micros": 3390000,
+            "source": "near-ai-cloud-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 588,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 3410000,
+            "observed_at_ms": 1796080260000,
+            "raw_price_micros": 3410000,
+            "source": "akash-h100-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "H200",
+            "h100_equivalent_micros": 3400000,
+            "observed_at_ms": 1796080320000,
+            "raw_price_micros": 4760000,
+            "source": "lambda-h200-reference",
+            "volume_gpu_hours": 80
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "A100",
+            "h100_equivalent_micros": 3400000,
+            "observed_at_ms": 1796080380000,
+            "raw_price_micros": 1530000,
+            "source": "asean-tier3-a100-wholesale",
+            "volume_gpu_hours": 60
+          },
+          {
+            "accepted": true,
+            "bucket": 0,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "B200",
+            "h100_equivalent_micros": 3400000,
+            "observed_at_ms": 1796080440000,
+            "raw_price_micros": 8500000,
+            "source": "render-b200-reference",
+            "volume_gpu_hours": 40
+          },
+          {
+            "accepted": false,
+            "bucket": 0,
+            "deviation_sigma_milli": 382352,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 9900000,
+            "observed_at_ms": 1796080500000,
+            "raw_price_micros": 9900000,
+            "source": "unverified-spoof-feed",
+            "volume_gpu_hours": 400
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 705,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 3388000,
+            "observed_at_ms": 1796082000000,
+            "raw_price_micros": 3388000,
+            "source": "near-ai-cloud-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 705,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 3412000,
+            "observed_at_ms": 1796082060000,
+            "raw_price_micros": 3412000,
+            "source": "akash-h100-spot",
+            "volume_gpu_hours": 120
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "H200",
+            "h100_equivalent_micros": 3400000,
+            "observed_at_ms": 1796082120000,
+            "raw_price_micros": 4760000,
+            "source": "lambda-h200-reference",
+            "volume_gpu_hours": 80
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "A100",
+            "h100_equivalent_micros": 3400000,
+            "observed_at_ms": 1796082180000,
+            "raw_price_micros": 1530000,
+            "source": "asean-tier3-a100-wholesale",
+            "volume_gpu_hours": 60
+          },
+          {
+            "accepted": true,
+            "bucket": 1,
+            "deviation_sigma_milli": 0,
+            "gpu_tier": "B200",
+            "h100_equivalent_micros": 3400000,
+            "observed_at_ms": 1796082240000,
+            "raw_price_micros": 8500000,
+            "source": "render-b200-reference",
+            "volume_gpu_hours": 40
+          },
+          {
+            "accepted": false,
+            "bucket": 1,
+            "deviation_sigma_milli": 382352,
+            "gpu_tier": "H100",
+            "h100_equivalent_micros": 9900000,
+            "observed_at_ms": 1796082300000,
+            "raw_price_micros": 9900000,
+            "source": "unverified-spoof-feed",
+            "volume_gpu_hours": 400
+          }
+        ],
+        "observed_at_ms": 1796083200000,
+        "payload_sha256_hex": "69a904d8589b1e81e7ad1b9da9f01b8835260b37c222362ccf4bc521445a3350",
+        "rejected_count": 2,
+        "series_id": "CU-2026-12",
+        "signature_hex": "b2c9fd64d33d2b5034f46cad9dbd69b83bc43b94c90eef1e3f80bd9b2bcd4b8ab661e758a0a3281aa4e943efba2c56c0cb838f92b94d78ca9c933c7c7b37ef0e",
+        "signed_message": "CU-2026-12:3400000:1796083200000:312b7298b738b08f5172d0f47426673db06f2ea274cf35681190d6125114f1c0",
+        "signer_mode": "local-dev-deterministic",
+        "signer_pubkey_hex": "03d4c61aae5f23b1be2761c5df550212213a8d08c79f2b1629cc335b661054d1",
+        "signer_public_key": "ed25519:FxQHBAxEn6Cy5ZhKdpEz5GunoEfkkNkFLVRP3ZrUSVn",
+        "tdx_quote_hash": "312b7298b738b08f5172d0f47426673db06f2ea274cf35681190d6125114f1c0",
+        "twap_micros": 3400000,
+        "window_end_ms": 1796083200000,
+        "window_start_ms": 1796079600000,
+        "worker": "paron-outlayer-cri-oracle@0.2.0"
+      },
+      "label": "dec-reference"
+    }
+  ],
+  "job_receipts": [
+    {
+      "agent_account": "consumer.swarm-treasury.testnet",
+      "cu_consumed_scaled": 240000,
+      "enclave_measurement_hex": "f536b1be98fe4df5b5d39a40803515f436f97124ef8a732226c092a1b0a5a80f",
+      "gpu_count": 8,
+      "gpu_hours_scaled": 240000,
+      "gpu_tier": "H100",
+      "job_id": "job-1-llama-70b-batch",
+      "log": {
+        "agent_account": "consumer.swarm-treasury.testnet",
+        "gpu_count": 8,
+        "gpu_tier": "H100",
+        "job_id": "job-1-llama-70b-batch",
+        "model": "llama-3.3-70b-instruct",
+        "provider_account": "batam-h100.testnet",
+        "request_id": 1,
+        "started_at_ms": 1796202000000,
+        "tokens_generated": 1728000,
+        "total_duration_ms": 10800000,
+        "ttft_ms": 180,
+        "vram_allocated_gb": 80
+      },
+      "measured_latency_ms": 180,
+      "model": "llama-3.3-70b-instruct",
+      "payload_sha256_hex": "1d11d625f43b711ebf0454188c6cd5e915e8e611f4698edcf19bbacd28536f33",
+      "provider_account": "batam-h100.testnet",
+      "request_id": 1,
+      "signature_hex": "fd9aae5ed62d75aa54226b331805238a0bc4397b555e933df274ccf3d9ff9205a751413e6f7709a126f6a3c29c23f94ddfa28111c1efcaf3a281b7c5bc28e301",
+      "signed_message": "1:c4221a1ca99d04ad3517a474c58966e40f8d67af48e846863de3f4e06c6a21ab:180:true",
+      "signer_mode": "local-dev-deterministic",
+      "signer_pubkey_hex": "03d4c61aae5f23b1be2761c5df550212213a8d08c79f2b1629cc335b661054d1",
+      "signer_public_key": "ed25519:FxQHBAxEn6Cy5ZhKdpEz5GunoEfkkNkFLVRP3ZrUSVn",
+      "sla": {
+        "max_ttft_ms": 500,
+        "min_tokens_per_sec": 40,
+        "min_vram_gb": 80
+      },
+      "sla_met": true,
+      "tdx_quote_hash": "c4221a1ca99d04ad3517a474c58966e40f8d67af48e846863de3f4e06c6a21ab",
+      "tokens_per_sec_milli": 160002,
+      "ttft_ms": 180,
+      "violations": [],
+      "vram_allocated_gb": 80,
+      "worker": "paron-outlayer-cri-oracle@0.2.0"
+    },
+    {
+      "agent_account": "consumer.swarm-treasury.testnet",
+      "cu_consumed_scaled": 160000,
+      "enclave_measurement_hex": "f536b1be98fe4df5b5d39a40803515f436f97124ef8a732226c092a1b0a5a80f",
+      "gpu_count": 2,
+      "gpu_hours_scaled": 64000,
+      "gpu_tier": "B200",
+      "job_id": "job-2-deepseek-r1-reasoning",
+      "log": {
+        "agent_account": "consumer.swarm-treasury.testnet",
+        "gpu_count": 2,
+        "gpu_tier": "B200",
+        "job_id": "job-2-deepseek-r1-reasoning",
+        "model": "deepseek-r1-distill-70b",
+        "provider_account": "batam-h100.testnet",
+        "request_id": 2,
+        "started_at_ms": 1796202600000,
+        "tokens_generated": 138240,
+        "total_duration_ms": 11520000,
+        "ttft_ms": 1450,
+        "vram_allocated_gb": 192
+      },
+      "measured_latency_ms": 1450,
+      "model": "deepseek-r1-distill-70b",
+      "payload_sha256_hex": "48677c919040116d377fa28ec7f47441881bde8a48199ea65596f1fb169cee33",
+      "provider_account": "batam-h100.testnet",
+      "request_id": 2,
+      "signature_hex": "cbb9f03e193c06b9d6fc5d66ece1ed7034241faeada832c2dc08201fca7418bee2d18143b65650e9c45d7b517bfa44b623a663c00442a74d95dc5c9fae6b8d0d",
+      "signed_message": "2:81259c93c6c14f6fdc420f1bed9893f55a577e73052dfe234bbb28827e03109c:1450:false",
+      "signer_mode": "local-dev-deterministic",
+      "signer_pubkey_hex": "03d4c61aae5f23b1be2761c5df550212213a8d08c79f2b1629cc335b661054d1",
+      "signer_public_key": "ed25519:FxQHBAxEn6Cy5ZhKdpEz5GunoEfkkNkFLVRP3ZrUSVn",
+      "sla": {
+        "max_ttft_ms": 500,
+        "min_tokens_per_sec": 40,
+        "min_vram_gb": 80
+      },
+      "sla_met": false,
+      "tdx_quote_hash": "81259c93c6c14f6fdc420f1bed9893f55a577e73052dfe234bbb28827e03109c",
+      "tokens_per_sec_milli": 12001,
+      "ttft_ms": 1450,
+      "violations": [
+        "ttft 1450ms > 500ms",
+        "throughput 12.001 tok/s < 40 tok/s"
+      ],
+      "vram_allocated_gb": 192,
+      "worker": "paron-outlayer-cri-oracle@0.2.0"
+    }
+  ],
+  "mode": "golden-vectors",
+  "ok": true,
+  "signer": {
+    "enclave_measurement_hex": "f536b1be98fe4df5b5d39a40803515f436f97124ef8a732226c092a1b0a5a80f",
+    "public_key": "ed25519:FxQHBAxEn6Cy5ZhKdpEz5GunoEfkkNkFLVRP3ZrUSVn",
+    "public_key_hex": "03d4c61aae5f23b1be2761c5df550212213a8d08c79f2b1629cc335b661054d1",
+    "signer_mode": "local-dev-deterministic",
+    "worker": "paron-outlayer-cri-oracle@0.2.0"
+  }
+}

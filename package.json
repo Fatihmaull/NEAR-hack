@@ -1,0 +1,27 @@
+{
+  "name": "paron-v2-near",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Paron v2 — Autonomous Compute Forward & Runway Hedging Desk for AI Agents on NEAR",
+  "license": "MIT",
+  "workspaces": [
+    "agents",
+    "web"
+  ],
+  "scripts": {
+    "verify:all": "bash scripts/verify-all.sh",
+    "test:rust": "cargo test --manifest-path contracts/paron-core/Cargo.toml && cargo test --manifest-path tee-worker/outlayer-cri-oracle/Cargo.toml",
+    "test:agents": "npm --prefix agents test",
+    "demo:swarm": "npm --prefix agents run demo:swarm",
+    "verify:receipt": "npm --prefix agents run verify:receipt",
+    "oracle:demo": "cargo run -q --manifest-path tee-worker/outlayer-cri-oracle/Cargo.toml -- --mode demo",
+    "vectors": "cargo run -q --manifest-path tee-worker/outlayer-cri-oracle/Cargo.toml -- --mode vectors > shared/golden-vectors.json",
+    "build:contract": "bash scripts/build-contract.sh",
+    "build:oracle-wasm": "cargo build --manifest-path tee-worker/outlayer-cri-oracle/Cargo.toml --target wasm32-wasip2 --release --features outlayer-tee",
+    "build:web": "npm --prefix web run build",
+    "dev": "npm --prefix web run dev"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
