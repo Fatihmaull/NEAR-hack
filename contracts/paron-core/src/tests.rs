@@ -457,25 +457,66 @@ fn sell_forward_into_bids_and_cancel_refunds_escrow() {
 }
 
 #[test]
-fn stale_quote_protection_cancels_underwater_ask() {
+fn index_spike_purges_asks_below_the_5pct_band() {
     let mut h = Harness::new();
     h.deposit(&provider(), usdc(1_000));
     let supply = h.short(&provider(), NOV, cu(300), 2_810_000, 210_750_000);
     h.now = T0 + HOUR;
-    h.attest(NOV, 3_400_000, T0 + HOUR - MINUTE, "stale-quote-index");
-    h.deposit(&cfo(), usdc(2_000));
-    h.guardrail(&cfo(), usdc(5_000), 150);
-    // The provider's $2.81 ask would leave its vault at 3.3% health at a $3.40 index -> cancelled, not filled.
-    let trade = h.buy(&cfo(), NOV, cu(300), 3_451_000);
-    assert_eq!(trade.stale_orders_cancelled, vec![supply.trade.resting_order_id.unwrap()]);
-    assert_eq!(trade.filled_cu_scaled.0, cu(300));
-    assert!(trade.fills.iter().all(|f| f.maker_id == owner()));
+    // Band floor at a $3.40 index = $3.23: the provider's $2.81 ask and the genesis $2.82/$2.86/$2.92 asks
+    // would otherwise be picked off at a 14-17% discount.
+    let out = h.attest(NOV, 3_400_000, T0 + HOUR - MINUTE, "spike-purges-asks");
+    assert_eq!(out.purged_orders.len(), 4);
+    assert!(out.purged_orders.contains(&supply.trade.resting_order_id.unwrap()));
+    assert_eq!(h.c.get_order_book(NOV.to_string(), None).best_ask_micros, None);
     let vault = h.c.get_vault(supply.vault_id).unwrap();
-    assert_eq!((vault.listed_cu_scaled.0, vault.listed_notional_micros.0, vault.shorted_cu_scaled.0), (0, 0, 0));
-    // With nothing listed or open the provider can take all of its margin back.
+    assert_eq!((vault.listed_cu_scaled.0, vault.listed_notional_micros.0), (0, 0));
+    // Nothing open or listed any more: the provider can take its whole margin back.
     h.call(&provider());
     h.c.withdraw_excess_margin(NOV.to_string(), U128(210_750_000));
     assert_eq!(h.free(&provider()), usdc(1_000));
+    // Genesis bids (below the index) are untouched.
+    assert_eq!(h.c.get_order_book(NOV.to_string(), None).bids.len(), 3);
+    assert!(h.invariants_hold(NOV));
+}
+
+#[test]
+fn index_drop_purges_bids_above_the_5pct_band() {
+    let mut h = Harness::new();
+    h.deposit(&mm(), usdc(500));
+    h.call(&mm());
+    h.c.place_bid(NOV.to_string(), U128(cu(50)), U128(2_780_000));
+    assert_eq!(h.free(&mm()), usdc(500) - 139_000_000);
+    h.now = T0 + HOUR;
+    // Band ceiling at a $2.40 index = $2.52: every resting bid ($2.78, $2.76, $2.72, $2.66) is refunded.
+    let out = h.attest(NOV, 2_400_000, T0 + HOUR - MINUTE, "drop-purges-bids");
+    assert_eq!(out.purged_orders.len(), 4);
+    assert_eq!(h.free(&mm()), usdc(500));
+    assert_eq!(h.free(&owner()), 414_000_000 + 680_000_000 + 1_064_000_000);
+    assert_eq!(h.c.get_order_book(NOV.to_string(), None).best_bid_micros, None);
+}
+
+#[test]
+fn stale_quote_protection_cancels_ask_that_would_breach_maintenance() {
+    let mut h = Harness::new();
+    h.deposit(&provider(), usdc(1_000));
+    h.short(&provider(), NOV, cu(300), 2_810_000, 210_750_000);
+    h.deposit(&cfo(), usdc(2_000));
+    h.guardrail(&cfo(), usdc(5_000), 150);
+    h.buy(&cfo(), NOV, cu(200), 2_842_000);
+    // The provider adds a $3.25 ask using its vault's excess margin plus 25% of the new notional.
+    let late = h.short(&provider(), NOV, cu(10), 3_250_000, 8_125_000);
+    h.now = T0 + HOUR;
+    h.attest(NOV, 3_400_000, T0 + HOUR - MINUTE, "maintenance-stale");
+    // A healthy third party quotes inside the band.
+    let other = acc("jakarta-gpu.testnet");
+    h.deposit(&other, usdc(100));
+    h.short(&other, NOV, cu(10), 3_300_000, 8_250_000);
+    // $3.25 survives the band (>= $3.23) but filling it would push the provider's already-losing vault
+    // below 15% maintenance, so it is cancelled instead of filled; the healthy $3.30 ask fills.
+    let trade = h.buy(&cfo(), NOV, cu(20), 3_451_000);
+    assert_eq!(trade.stale_orders_cancelled, vec![late.trade.resting_order_id.unwrap()]);
+    assert_eq!(trade.filled_cu_scaled.0, cu(10));
+    assert_eq!(trade.fills[0].maker_id, other);
     assert!(h.invariants_hold(NOV));
 }
 
@@ -657,8 +698,8 @@ fn underwater_short_vault_liquidation_below_15pct_maintenance() {
     assert_eq!(h.c.check_vault_health(receipt.liquidator_vault_id).health_bps, Some(2_500));
     assert_eq!(h.free(&provider()), usdc(1_000) - 210_750_000 + 75_750_000);
     assert_eq!(h.free(&mm()), usdc(1_000) - 170_000_000 + 17_000_000);
-    // The provider's remaining listed ask was pulled from the book.
-    assert_eq!(h.c.get_order_book(NOV.to_string(), None).best_ask_micros, Some(U128(2_820_000)));
+    // The provider's remaining $2.81 ask was already purged by the attestation's stale-quote band.
+    assert_eq!(h.c.get_order_book(NOV.to_string(), None).best_ask_micros, None);
     assert!(h.invariants_hold(NOV));
     assert_eq!(h.c.get_liquidation_receipts(None, None).len(), 1);
 }

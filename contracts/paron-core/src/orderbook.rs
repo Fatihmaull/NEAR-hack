@@ -7,6 +7,8 @@
 //! * **Stale-quote protection**: before a resting ask is filled the engine simulates the fill on the
 //!   backing vault at the attested index; if the vault would fall below 15% maintenance the ask is
 //!   cancelled instead of filled, so a stale cheap ask can never under-collateralise new longs.
+//! * **Stale-quote band**: each OutLayer attestation purges asks below `index × 0.95` and bids above
+//!   `index × 1.05` (`purge_off_band_orders`), so resting depth never sits far through the attested index.
 //! * Self-trade prevention: an account's own orders are skipped and a resting order may not cross the
 //!   same account's opposite quote.
 
@@ -382,6 +384,37 @@ impl ParonCore {
             }
         }
         out
+    }
+
+    /// Cancels resting orders outside the stale-quote band around a freshly attested `index`.
+    pub(crate) fn purge_off_band_orders(&mut self, series_id: &str, index: u128) -> Vec<OrderId> {
+        let mut book = self.book_of(series_id);
+        let ask_floor = index * (BPS - STALE_QUOTE_BAND_BPS) / BPS;
+        let bid_ceiling = index * (BPS + STALE_QUOTE_BAND_BPS) / BPS;
+        let mut purged = Vec::new();
+        let (stale_asks, asks): (Vec<Order>, Vec<Order>) = book.asks.drain(..).partition(|o| o.price_micros.0 < ask_floor);
+        let (stale_bids, bids): (Vec<Order>, Vec<Order>) = book.bids.drain(..).partition(|o| o.price_micros.0 > bid_ceiling);
+        book.asks = asks;
+        book.bids = bids;
+        for order in stale_asks {
+            let vault_id = order.vault_id.unwrap_or_else(|| env::panic_str("ask without vault"));
+            let mut vault = self.vault_or_panic(vault_id);
+            margin::release_listing(&mut vault, order.remaining_cu_scaled.0, order.price_micros.0);
+            self.save_vault(vault);
+            purged.push(order.order_id);
+        }
+        for order in stale_bids {
+            self.credit_usdc(&order.owner_id, order.escrow_micros.0);
+            purged.push(order.order_id);
+        }
+        if !purged.is_empty() {
+            self.books.insert(series_id.to_string(), book);
+            events::paron(
+                "stale_quotes_purged",
+                json!({ "series_id": series_id, "index_micros": index.to_string(), "order_ids": purged }),
+            );
+        }
+        purged
     }
 
     pub(crate) fn commit_buy(&mut self, series: &mut ComputeSeries, buyer: &AccountId, matched: BuyMatch) {
