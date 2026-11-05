@@ -1,0 +1,17 @@
+[workspace]
+resolver = "2"
+members = ["contracts/paron-core", "tee-worker/outlayer-cri-oracle"]
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/Fatihmaull/NEAR-hack"
+
+# Contract-grade release profile (used by `cargo near build` / wasm32 builds).
+[profile.release]
+codegen-units = 1
+opt-level = "z"
+lto = true
+debug = false
+panic = "abort"
+overflow-checks = true

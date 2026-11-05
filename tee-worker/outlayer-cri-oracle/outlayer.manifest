@@ -1,0 +1,3 @@
+{
+  "signing_keys": [{ "path": "paron-cri-oracle", "type": "ed25519" }]
+}
