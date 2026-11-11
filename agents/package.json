@@ -8,14 +8,18 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./testnet": "./src/testnet/public.ts",
+    "./testnet-run": "./src/testnet/run.ts"
   },
   "scripts": {
     "demo:swarm": "tsx src/run-swarm-demo.ts",
     "verify:receipt": "tsx src/verify-receipt.ts",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test test/*.test.ts",
-    "agent:live": "tsx src/run-agent-live.ts"
+    "agent:live": "tsx src/run-agent-live.ts",
+    "testnet:deploy": "NODE_USE_ENV_PROXY=1 tsx src/testnet/deploy.ts",
+    "testnet:scenario": "NODE_USE_ENV_PROXY=1 tsx src/testnet/scenario.ts"
   },
   "dependencies": {
     "@noble/curves": "2.4.0",

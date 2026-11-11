@@ -71,7 +71,7 @@ function Ladder({ book, closed }: { book: BookJson; closed: boolean }) {
 }
 
 export function OrderBookDesk() {
-  const { snapshot, run, busy } = useDesk();
+  const { snapshot, run, busy, notify } = useDesk();
   const wallet = useWallet();
   const [series, setSeries] = useState<(typeof SERIES)[number]>("CU-2026-11");
   const [side, setSide] = useState<"buy" | "short">("buy");
@@ -132,16 +132,25 @@ export function OrderBookDesk() {
           : { kind: "error", title: "Rejected on-chain", detail: out.error, txHash: out.txHash },
     );
 
-  const submitTestnet = async () => {
+  const sendTestnet = async (label: string, receiverId: string, action: ReturnType<typeof functionCall>) => {
+    try {
+      const out = await wallet.send(receiverId, [action]);
+      const hash = (out as { transaction?: { hash?: string }; transaction_outcome?: { id?: string } } | undefined)?.transaction_outcome?.id ?? (out as { transaction?: { hash?: string } } | undefined)?.transaction?.hash;
+      notify({ kind: "ok", title: `${label} signed on NEAR testnet`, detail: `${wallet.accountId} → ${receiverId}`, txHash: hash });
+    } catch (e) {
+      notify({ kind: "error", title: `${label} failed on testnet`, detail: (e as Error).message });
+    }
+  };
+  const submitTestnet = () => {
     const args =
       side === "buy"
         ? { series_id: series, cu_amount_scaled: q.toString(), price_micros: p.toString() }
         : { series_id: series, cu_amount_scaled: q.toString(), ask_price_micros: p.toString(), margin_deposit_micros: margin.toString() };
-    await wallet.send(PARON_CONTRACT_ID, [functionCall(side === "buy" ? "place_bid" : "open_short_supply", args)]);
+    return sendTestnet(side === "buy" ? "place_bid" : "open_short_supply", PARON_CONTRACT_ID, functionCall(side === "buy" ? "place_bid" : "open_short_supply", args));
   };
-  const depositTestnet = async () => {
+  const depositTestnet = () => {
     const amount = side === "buy" ? notionalMicros : margin;
-    await wallet.send(USDC_TOKEN_ID, [functionCall("ft_transfer_call", { receiver_id: PARON_CONTRACT_ID, amount: amount.toString(), msg: "" }, "1", "100000000000000")]);
+    return sendTestnet("USDC deposit", USDC_TOKEN_ID, functionCall("ft_transfer_call", { receiver_id: PARON_CONTRACT_ID, amount: amount.toString(), msg: "" }, "1", "100000000000000"));
   };
 
   return (

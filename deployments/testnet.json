@@ -1,0 +1,313 @@
+{
+  "network": "testnet",
+  "rpc_url": "https://test.rpc.fastnear.com",
+  "suffix": "mwbjvxck",
+  "created_at": "2026-11-11T03:23:07.081Z",
+  "accounts": {
+    "owner": "paron-mwbjvxck.testnet",
+    "contract": "market.paron-mwbjvxck.testnet",
+    "usdc_token": "usdc.paron-mwbjvxck.testnet",
+    "relayer": "relayer.paron-mwbjvxck.testnet",
+    "treasury": "swarm-mwbjvxck.testnet",
+    "cfo": "cfo.swarm-mwbjvxck.testnet",
+    "market_maker": "mm.swarm-mwbjvxck.testnet",
+    "consumer": "consumer.swarm-mwbjvxck.testnet",
+    "provider": "batam-mwbjvxck.testnet"
+  },
+  "contracts": {
+    "test_usdc": {
+      "account": "usdc.paron-mwbjvxck.testnet",
+      "wasm_sha256": "812aa4f230eb2bca1f46245106e0696edb86ff6eb4668e1f0ad976b055aa3ee5",
+      "code_hash": "9hDJrf4331a3VJKGT1jZ4uDNYn8hPyLwnz9GvewgH2Fe",
+      "bytes": 152816
+    },
+    "paron_core": {
+      "account": "market.paron-mwbjvxck.testnet",
+      "wasm_sha256": "613735004c0dae7add61835c2427d3dcb95b9e4441505d4694b75d7949045407",
+      "code_hash": "7YVNadNpPZPhS5mrRhxtcqdEqRvQDCebrr1oonMFj6mk",
+      "bytes": 462806
+    }
+  },
+  "function_call_keys": {
+    "cfo.swarm-mwbjvxck.testnet": {
+      "public_key": "ed25519:DqeHCU7hoyHNjUzHZMqc68PYWGJzo9whKoYzU5jJsFbf",
+      "receiver_id": "market.paron-mwbjvxck.testnet",
+      "method_names": [
+        "agent_buy_forward",
+        "place_bid",
+        "sell_forward",
+        "cancel_order",
+        "settle_cash_hedge",
+        "request_compute_redemption",
+        "claim_sla_breach_slash"
+      ],
+      "allowance_near": "0.25"
+    },
+    "mm.swarm-mwbjvxck.testnet": {
+      "public_key": "ed25519:GDJ7KDgAw6FDbmdshqwqSQ3cZmNjFTbDRjRxtnVpexye",
+      "receiver_id": "market.paron-mwbjvxck.testnet",
+      "method_names": [
+        "place_bid",
+        "open_short_supply",
+        "cancel_order",
+        "top_up_margin",
+        "withdraw_excess_margin",
+        "liquidate_underwater_vault",
+        "sell_forward",
+        "settle_cash_hedge"
+      ],
+      "allowance_near": "0.25"
+    },
+    "consumer.swarm-mwbjvxck.testnet": {
+      "public_key": "ed25519:2eUeSMdQCdHFjcaeoSQqzwEgUkxAnkW4VebegRFvdzvr",
+      "receiver_id": "market.paron-mwbjvxck.testnet",
+      "method_names": [
+        "agent_buy_forward",
+        "request_compute_redemption",
+        "finalize_redemption_with_tee_receipt",
+        "claim_sla_breach_slash",
+        "settle_cash_hedge"
+      ],
+      "allowance_near": "0.25"
+    },
+    "batam-mwbjvxck.testnet": {
+      "public_key": "ed25519:2CMV1RrkcSDjaAqsq9gk1eVHkrnH1ZZgrpP15UZDoyDt",
+      "receiver_id": "market.paron-mwbjvxck.testnet",
+      "method_names": [
+        "open_short_supply",
+        "acknowledge_redemption",
+        "finalize_redemption_with_tee_receipt",
+        "top_up_margin",
+        "cancel_order"
+      ],
+      "allowance_near": "0.25"
+    },
+    "relayer.paron-mwbjvxck.testnet": {
+      "public_key": "ed25519:8q3ZXvTdz6nrP6xqHS66hKvtRrBnnYM8GaWEUCPdS7cw",
+      "receiver_id": "market.paron-mwbjvxck.testnet",
+      "method_names": [
+        "submit_outlayer_index_attestation",
+        "finalize_series_settlement"
+      ],
+      "allowance_near": "0.25"
+    }
+  },
+  "guardrails": {
+    "cfo.swarm-mwbjvxck.testnet": {
+      "max_daily_spend_usdc": "2500",
+      "max_slippage_bps": 150,
+      "allowed_series": [
+        "CU-2026-11",
+        "CU-2026-12"
+      ]
+    },
+    "mm.swarm-mwbjvxck.testnet": {
+      "max_daily_spend_usdc": "5000",
+      "max_slippage_bps": 150,
+      "allowed_series": [
+        "CU-2026-11",
+        "CU-2026-12"
+      ]
+    },
+    "consumer.swarm-mwbjvxck.testnet": {
+      "max_daily_spend_usdc": "1000",
+      "max_slippage_bps": 150,
+      "allowed_series": [
+        "CU-2026-12"
+      ]
+    }
+  },
+  "steps": {
+    "accounts": [
+      {
+        "label": "faucet created swarm-mwbjvxck.testnet (10 NEAR)",
+        "account": "swarm-mwbjvxck.testnet",
+        "hash": "62pNgGBoyDR6CQALh6GSL5f4VLY3Gaj5U1YqVeAHabZZ",
+        "url": "https://testnet.nearblocks.io/txns/62pNgGBoyDR6CQALh6GSL5f4VLY3Gaj5U1YqVeAHabZZ"
+      },
+      {
+        "label": "faucet created batam-mwbjvxck.testnet (10 NEAR)",
+        "account": "batam-mwbjvxck.testnet",
+        "hash": "8qGa4duVuXFgdE3U3EaGpGuLUy2qKqJ1hevpCAHhe5PM",
+        "url": "https://testnet.nearblocks.io/txns/8qGa4duVuXFgdE3U3EaGpGuLUy2qKqJ1hevpCAHhe5PM"
+      },
+      {
+        "label": "created market.paron-mwbjvxck.testnet with 6 NEAR",
+        "account": "paron-mwbjvxck.testnet",
+        "hash": "2AP6eouvnbv2BUxGLQ8uuydXN4SMzhDsRskxnRuUncHy",
+        "url": "https://testnet.nearblocks.io/txns/2AP6eouvnbv2BUxGLQ8uuydXN4SMzhDsRskxnRuUncHy"
+      },
+      {
+        "label": "created usdc.paron-mwbjvxck.testnet with 2.2 NEAR",
+        "account": "paron-mwbjvxck.testnet",
+        "hash": "GQQFV7jYaKmzxw8LyMk9tzLEhFLGbNyBTjMEMU7FgXZX",
+        "url": "https://testnet.nearblocks.io/txns/GQQFV7jYaKmzxw8LyMk9tzLEhFLGbNyBTjMEMU7FgXZX"
+      },
+      {
+        "label": "created relayer.paron-mwbjvxck.testnet with 0.4 NEAR",
+        "account": "paron-mwbjvxck.testnet",
+        "hash": "CZp6NaSAUiJ1tvGRyo2Bae8WmzY5PPNLgV9UroCQLRbL",
+        "url": "https://testnet.nearblocks.io/txns/CZp6NaSAUiJ1tvGRyo2Bae8WmzY5PPNLgV9UroCQLRbL"
+      },
+      {
+        "label": "created cfo.swarm-mwbjvxck.testnet with 1 NEAR",
+        "account": "swarm-mwbjvxck.testnet",
+        "hash": "78Zm1qwc1kXxQnGCSAQiAkM1tiGzfMB5LvNLLN5MARGv",
+        "url": "https://testnet.nearblocks.io/txns/78Zm1qwc1kXxQnGCSAQiAkM1tiGzfMB5LvNLLN5MARGv"
+      },
+      {
+        "label": "created mm.swarm-mwbjvxck.testnet with 1 NEAR",
+        "account": "swarm-mwbjvxck.testnet",
+        "hash": "CD8rFraQWbXG46ztV2FBC4ya7dYDyzqYJHyUSr32NFd1",
+        "url": "https://testnet.nearblocks.io/txns/CD8rFraQWbXG46ztV2FBC4ya7dYDyzqYJHyUSr32NFd1"
+      },
+      {
+        "label": "created consumer.swarm-mwbjvxck.testnet with 1 NEAR",
+        "account": "swarm-mwbjvxck.testnet",
+        "hash": "D2TFXq75iU7wMErDmEnKySmQLQAPeh3u81FfckZru5MT",
+        "url": "https://testnet.nearblocks.io/txns/D2TFXq75iU7wMErDmEnKySmQLQAPeh3u81FfckZru5MT"
+      }
+    ],
+    "deploy": [
+      {
+        "label": "deployed test_usdc (152816 bytes) to usdc.paron-mwbjvxck.testnet",
+        "account": "usdc.paron-mwbjvxck.testnet",
+        "hash": "BFpoH5xL7wM5diHXTLPEYvr5CuU71M1NBt9FpnwTxnMk",
+        "url": "https://testnet.nearblocks.io/txns/BFpoH5xL7wM5diHXTLPEYvr5CuU71M1NBt9FpnwTxnMk"
+      },
+      {
+        "label": "test_usdc.new({\"owner_id\":\"paron-mwbjvxck.testnet\"})",
+        "account": "usdc.paron-mwbjvxck.testnet",
+        "hash": "44MjrHz26KWjRTBeMwoiUbxr2fhE3q6gZgrCBPyxXEgR",
+        "url": "https://testnet.nearblocks.io/txns/44MjrHz26KWjRTBeMwoiUbxr2fhE3q6gZgrCBPyxXEgR"
+      },
+      {
+        "label": "deployed paron_core (462806 bytes) to market.paron-mwbjvxck.testnet",
+        "account": "market.paron-mwbjvxck.testnet",
+        "hash": "7CPPGmkWEXGEisbZxo5yfkTGkSvGirBF1Bbd3oWGSLXg",
+        "url": "https://testnet.nearblocks.io/txns/7CPPGmkWEXGEisbZxo5yfkTGkSvGirBF1Bbd3oWGSLXg"
+      },
+      {
+        "label": "paron_core.new({\"owner_id\":\"paron-mwbjvxck.testnet\",\"tee_signer_pubkey\":\"ed25519:J5By3ebsFfrgJ2eNx81TsLuA3TYfELZh12RNMFzuvvdu\",\"usdc_token_id\":\"usdc.paron-mwbjvxck.testnet\"})",
+        "account": "market.paron-mwbjvxck.testnet",
+        "hash": "GyhPkNRQ9tnfWwTKESNYE8TzVjJLScrNRLuC8kND7L4S",
+        "url": "https://testnet.nearblocks.io/txns/GyhPkNRQ9tnfWwTKESNYE8TzVjJLScrNRLuC8kND7L4S"
+      }
+    ],
+    "funding": [
+      {
+        "label": "registered market.paron-mwbjvxck.testnet on usdc.paron-mwbjvxck.testnet",
+        "account": "paron-mwbjvxck.testnet",
+        "hash": "7EBWcXM1CLVJ42jR9xPcmGKyCp8nt6mornBx46ewvGhV",
+        "url": "https://testnet.nearblocks.io/txns/7EBWcXM1CLVJ42jR9xPcmGKyCp8nt6mornBx46ewvGhV"
+      },
+      {
+        "label": "minted 15112 tUSDC to paron-mwbjvxck.testnet",
+        "account": "paron-mwbjvxck.testnet",
+        "hash": "HxRWaZT2KDUxPoGb78pRSFkvNRvUomrjMdH8Cnmr7ujA",
+        "url": "https://testnet.nearblocks.io/txns/HxRWaZT2KDUxPoGb78pRSFkvNRvUomrjMdH8Cnmr7ujA"
+      },
+      {
+        "label": "repaid genesis liquidity credit 14112 USDC (withdrawals unlocked)",
+        "account": "paron-mwbjvxck.testnet",
+        "hash": "7hXqe6mG6MBBsHZ1AwvUygG7qkHM76jFkmjZVmfJtzhv",
+        "url": "https://testnet.nearblocks.io/txns/7hXqe6mG6MBBsHZ1AwvUygG7qkHM76jFkmjZVmfJtzhv"
+      },
+      {
+        "label": "seeded insurance pool with 1,000 USDC",
+        "account": "paron-mwbjvxck.testnet",
+        "hash": "7z4bAMPwhLX2iUoLjc321kLmnvkiACisRQFXQ8yfWH8w",
+        "url": "https://testnet.nearblocks.io/txns/7z4bAMPwhLX2iUoLjc321kLmnvkiACisRQFXQ8yfWH8w"
+      },
+      {
+        "label": "minted 9100 tUSDC to swarm-mwbjvxck.testnet",
+        "account": "paron-mwbjvxck.testnet",
+        "hash": "55d1DXMuPbPY4LaQD9PHxsNapyGvphNten8UEMpoeAbL",
+        "url": "https://testnet.nearblocks.io/txns/55d1DXMuPbPY4LaQD9PHxsNapyGvphNten8UEMpoeAbL"
+      },
+      {
+        "label": "treasury funded mm.swarm-mwbjvxck.testnet with 6000 USDC margin",
+        "account": "swarm-mwbjvxck.testnet",
+        "hash": "pX1UCFaUVThoPaK3sQMzvUtRBnHQKvL3UXTGS9r3RRF",
+        "url": "https://testnet.nearblocks.io/txns/pX1UCFaUVThoPaK3sQMzvUtRBnHQKvL3UXTGS9r3RRF"
+      },
+      {
+        "label": "treasury funded cfo.swarm-mwbjvxck.testnet with 2600 USDC margin",
+        "account": "swarm-mwbjvxck.testnet",
+        "hash": "Fzcz9Aa9KFZVZqnz7RmENUxv6sVYbzC5zL4bEH3xeYw8",
+        "url": "https://testnet.nearblocks.io/txns/Fzcz9Aa9KFZVZqnz7RmENUxv6sVYbzC5zL4bEH3xeYw8"
+      },
+      {
+        "label": "treasury funded consumer.swarm-mwbjvxck.testnet with 500 USDC margin",
+        "account": "swarm-mwbjvxck.testnet",
+        "hash": "Gqsk1CBUypHKWrsqEJbWanbbc4iC6SLTKaXuWX1RSo7m",
+        "url": "https://testnet.nearblocks.io/txns/Gqsk1CBUypHKWrsqEJbWanbbc4iC6SLTKaXuWX1RSo7m"
+      },
+      {
+        "label": "minted 1500 tUSDC to batam-mwbjvxck.testnet",
+        "account": "paron-mwbjvxck.testnet",
+        "hash": "4e74B7Sh1REao2otoP7cDi3bH5XCQV6G8yePTyUf1999",
+        "url": "https://testnet.nearblocks.io/txns/4e74B7Sh1REao2otoP7cDi3bH5XCQV6G8yePTyUf1999"
+      },
+      {
+        "label": "provider batam-mwbjvxck.testnet posted 1,500 USDC to its margin account",
+        "account": "batam-mwbjvxck.testnet",
+        "hash": "EXrrkQnyPv7mCUh8NhX7DNPcra919vPSEaaTjgkfGQH6",
+        "url": "https://testnet.nearblocks.io/txns/EXrrkQnyPv7mCUh8NhX7DNPcra919vPSEaaTjgkfGQH6"
+      }
+    ],
+    "guardrails": [
+      {
+        "label": "treasury set guardrail for cfo.swarm-mwbjvxck.testnet: 2500 USDC/day, 150 bps",
+        "account": "swarm-mwbjvxck.testnet",
+        "hash": "6nCwJK6ziyM2AYFUNG6ADAsX83Pa7VKPPvvo8AZTs7ck",
+        "url": "https://testnet.nearblocks.io/txns/6nCwJK6ziyM2AYFUNG6ADAsX83Pa7VKPPvvo8AZTs7ck"
+      },
+      {
+        "label": "treasury set guardrail for mm.swarm-mwbjvxck.testnet: 5000 USDC/day, 150 bps",
+        "account": "swarm-mwbjvxck.testnet",
+        "hash": "3PdBY6zU2UAQ1xPGXZu5FH8sbruBfMmMFRXBEdU8zdUP",
+        "url": "https://testnet.nearblocks.io/txns/3PdBY6zU2UAQ1xPGXZu5FH8sbruBfMmMFRXBEdU8zdUP"
+      },
+      {
+        "label": "treasury set guardrail for consumer.swarm-mwbjvxck.testnet: 1000 USDC/day, 150 bps",
+        "account": "swarm-mwbjvxck.testnet",
+        "hash": "7CBHjrZyfTkjYdaXPkVGum3jMA3rgGxepJEpTcVDFBmf",
+        "url": "https://testnet.nearblocks.io/txns/7CBHjrZyfTkjYdaXPkVGum3jMA3rgGxepJEpTcVDFBmf"
+      }
+    ],
+    "function_call_keys": [
+      {
+        "label": "cfo.swarm-mwbjvxck.testnet installed a Function Call key for 7 paron-core methods",
+        "account": "cfo.swarm-mwbjvxck.testnet",
+        "hash": "FGFRkXp6GtJuvkyLN4GrBsanYYUw5D8D1nmmZgKX6pNb",
+        "url": "https://testnet.nearblocks.io/txns/FGFRkXp6GtJuvkyLN4GrBsanYYUw5D8D1nmmZgKX6pNb"
+      },
+      {
+        "label": "mm.swarm-mwbjvxck.testnet installed a Function Call key for 8 paron-core methods",
+        "account": "mm.swarm-mwbjvxck.testnet",
+        "hash": "92KKE3vgfF83hDKabdLSyJcGFR5D1Sn8zPd4FFzpWqS3",
+        "url": "https://testnet.nearblocks.io/txns/92KKE3vgfF83hDKabdLSyJcGFR5D1Sn8zPd4FFzpWqS3"
+      },
+      {
+        "label": "consumer.swarm-mwbjvxck.testnet installed a Function Call key for 5 paron-core methods",
+        "account": "consumer.swarm-mwbjvxck.testnet",
+        "hash": "7CN2k6YcAJd4FV8RdPoopQNSaRZ6n2MSjaYgzAWcnhAw",
+        "url": "https://testnet.nearblocks.io/txns/7CN2k6YcAJd4FV8RdPoopQNSaRZ6n2MSjaYgzAWcnhAw"
+      },
+      {
+        "label": "batam-mwbjvxck.testnet installed a Function Call key for 5 paron-core methods",
+        "account": "batam-mwbjvxck.testnet",
+        "hash": "44fzv5hp1ibK9BZ2ZWABLQe6YXDnu12hqqWAc52HEugx",
+        "url": "https://testnet.nearblocks.io/txns/44fzv5hp1ibK9BZ2ZWABLQe6YXDnu12hqqWAc52HEugx"
+      },
+      {
+        "label": "relayer.paron-mwbjvxck.testnet installed a Function Call key for 2 paron-core methods",
+        "account": "relayer.paron-mwbjvxck.testnet",
+        "hash": "EVVE2YZcoSeZTc9XCFivun5eTven9ANC9gRwtRScnQuo",
+        "url": "https://testnet.nearblocks.io/txns/EVVE2YZcoSeZTc9XCFivun5eTven9ANC9gRwtRScnQuo"
+      }
+    ]
+  },
+  "tee_signer_public_key": "ed25519:J5By3ebsFfrgJ2eNx81TsLuA3TYfELZh12RNMFzuvvdu"
+}
