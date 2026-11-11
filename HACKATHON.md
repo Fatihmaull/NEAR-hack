@@ -48,7 +48,7 @@ TEE-attested index (Mode A) or are redeemed as TEE-measured compute with automat
 | Chain Signatures derivation matches the official library | `agents/test/runtime-and-crosschain.test.ts` vectors produced with `chainsig.js` 1.1.16 |
 | Receipts are deterministic and tamper-evident | `agents/test/swarm.test.ts`; `npm run verify:receipt` |
 | The protocol runs on a real NEAR network, not only in a simulator | `deployments/testnet.json` (code hash = base58(sha256(wasm))); live run in `deployments/testnet-run.json`; `GET /api/testnet` reads the deployed contract |
-| Guardrails and Function Call keys hold on-chain | testnet: slippage rejection, the LP agent's daily-cap rejection, and the FC key refusing a 1-yocto `withdraw_usdc` (`DepositWithFunctionCall`), all in `testnet-run.json` |
+| Guardrails and Function Call keys hold on-chain | testnet: slippage, series-allowlist and daily-cap rejections (each a failed tx on nearblocks), and the FC key refusing a 1-yocto `withdraw_usdc` (`DepositWithFunctionCall`), all in `testnet-run.json` |
 | The 1Click client speaks the real API | `deployments/1click-live-dry-quote.json`: a live, 1Click-signed dry quote for Paron's exact request, including `customRecipientMsg` |
 
 ---
