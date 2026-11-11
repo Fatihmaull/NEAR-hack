@@ -1,0 +1,65 @@
+{
+  "note": "Live response of POST https://1click.chaindefuser.com/v0/quote (dry: true, no JWT) for the exact request agents/src/intents-bridge.ts builds. 1Click settles on NEAR mainnet only and requires an existing mainnet recipient, so the existing mainnet account `aurora` stands in for a future mainnet paron-core; the refund address is the CFO agent's Chain Signatures-derived Base address.",
+  "requested_at": "2026-11-11T03:36:30.287Z",
+  "request": {
+    "dry": true,
+    "swapType": "EXACT_INPUT",
+    "slippageTolerance": 100,
+    "originAsset": "nep141:base-0x833589fcd6edb6e08f4c7c32d4f71b54bda02913.omft.near",
+    "depositType": "ORIGIN_CHAIN",
+    "destinationAsset": "nep141:17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1",
+    "amount": "25000000",
+    "refundTo": "0x93F43F0A8E70D922B8D063c3173E9FcFd500CDf6",
+    "refundType": "ORIGIN_CHAIN",
+    "recipient": "aurora",
+    "recipientType": "DESTINATION_CHAIN",
+    "deadline": "2026-11-11T04:36:26.881Z",
+    "referral": "paron",
+    "quoteWaitingTimeMs": 3000,
+    "customRecipientMsg": "{\"action\":\"deposit\",\"beneficiary\":\"cfo.swarm-mwbjvxck.testnet\"}"
+  },
+  "response": {
+    "quote": {
+      "amountIn": "25000000",
+      "amountInFormatted": "25.0",
+      "amountInUsd": "24.987750000000",
+      "minAmountIn": "25000000",
+      "amountOut": "24995875",
+      "amountOutFormatted": "24.995875",
+      "amountOutUsd": "24.983627021250",
+      "minAmountOut": "24745916",
+      "timeEstimate": 35,
+      "refundFee": "2400",
+      "withdrawFee": "0"
+    },
+    "quoteRequest": {
+      "dry": true,
+      "depositMode": "SIMPLE",
+      "swapType": "EXACT_INPUT",
+      "slippageTolerance": 100,
+      "originAsset": "nep141:base-0x833589fcd6edb6e08f4c7c32d4f71b54bda02913.omft.near",
+      "depositType": "ORIGIN_CHAIN",
+      "destinationAsset": "nep141:17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1",
+      "amount": "25000000",
+      "refundTo": "0x93F43F0A8E70D922B8D063c3173E9FcFd500CDf6",
+      "refundType": "ORIGIN_CHAIN",
+      "recipient": "aurora",
+      "customRecipientMsg": "{\"action\":\"deposit\",\"beneficiary\":\"cfo.swarm-mwbjvxck.testnet\"}",
+      "recipientType": "DESTINATION_CHAIN",
+      "deadline": "2026-11-11T04:36:26.881Z",
+      "confidentiality": "public",
+      "referral": "paron",
+      "quoteWaitingTimeMs": 3000,
+      "insured": false,
+      "appFees": [
+        {
+          "recipient": "5880ad2b362620fadf759cbceb1cd5737ce8c6ed7fb8e9942881e6731f9247dd",
+          "fee": 1
+        }
+      ]
+    },
+    "signature": "ed25519:1dQPvc7oTQPoekvrYevUaW9mw3GcNF22bzZBdtT5sJMmAUZu6q9nLFz5MeYSPp16UL866JYPWNCrVEnK2HEKHbo",
+    "timestamp": "2026-11-11T03:36:27.181Z",
+    "correlationId": "853e4f5b-17ef-4d56-bfea-843e3b382795"
+  }
+}

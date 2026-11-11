@@ -36,7 +36,12 @@ export function TopBar({ clockMs, active }: { clockMs?: number; active: "termina
           </nav>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <Badge tone={PARON_CONTRACT_ID ? "near" : "tee"}>{PARON_CONTRACT_ID ? `testnet · ${PARON_CONTRACT_ID}` : "local signed runtime · deterministic"}</Badge>
+          <Badge tone="tee">desk: local signed runtime</Badge>
+          {PARON_CONTRACT_ID ? (
+            <a href={`https://testnet.nearblocks.io/address/${PARON_CONTRACT_ID}`} target="_blank" rel="noreferrer" className="hidden lg:block">
+              <Badge tone="near">testnet · {PARON_CONTRACT_ID}</Badge>
+            </a>
+          ) : null}
           {clockMs ? (
             <Badge tone="muted">
               <Clock className="h-3 w-3" />

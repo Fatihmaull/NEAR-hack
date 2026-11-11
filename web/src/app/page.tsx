@@ -2,6 +2,7 @@
 
 import { AgentSwarmPanel } from "@/components/AgentSwarmPanel";
 import { JudgeTourBanner } from "@/components/JudgeTourBanner";
+import { LiveTestnetPanel } from "@/components/LiveTestnetPanel";
 import { OrderBookDesk } from "@/components/OrderBookDesk";
 import { RedemptionTimeline } from "@/components/RedemptionTimeline";
 import { SeriesMatrix } from "@/components/SeriesMatrix";
@@ -40,6 +41,7 @@ function Terminal() {
           <SeriesMatrix />
           <OrderBookDesk />
         </div>
+        <LiveTestnetPanel />
         <AgentSwarmPanel />
         <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
           <TeeAttestationCard />
@@ -49,7 +51,7 @@ function Terminal() {
           <span>
             Paron v2 · contracts/paron-core (near-sdk 5.30) · tee-worker/outlayer-cri-oracle (wasm32-wasip2) · agents/ (NEAR Intents 1Click, Chain Signatures) · web/ (Next.js 15, NEAR Connect)
           </span>
-          <span className="font-mono">local mode = deterministic · live mode via .env</span>
+          <span className="font-mono">desk = deterministic local runtime · live panel = NEAR testnet</span>
         </footer>
       </main>
       <ToastHost />
