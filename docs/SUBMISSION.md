@@ -84,12 +84,23 @@ margin in one hop. NEP-245 gives one contract many fungible maturities.
 
 Recording tips: use 1440×900 or larger, dark theme, browser zoom 90%, and start `npm run dev` before recording.
 
-## Deploying the web app (Vercel)
+## Deploying the web app (Vercel) + CD
 
 1. Import `Fatihmaull/NEAR-hack` at https://vercel.com/new and set **Root Directory** to `web`. Vercel detects
-   Next.js and installs the npm workspace from the repository root.
-2. No environment variables are required. The terminal defaults to the testnet deployment in `deployments/testnet.json`.
-   Optional variables:
+   Next.js and installs the npm workspace from the repository root. No environment variables are required: the
+   terminal defaults to the testnet deployment in `deployments/testnet.json`.
+2. Choose **one** continuous-deployment route:
+   * **Vercel Git integration** (simplest). Leave the project connected to GitHub: every push to `main` deploys to
+     production and every PR gets a preview.
+   * **GitHub Actions** (`.github/workflows/verify.yml`, job `deploy`). This route deploys only after the 4
+     verification gates pass. In the Vercel project, turn off automatic Git deployments (Settings → Git), then add
+     these repository secrets (GitHub → Settings → Secrets and variables → Actions):
+     * `VERCEL_TOKEN`: create it at https://vercel.com/account/tokens.
+     * `VERCEL_ORG_ID`: your team or user id.
+     * `VERCEL_PROJECT_ID`: from Vercel project → Settings → General.
+
+     Until the secrets exist, the deploy job is skipped, not failed.
+3. Optional environment variables:
    * `ONE_CLICK_JWT`: live 1Click quotes in `/api/intents/quote`.
    * `NEAR_RPC_URL`: a different testnet RPC for `/api/testnet`.
-3. Deploy, then paste the URL into the form and into the README.
+4. Paste the production URL into the form and the README.
