@@ -1,8 +1,22 @@
-name: verify-all
+name: ci-cd
+
+# CI: every push and pull request runs the 4 verification gates (contract, TEE worker, agent swarm, web build).
+# CD: once the gates pass, the web terminal is deployed to Vercel — production for pushes to main, a preview
+#     for pull requests. CD is skipped (not failed) until these repository secrets exist:
+#       VERCEL_TOKEN       https://vercel.com/account/tokens
+#       VERCEL_ORG_ID      Vercel project → Settings → General ("Team ID" / user id)
+#       VERCEL_PROJECT_ID  Vercel project → Settings → General (Root Directory of the project = web)
 
 on:
   push:
   pull_request:
+
+concurrency:
+  group: ci-cd-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  VERCEL_CLI: vercel@65.2.0
 
 jobs:
   verify:
@@ -18,3 +32,44 @@ jobs:
           cache: npm
       - run: npm ci --no-audit --no-fund
       - run: npm run verify:all
+
+  deploy:
+    needs: verify
+    if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      TARGET: ${{ github.event_name == 'push' && 'production' || 'preview' }}
+    steps:
+      - name: Check Vercel secrets
+        id: gate
+        run: |
+          if [ -z "$VERCEL_TOKEN" ] || [ -z "$VERCEL_ORG_ID" ] || [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "::notice::Vercel secrets not configured — skipping deployment."
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.enabled == 'true'
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.enabled == 'true'
+        with:
+          node-version: 22
+          cache: npm
+      - name: Pull Vercel project settings
+        if: steps.gate.outputs.enabled == 'true'
+        run: npx --yes "$VERCEL_CLI" pull --yes --environment="$TARGET" --token="$VERCEL_TOKEN"
+      - name: Build
+        if: steps.gate.outputs.enabled == 'true'
+        run: npx --yes "$VERCEL_CLI" build $([ "$TARGET" = production ] && echo --prod) --token="$VERCEL_TOKEN"
+      - name: Deploy
+        id: deploy
+        if: steps.gate.outputs.enabled == 'true'
+        run: |
+          url=$(npx --yes "$VERCEL_CLI" deploy --prebuilt $([ "$TARGET" = production ] && echo --prod) --token="$VERCEL_TOKEN")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "Deployed $TARGET: $url" >> "$GITHUB_STEP_SUMMARY"

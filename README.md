@@ -41,6 +41,8 @@ The tour runs the **same engine in your browser** and produces a receipt whose `
 (`b0b1ce8f…22fa785`) is byte-identical to the CLI and to `GET /api/receipt`. `npm run verify:receipt`
 re-verifies every transaction signature, every TDX quote hash and every enclave signature in it.
 
+> **Big picture:** every feature and flow, with diagrams, is in [`docs/FEATURES.md`](docs/FEATURES.md). Submission material is in [`docs/SUBMISSION.md`](docs/SUBMISSION.md).
+
 ### 🛰 Live on NEAR testnet
 
 Paron v2 is deployed on NEAR testnet, and the agent swarm has run against it. Every link below opens a real transaction on
