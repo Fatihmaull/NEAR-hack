@@ -43,7 +43,7 @@ async function main(): Promise<void> {
         "  NEAR_ACCOUNT_ID    agent account (e.g. cfo.your-treasury.testnet)",
         "  NEAR_PRIVATE_KEY   its Function Call access key (ed25519:...) scoped to the Paron contract",
         "  PARON_CONTRACT_ID  deployed paron-core account",
-        "  NEAR_RPC_URL       optional, defaults to https://rpc.testnet.near.org",
+        "  NEAR_RPC_URL       optional, defaults to https://test.rpc.fastnear.com",
       ].join("\n"),
     );
     return;

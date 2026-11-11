@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["contracts/paron-core", "tee-worker/outlayer-cri-oracle"]
+members = ["contracts/paron-core", "contracts/test-usdc", "tee-worker/outlayer-cri-oracle"]
 
 [workspace.package]
 edition = "2021"

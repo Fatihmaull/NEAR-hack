@@ -17,7 +17,7 @@ The first run installs packages and compiles `near-sdk` (~2–3 min); afterwards
 
 | Gate | Command (run by `scripts/verify-all.sh`) | What it proves |
 | --- | --- | --- |
-| 1 | `cargo test --manifest-path contracts/paron-core/Cargo.toml` | **39** contract unit/scenario tests in near-sdk's mocked VM: NEP-245, hardware weights, 25%/15% margin, liquidation + insurance, CLOB + stale-quote protection, guardrails, OutLayer Ed25519 verification (forgery, tamper, replay, staleness, circuit breaker), Mode A spike/drop, Mode B delivery / auto-slash / timeout slash, and an end-to-end test where the contract verifies attestations produced by the real worker crate |
+| 1 | `cargo test` for `contracts/paron-core` and `contracts/test-usdc` | **39** contract unit/scenario tests (+3 for the testnet token) in near-sdk's mocked VM: NEP-245, hardware weights, 25%/15% margin, liquidation + insurance, CLOB + stale-quote protection, guardrails, OutLayer Ed25519 verification (forgery, tamper, replay, staleness, circuit breaker), Mode A spike/drop, Mode B delivery / auto-slash / timeout slash, and an end-to-end test where the contract verifies attestations produced by the real worker crate |
 | 2 | `cargo test --manifest-path tee-worker/outlayer-cri-oracle/Cargo.toml` | **10** worker tests: multi-tier normalisation, ±2σ MAD outlier rejection, VWAP→TWAP, quorum rule, quote-hash binding, Ed25519 attestations, SLA verdicts, committed golden vectors |
 | 3 | `npm --prefix agents run typecheck && npm --prefix agents test && npm --prefix agents run demo:swarm && npm --prefix agents run verify:receipt` | strict TS typecheck, **19** agent tests (engine parity with the Rust numbers, access-key rules, chainsig.js-compatible MPC derivation, 1Click client, swarm determinism + tamper detection), the 5-act swarm with self-checks, and independent receipt verification |
 | 4 | `npm --prefix web run build` | Next.js 15 production build with type-checking |
@@ -40,6 +40,61 @@ npm run dev          # http://localhost:3000/tour — the 60-second coded judge 
 The tour runs the **same engine in your browser** and produces a receipt whose `receipt_sha256`
 (`b0b1ce8f…22fa785`) is byte-identical to the CLI and to `GET /api/receipt`. `npm run verify:receipt`
 re-verifies every transaction signature, every TDX quote hash and every enclave signature in it.
+
+### 🛰 Live on NEAR testnet
+
+Paron v2 is deployed on NEAR testnet, and the agent swarm has run against it. Every link below opens a real transaction on
+[nearblocks](https://testnet.nearblocks.io). The full public record (accounts, code hashes and every transaction) is in
+[`deployments/testnet.json`](deployments/testnet.json) and [`deployments/testnet-run.json`](deployments/testnet-run.json).
+The web terminal shows the same state live, read straight from RPC (`GET /api/testnet`, panel *Live on NEAR testnet*).
+
+| Role | Account | Notes |
+| --- | --- | --- |
+| `paron-core` | [`market.paron-mwbjvxck.testnet`](https://testnet.nearblocks.io/address/market.paron-mwbjvxck.testnet) | code hash `7YVNadNp…qEdRvQDCebrr1oonMFj6mk` = base58(sha256(`cargo near build` wasm)) |
+| test USDC (NEP-141, 6 dp, **no value**) | [`usdc.paron-mwbjvxck.testnet`](https://testnet.nearblocks.io/address/usdc.paron-mwbjvxck.testnet) | `contracts/test-usdc`; public `faucet(amount)` up to 100,000 tUSDC |
+| Protocol owner | `paron-mwbjvxck.testnet` | repaid the genesis credit and seeded the insurance pool |
+| OutLayer relayer | `relayer.paron-mwbjvxck.testnet` | Function Call key restricted to `submit_outlayer_index_attestation`, `finalize_series_settlement` |
+| Swarm treasury | `swarm-mwbjvxck.testnet` | parent account of the agents, owner of their guardrails |
+| CFO / LP / consumer agents | `cfo.` / `mm.` / `consumer.swarm-mwbjvxck.testnet` | each signs with its own Function Call key that cannot attach a deposit |
+| Compute provider | `batam-mwbjvxck.testnet` | pre-sells capacity with 25% margin, acknowledges Mode B jobs |
+
+What happened on-chain (selected; 30 deploy and 24 swarm transactions in total):
+
+| Step | Transaction |
+| --- | --- |
+| `paron_core.new(...)`: registers the OutLayer signer and seeds 3 NEP-245 series with genesis depth | [`GyhPkNRQ…`](https://testnet.nearblocks.io/txns/GyhPkNRQ9tnfWwTKESNYE8TzVjJLScrNRLuC8kND7L4S) |
+| Genesis liquidity credit (14,112 USDC) repaid through `ft_transfer_call`, which unlocks withdrawals | [`7hXqe6mG…`](https://testnet.nearblocks.io/txns/7hXqe6mG6MBBsHZ1AwvUygG7qkHM76jFkmjZVmfJtzhv) |
+| Treasury registers the CFO agent's guardrail: 2,500 USDC/day, 150 bps | [`6nCwJK6z…`](https://testnet.nearblocks.io/txns/6nCwJK6ziyM2AYFUNG6ADAsX83Pa7VKPPvvo8AZTs7ck) |
+| CFO agent installs a Function Call key for 7 `paron-core` methods | [`FGFRkXp6…`](https://testnet.nearblocks.io/txns/FGFRkXp6GtJuvkyLN4GrBsanYYUw5D8D1nmmZgKX6pNb) |
+| Attested CRI-H100 baseline $2.80: spoofed $9.80 feed rejected at 500σ, Ed25519 signature verified on-chain | [`5yU9dDLZ…`](https://testnet.nearblocks.io/txns/5yU9dDLZvj4nGgrvHm2Cj5yX1HaSNHhgCJ7oYywLfitX) |
+| Provider pre-sells 300 CU @ $2.81 with $210.75 margin (25%) | [`5ZRNJEwD…`](https://testnet.nearblocks.io/txns/5ZRNJEwD9SMS7QsBsfSWK9ENVp5YfYQvox9BYqEzyH7B) |
+| CFO agent hedges 500 CU @ VWAP $2.8082, after the chain rejected its $2.898 proposal (slippage guard) | [`9CiV23Tf…`](https://testnet.nearblocks.io/txns/9CiV23TfF7QQkV25LThSfwz9RbovhQQGgL1VhZHB7cfg) |
+| Attested spike to $3.70 flags vault #4 below 15% maintenance | [`3oQQ8NQA…`](https://testnet.nearblocks.io/txns/3oQQ8NQA81wUoWLNVyrfGxVsdmssiB7GMiVfBsr14YoL) |
+| LP agent liquidates vault #4 (keeper role) and re-hedges 200 CU at the $3.70 mark | [`6H21mHgM…`](https://testnet.nearblocks.io/txns/6H21mHgMrzdzvQyXPt5U5yoxbS2gU8KM162L9ir1z5vQ) |
+| LP agent's own daily spend cap rejects its next quote (5,000 USDC/day guardrail) | [`Gu7JG5pB…`](https://testnet.nearblocks.io/txns/Gu7JG5pB9UVQ8c74hvwE5Gs7zoxoBL2hquVYS53yuZUR) |
+| Mode B job #1 delivered: TDX receipt, 180 ms TTFT, provider paid | [`3gbRxXLm…`](https://testnet.nearblocks.io/txns/3gbRxXLm2usJ7XrF7rTg9D23gS9BDFRbmK6Xzg7ivZe1) |
+| Mode B job #2 throttled: receipt says `sla_met=false`, so the provider is slashed automatically (100% refund + 15%) | [`8aNjZJ9w…`](https://testnet.nearblocks.io/txns/8aNjZJ9w76cN6jkQKsEKKJT3dgZbMDy74AVaYiK82zcH) |
+
+Reproduce on your own accounts:
+
+```bash
+npm run build:contract                              # cargo near build → target/near/{paron_core,test_usdc}
+npm --prefix agents run testnet:deploy              # faucet accounts, deploy, fund, guardrails, Function Call keys
+npm --prefix agents run testnet:scenario -- supply  # then: hedge, spike, modeb, ghost, status
+```
+
+Keys are generated locally and stored only in the near-cli keystore (`~/.near-credentials/testnet/`). The repository
+contains public keys and transaction hashes, never secrets. **Honest scope of the testnet run:**
+
+* **OutLayer signer.** Attestations and SLA receipts are signed by the TypeScript mirror of the worker, which has
+  byte-for-byte golden-vector parity with the Rust crate. Its key is a random secret seed held by the operator. Moving to
+  the enclave means deploying `tee-worker/outlayer-cri-oracle` (`npm run build:oracle-wasm`) to OutLayer and rotating the
+  key with `set_tee_signer_pubkey` (owner, 1 yocto). The job logs it measures are synthetic workloads.
+* **Mode A cash settlement.** It is only possible after `CU-2026-11` matures (2026-11-30T23:59:59Z), against a
+  post-maturity attestation: `npm --prefix agents run testnet:scenario -- settle`.
+* **NEAR Intents 1Click.** It settles on mainnet only. The live API accepted Paron's exact quote request,
+  including `customRecipientMsg` routing to `ft_on_transfer` ([`deployments/1click-live-dry-quote.json`](deployments/1click-live-dry-quote.json)).
+  On testnet the agents are funded natively with test USDC instead.
 
 ---
 
@@ -198,11 +253,11 @@ signing payloads (EIP-1559 ERC-20 transfer, Solana `SystemProgram::Transfer` mes
 
 | Integration | Zero-config local mode (verified here) | Live mode (set in `.env`, see `.env.example`) |
 | --- | --- | --- |
-| NEAR | `LocalNearRuntime`: Ed25519-signed txs, nearcore Function Call key rules, atomic rollback, NEP-141 `ft_transfer_call`; `ParonLocalContract` mirrors the Rust contract (parity-tested) | `NEAR_ACCOUNT_ID` + `NEAR_PRIVATE_KEY` + `PARON_CONTRACT_ID` → `npm --prefix agents run agent:live -- cfo [--execute]` via near-api-js v7 |
-| NEAR Intents | deterministic 1Click-shaped quotes (`simulated: true`) | `ONE_CLICK_JWT` → `POST /v0/quote`, `/v0/deposit/submit`, `GET /v0/status` |
+| NEAR | `LocalNearRuntime`: Ed25519-signed txs, nearcore Function Call key rules, atomic rollback, NEP-141 `ft_transfer_call`; `ParonLocalContract` mirrors the Rust contract (parity-tested) | **Deployed and exercised on testnet** (see above): `testnet:deploy` / `testnet:scenario`, or one agent with `NEAR_ACCOUNT_ID` + `NEAR_PRIVATE_KEY` + `PARON_CONTRACT_ID` → `npm --prefix agents run agent:live -- cfo [--execute]` (near-api-js v7) |
+| NEAR Intents | deterministic 1Click-shaped quotes (`simulated: true`) | `ONE_CLICK_LIVE=1` or `ONE_CLICK_JWT` → `POST /v0/quote`, `/v0/deposit/submit`, `GET /v0/status`; live dry quote verified (mainnet only) |
 | OutLayer | TS mirror of the Rust worker with the public local-dev enclave key (golden-vector parity) | `OUTLAYER_API_URL` + `OUTLAYER_API_KEY` → the deployed `wasm32-wasip2` worker |
 | Chain Signatures | derivation + payloads computed locally from the published MPC root keys | the `sign` request is submitted to `v1.signer-prod.testnet` by a full-access key |
-| Wallet (web) | zero-wallet judge mode | `NEXT_PUBLIC_PARON_CONTRACT_ID` → sign `place_bid`, `open_short_supply`, USDC deposits and `AddKey` delegation with **@hot-labs/near-connect** |
+| Wallet (web) | zero-wallet judge mode | defaults to the testnet deployment (override with `NEXT_PUBLIC_PARON_CONTRACT_ID`, `""` disables) → test-USDC faucet, deposits, `place_bid`, `open_short_supply` and `AddKey` delegation with **@hot-labs/near-connect** |
 
 ### Build & deploy (optional)
 
@@ -213,9 +268,10 @@ npm run oracle:demo         # native worker: prints every attestation used by th
 cargo run -q --manifest-path tee-worker/outlayer-cri-oracle/Cargo.toml -- --mode pubkey   # enclave signer key
 ```
 
-Initialise the contract with `new(owner_id, tee_signer_pubkey, usdc_token_id)` (e.g. with near-cli-rs), fund the
-genesis credit with `usdc.ft_transfer_call(paron, amount, '{"action":"fund_genesis"}')`, register agent guardrails,
-then point the agents and the web app at it.
+`npm --prefix agents run testnet:deploy` automates the whole sequence on testnet (see *Live on NEAR testnet*): it calls
+`new(owner_id, tee_signer_pubkey, usdc_token_id)`, funds the genesis credit with
+`usdc.ft_transfer_call(paron, amount, '{"action":"fund_genesis"}')`, registers agent guardrails and installs the agents'
+Function Call keys. For mainnet, point `usdc_token_id` at native USDC and use the enclave-derived OutLayer key.
 
 ## Contract API (selected)
 
@@ -230,9 +286,10 @@ then point the agents and the web app at it.
 ## Security notes & known limitations
 
 * Local mode encodes transactions as canonical JSON (not Borsh) and models the parts of the NEAR runtime agents rely on; it is a deterministic harness, not nearcore.
-* Live 1Click, OutLayer and NEAR RPC paths are implemented against the official SDK/API shapes but were not exercised against the live services from the build environment (outbound access to those hosts was blocked); 1Click itself operates on mainnet assets.
+* The NEAR path is exercised live on testnet. The 1Click client was verified with a live dry quote, but 1Click settles on mainnet only, so testnet funding uses test USDC. The OutLayer HTTP path (`OutlayerHttpOracle`) has not been run against a deployed OutLayer project yet; on testnet the operator-held signer stands in for the enclave key.
 * MPC signatures cannot be produced offline: the swarm records the exact `sign` request and payload instead.
-* The plain `cargo build` wasm is a compile/size check; deploy with `cargo-near`.
+* The plain `cargo build` wasm is a compile/size check; deploy with `cargo-near` (`npm run build:contract` uses it when installed).
+* `test-usdc` auto-registers storage for minted accounts at its own expense; it is a testnet faucet token, not a production asset.
 * Storage staking (NEP-145) is not implemented; growth is bounded by order/vault caps and minimum sizes.
 * As with any oracle-settled market, a signed attestation can be front-run between signing and inclusion; frequent attestations, the ±5% band and the 100% circuit breaker bound the impact.
 
