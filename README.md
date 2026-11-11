@@ -58,7 +58,7 @@ The web terminal shows the same state live, read straight from RPC (`GET /api/te
 | CFO / LP / consumer agents | `cfo.` / `mm.` / `consumer.swarm-mwbjvxck.testnet` | each signs with its own Function Call key that cannot attach a deposit |
 | Compute provider | `batam-mwbjvxck.testnet` | pre-sells capacity with 25% margin, acknowledges Mode B jobs |
 
-What happened on-chain (selected; 30 deploy and 24 swarm transactions in total):
+What happened on-chain (selected; 30 deploy and 28 swarm transactions in total):
 
 | Step | Transaction |
 | --- | --- |
@@ -74,13 +74,17 @@ What happened on-chain (selected; 30 deploy and 24 swarm transactions in total):
 | LP agent's own daily spend cap rejects its next quote (5,000 USDC/day guardrail) | [`Gu7JG5pB…`](https://testnet.nearblocks.io/txns/Gu7JG5pB9UVQ8c74hvwE5Gs7zoxoBL2hquVYS53yuZUR) |
 | Mode B job #1 delivered: TDX receipt, 180 ms TTFT, provider paid | [`3gbRxXLm…`](https://testnet.nearblocks.io/txns/3gbRxXLm2usJ7XrF7rTg9D23gS9BDFRbmK6Xzg7ivZe1) |
 | Mode B job #2 throttled: receipt says `sla_met=false`, so the provider is slashed automatically (100% refund + 15%) | [`8aNjZJ9w…`](https://testnet.nearblocks.io/txns/8aNjZJ9w76cN6jkQKsEKKJT3dgZbMDy74AVaYiK82zcH) |
+| Mode B job #3 ghosted: after the 15-minute ack window anyone can slash it (`claim_sla_breach_slash`) | [`HxU7xYjq…`](https://testnet.nearblocks.io/txns/HxU7xYjqbhocJT6NWaw3kXedLfgkDBJZWB2nRX73UYcN) |
+| Guardrail drill: the CFO bids +4% over the TWAP, which is rejected by the slippage band | [`Cfa53HC7…`](https://testnet.nearblocks.io/txns/Cfa53HC73c8cQkaECBnSCioj3YnBFY2pWComcYXyTnEQ) |
+| Guardrail drill: the consumer tries a series outside its allowlist and is rejected | [`vCJM3k6E…`](https://testnet.nearblocks.io/txns/vCJM3k6EuedW8pgDvsKExPx3tgAvXJWAj4ApsaFPcfK) |
+| Guardrail drill: the CFO tries to exceed its 2,500 USDC daily cap and is rejected | [`3QeCFf9Y…`](https://testnet.nearblocks.io/txns/3QeCFf9YiPLPj1sCDGeQSQ1WBLsWa9Pm1RQBHJTs86Mn) |
 
 Reproduce on your own accounts:
 
 ```bash
 npm run build:contract                              # cargo near build → target/near/{paron_core,test_usdc}
 npm --prefix agents run testnet:deploy              # faucet accounts, deploy, fund, guardrails, Function Call keys
-npm --prefix agents run testnet:scenario -- supply  # then: hedge, spike, modeb, ghost, status
+npm --prefix agents run testnet:scenario -- supply  # then: hedge, spike, modeb, ghost, drill, status
 ```
 
 Keys are generated locally and stored only in the near-cli keystore (`~/.near-credentials/testnet/`). The repository

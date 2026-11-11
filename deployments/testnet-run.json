@@ -1,6 +1,6 @@
 {
   "contract": "market.paron-mwbjvxck.testnet",
-  "updated_at": "2026-11-11T03:31:53.334Z",
+  "updated_at": "2026-11-11T03:47:29.365Z",
   "phases": {
     "supply": {
       "started_at": "2026-11-11T03:29:42.090Z",
@@ -1718,7 +1718,107 @@
     },
     "ghost": {
       "started_at": "2026-11-11T03:31:53.334Z",
-      "events": []
+      "events": [
+        {
+          "seq": 0,
+          "act": 0,
+          "t": 1794368833394,
+          "actor": "Compute-Consumer-Agent",
+          "kind": "redemption",
+          "method": "claim_sla_breach_slash",
+          "ok": true,
+          "txHash": "HxU7xYjqbhocJT6NWaw3kXedLfgkDBJZWB2nRX73UYcN",
+          "keyKind": "FunctionCall",
+          "title": "Provider missed the deadline on request #3 → SlashedForSlaBreach(ack_deadline_missed, payout $33.92)",
+          "detail": "permissionless deterministic slash: 100% strike refund + 15% penalty from provider margin",
+          "data": {
+            "request_id": 3,
+            "series_id": "CU-2026-12",
+            "agent_id": "consumer.swarm-mwbjvxck.testnet",
+            "provider_id": "batam-mwbjvxck.testnet",
+            "vault_id": 5,
+            "cu_amount_scaled": "100000",
+            "strike_payment_micros": "29500000",
+            "provider_collateral_micros": "7375000",
+            "agent_cost_basis_micros": "29500000",
+            "requested_at_ms": 1794367900649,
+            "ack_deadline_ms": 1794368800649,
+            "delivery_deadline_ms": 1794382300649,
+            "state": {
+              "SlashedForSlaBreach": {
+                "slashed_at_ms": 1794368832582,
+                "reason": "ack_deadline_missed",
+                "payout_micros": "33925000"
+              }
+            },
+            "history": [
+              {
+                "Requested": {
+                  "requested_at_ms": 1794367900649,
+                  "ack_deadline_ms": 1794368800649
+                }
+              },
+              {
+                "SlashedForSlaBreach": {
+                  "slashed_at_ms": 1794368832582,
+                  "reason": "ack_deadline_missed",
+                  "payout_micros": "33925000"
+                }
+              }
+            ]
+          },
+          "url": "https://testnet.nearblocks.io/txns/HxU7xYjqbhocJT6NWaw3kXedLfgkDBJZWB2nRX73UYcN"
+        }
+      ],
+      "finished_at": "2026-11-11T03:47:13.394Z"
+    },
+    "drill": {
+      "started_at": "2026-11-11T03:47:22.523Z",
+      "events": [
+        {
+          "seq": 0,
+          "act": 0,
+          "t": 1794368845412,
+          "kind": "guardrail",
+          "method": "agent_buy_forward",
+          "ok": false,
+          "txHash": "Cfa53HC73c8cQkaECBnSCioj3YnBFY2pWComcYXyTnEQ",
+          "keyKind": "FunctionCall",
+          "title": "On-chain guardrail rejected: buy 10 CU of CU-2026-11 at $4.2640 (+4% over the attested TWAP)",
+          "detail": "slippage guard: max price 4264000 exceeds TWAP band ceiling 4161500",
+          "actor": "CFO-Hedging-Agent",
+          "url": "https://testnet.nearblocks.io/txns/Cfa53HC73c8cQkaECBnSCioj3YnBFY2pWComcYXyTnEQ"
+        },
+        {
+          "seq": 1,
+          "act": 0,
+          "t": 1794368847413,
+          "kind": "guardrail",
+          "method": "agent_buy_forward",
+          "ok": false,
+          "txHash": "vCJM3k6EuedW8pgDvsKExPx3tgAvXJWAj4ApsaFPcfK",
+          "keyKind": "FunctionCall",
+          "title": "On-chain guardrail rejected: buy CU-2026-11 (series outside its allowlist)",
+          "detail": "series not allowed by agent policy",
+          "actor": "Compute-Consumer-Agent",
+          "url": "https://testnet.nearblocks.io/txns/vCJM3k6EuedW8pgDvsKExPx3tgAvXJWAj4ApsaFPcfK"
+        },
+        {
+          "seq": 2,
+          "act": 0,
+          "t": 1794368849365,
+          "kind": "guardrail",
+          "method": "agent_buy_forward",
+          "ok": false,
+          "txHash": "3QeCFf9YiPLPj1sCDGeQSQ1WBLsWa9Pm1RQBHJTs86Mn",
+          "keyKind": "FunctionCall",
+          "title": "On-chain guardrail rejected: buy 900 CU of CU-2026-12 (above the 2,500 USDC daily cap)",
+          "detail": "daily spend cap exceeded: 1404100000 + 1452040000 > 2500000000",
+          "actor": "CFO-Hedging-Agent",
+          "url": "https://testnet.nearblocks.io/txns/3QeCFf9YiPLPj1sCDGeQSQ1WBLsWa9Pm1RQBHJTs86Mn"
+        }
+      ],
+      "finished_at": "2026-11-11T03:47:29.365Z"
     }
   },
   "redemptions": {
