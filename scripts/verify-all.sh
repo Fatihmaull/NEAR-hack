@@ -41,6 +41,7 @@ fi
 
 gate_contract() {
   cargo test --manifest-path contracts/paron-core/Cargo.toml
+  cargo test --manifest-path contracts/test-usdc/Cargo.toml
 }
 
 gate_oracle() {
@@ -59,7 +60,7 @@ gate_web() {
 }
 
 TOTAL_START=$SECONDS
-run_gate 1 "Rust smart contract suite (contracts/paron-core)" gate_contract
+run_gate 1 "Rust smart contract suites (contracts/paron-core, contracts/test-usdc)" gate_contract
 run_gate 2 "OutLayer TEE oracle worker (tee-worker/outlayer-cri-oracle)" gate_oracle
 run_gate 3 "Autonomous agent swarm end-to-end (agents/)" gate_agents
 run_gate 4 "Next.js 15 production typecheck & build (web/)" gate_web

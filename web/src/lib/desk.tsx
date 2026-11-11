@@ -30,6 +30,7 @@ interface DeskContextValue {
   events: SwarmEvent[];
   toast: Toast | null;
   dismissToast: () => void;
+  notify: (toast: Toast) => void;
   run: <T>(label: string, fn: (sim: SwarmSimulation, judge: LocalParonClient) => Promise<T>, describe?: (result: T) => Toast) => Promise<T | undefined>;
 }
 
@@ -98,6 +99,7 @@ export function DeskProvider({ children }: { children: ReactNode }) {
     events,
     toast,
     dismissToast: () => setToast(null),
+    notify: setToast,
     run,
   };
   return <DeskContext.Provider value={value}>{children}</DeskContext.Provider>;

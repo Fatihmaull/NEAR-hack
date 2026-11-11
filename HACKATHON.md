@@ -8,7 +8,8 @@ TEE-attested index (Mode A) or are redeemed as TEE-measured compute with automat
 | --- | --- |
 | Tracks | **07 · Agent Economy (primary)** · 01 · Unstoppable DeFi · 05 · AI Swarms · 03 · Privacy & Private AI |
 | Verify | `npm run verify:all` — 4 gates, zero configuration, ~30 s warm |
-| Demo | `npm run demo:swarm` (CLI) · `npm run dev` → `/tour` (60-second coded tour, no wallet) |
+| Live | **NEAR testnet**: `paron-core` at [`market.paron-mwbjvxck.testnet`](https://testnet.nearblocks.io/address/market.paron-mwbjvxck.testnet). The swarm ran on-chain (README → *Live on NEAR testnet*) |
+| Demo | `npm run demo:swarm` (CLI) · `npm run dev` → `/tour` (60-second coded tour, no wallet) · terminal panel *Live on NEAR testnet* |
 | Stack | Rust `near-sdk` 5.30 · OutLayer SDK 0.2 (`wasm32-wasip2`) · TypeScript · near-api-js 7 · NEAR Intents 1Click · Chain Signatures · Next.js 15 · Tailwind · `@hot-labs/near-connect` |
 | Provenance | Every file in this repository was authored for this hackathon on a fresh git history. |
 
@@ -22,6 +23,8 @@ TEE-attested index (Mode A) or are redeemed as TEE-measured compute with automat
 3. `tee-worker/outlayer-cri-oracle/src/lib.rs` — the oracle/SLA algorithm; `tests/oracle_tests.rs`.
 4. `agents/src/swarm.ts` — the 5 acts; `agents/src/engine/` — the parity-tested contract mirror and signed runtime.
 5. `web/src/app/tour/page.tsx` and `web/src/components/*` — every button calls the engine (no mocked state).
+6. `deployments/testnet.json` + `deployments/testnet-run.json`: the testnet deployment and the live swarm run. Every
+   entry links to a transaction; `agents/src/testnet/{deploy,scenario}.ts` produced them.
 
 ### Claims → evidence
 
@@ -44,6 +47,9 @@ TEE-attested index (Mode A) or are redeemed as TEE-measured compute with automat
 | TS oracle reproduces the Rust worker byte-for-byte | `shared/golden-vectors.json` checked by `cargo test` (worker) and `agents/test/oracle-parity.test.ts` |
 | Chain Signatures derivation matches the official library | `agents/test/runtime-and-crosschain.test.ts` vectors produced with `chainsig.js` 1.1.16 |
 | Receipts are deterministic and tamper-evident | `agents/test/swarm.test.ts`; `npm run verify:receipt` |
+| The protocol runs on a real NEAR network, not only in a simulator | `deployments/testnet.json` (code hash = base58(sha256(wasm))); live run in `deployments/testnet-run.json`; `GET /api/testnet` reads the deployed contract |
+| Guardrails and Function Call keys hold on-chain | testnet: slippage, series-allowlist and daily-cap rejections (each a failed tx on nearblocks), and the FC key refusing a 1-yocto `withdraw_usdc` (`DepositWithFunctionCall`), all in `testnet-run.json` |
+| The 1Click client speaks the real API | `deployments/1click-live-dry-quote.json`: a live, 1Click-signed dry quote for Paron's exact request, including `customRecipientMsg` |
 
 ---
 

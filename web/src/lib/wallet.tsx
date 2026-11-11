@@ -3,14 +3,16 @@
 /**
  * NEAR wallet via @hot-labs/near-connect (manifest-based connector recommended by the NEAR hackathon
  * guide). Loaded lazily in the browser only. Live transactions are enabled when
- * NEXT_PUBLIC_PARON_CONTRACT_ID points at a deployed paron-core; otherwise the terminal stays in
- * zero-wallet local mode.
+ * a paron-core deployment is configured (by default the public testnet deployment); the judge desk itself
+ * always runs on the zero-wallet deterministic local runtime.
  */
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { TESTNET_DEPLOYMENT } from "@paron/agents/testnet";
 
 export const NEAR_NETWORK = (process.env.NEXT_PUBLIC_NEAR_NETWORK === "mainnet" ? "mainnet" : "testnet") as "mainnet" | "testnet";
-export const PARON_CONTRACT_ID = process.env.NEXT_PUBLIC_PARON_CONTRACT_ID ?? "";
-export const USDC_TOKEN_ID = process.env.NEXT_PUBLIC_USDC_TOKEN_ID ?? "usdc.fakes.testnet";
+/** Defaults to the public testnet deployment in deployments/testnet.json; set the env var to "" to disable. */
+export const PARON_CONTRACT_ID = process.env.NEXT_PUBLIC_PARON_CONTRACT_ID ?? (NEAR_NETWORK === "testnet" ? TESTNET_DEPLOYMENT.accounts.contract : "");
+export const USDC_TOKEN_ID = process.env.NEXT_PUBLIC_USDC_TOKEN_ID ?? TESTNET_DEPLOYMENT.accounts.usdc_token;
 
 export type ConnectorAction =
   | { type: "FunctionCall"; params: { methodName: string; args: object; gas: string; deposit: string } }
