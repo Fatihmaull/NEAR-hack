@@ -1,42 +1,59 @@
 import type { Config } from "tailwindcss";
 
+/**
+ * Paron design tokens (see DESIGN.md). One accent (primary) for actions and the forward-curve line;
+ * up/down/warn are semantic text colours only. Every text pair meets WCAG AA (checked with the
+ * antislop contrast checker): body 6.2:1, muted 5.0:1, primary 6.0:1, up 5.4:1, down 5.7:1, warn 5.9:1.
+ */
 export default {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        ink: {
-          950: "#04060a",
-          900: "#080b11",
-          850: "#0b0f17",
-          800: "#0f141e",
-          700: "#151c29",
-          600: "#1d2636",
-          500: "#2a3549",
-          400: "#3a475e",
-        },
-        fg: { DEFAULT: "#e6ebf2", muted: "#98a3b6", dim: "#5f6b80" },
-        near: { DEFAULT: "#2ee6a6", deep: "#0fb57f" },
-        tee: "#4cc3ff",
-        intents: "#a78bfa",
-        warn: "#f5b84a",
-        danger: "#ff5d73",
+        canvas: "#FFFFFF",
+        soft: "#F5F6F8",
+        strong: "#EEF0F3",
+        hairline: { DEFAULT: "#DEE1E6", strong: "#8C929C" },
+        ink: "#0A0B0D",
+        body: "#5B616E",
+        muted: "#6B7079",
+        primary: { DEFAULT: "#1652F0", hover: "#0F41C7", soft: "#EEF3FF" },
+        up: { DEFAULT: "#047A4A", soft: "#E8F5EE" },
+        down: { DEFAULT: "#C8202F", soft: "#FCECEE" },
+        warn: { DEFAULT: "#8A5A00", soft: "#FFF5E0" },
+        night: { DEFAULT: "#0A0B0D", raised: "#16181C", line: "#2A2D33", text: "#FFFFFF", soft: "#A8ACB3", muted: "#8B919C", accent: "#7FA4FF", up: "#4ADE80", down: "#F87171" },
       },
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
-        mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "Liberation Mono", "monospace"],
+        sans: ["'Inter Variable'", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif"],
+        mono: ["'JetBrains Mono Variable'", "ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
+      },
+      fontSize: {
+        "display-xl": ["4rem", { lineHeight: "1.02", letterSpacing: "-0.025em", fontWeight: "400" }],
+        "display-lg": ["3.25rem", { lineHeight: "1.04", letterSpacing: "-0.024em", fontWeight: "400" }],
+        "display-md": ["2.5rem", { lineHeight: "1.1", letterSpacing: "-0.022em", fontWeight: "400" }],
+        "display-sm": ["2rem", { lineHeight: "1.13", letterSpacing: "-0.015em", fontWeight: "400" }],
+      },
+      borderRadius: {
+        card: "24px",
+        panel: "16px",
+        field: "12px",
       },
       boxShadow: {
-        panel: "0 0 0 1px rgba(255,255,255,0.02), 0 12px 40px -16px rgba(0,0,0,0.65)",
-        glow: "0 0 0 1px rgba(46,230,166,0.35), 0 0 32px -8px rgba(46,230,166,0.45)",
+        lift: "0 4px 12px rgba(10, 11, 13, 0.06)",
+        sheet: "0 24px 48px -12px rgba(10, 11, 13, 0.28)",
+      },
+      transitionTimingFunction: {
+        "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
       },
       keyframes: {
-        "fade-in": { from: { opacity: "0", transform: "translateY(4px)" }, to: { opacity: "1", transform: "translateY(0)" } },
-        pulseDot: { "0%,100%": { opacity: "1" }, "50%": { opacity: "0.35" } },
+        "sheet-in": { from: { opacity: "0", transform: "translateY(8px) scale(0.985)" }, to: { opacity: "1", transform: "none" } },
+        "fade": { from: { opacity: "0" }, to: { opacity: "1" } },
+        "slide-in-left": { from: { transform: "translateX(-100%)" }, to: { transform: "none" } },
       },
       animation: {
-        "fade-in": "fade-in 0.35s ease-out both",
-        "pulse-dot": "pulseDot 1.6s ease-in-out infinite",
+        "sheet-in": "sheet-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) both",
+        fade: "fade 0.2s ease-out both",
+        "slide-in-left": "slide-in-left 0.28s cubic-bezier(0.16, 1, 0.3, 1) both",
       },
     },
   },

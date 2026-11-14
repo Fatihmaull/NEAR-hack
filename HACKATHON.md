@@ -7,11 +7,11 @@ TEE-attested index (Mode A) or are redeemed as TEE-measured compute with automat
 | | |
 | --- | --- |
 | Tracks | **07 · Agent Economy (`agents`, primary)** · 01 · Unstoppable DeFi (`defi`) · 06 · AI Security & Defense (`security`) · 05 · AI Swarms (`swarms`) · 03 · Privacy & Private AI (`privacy`) |
-| Demo video | [`docs/media/paron-demo.mp4`](docs/media/paron-demo.mp4) (101 s, recorded from the app) |
+| Demo video | [`docs/media/paron-demo.mp4`](docs/media/paron-demo.mp4) (106 s, recorded from the app) |
 | Verify | `npm run verify:all` — 4 gates, zero configuration, ~30 s warm |
 | Live | **NEAR testnet**: `paron-core` at [`market.paron-mwbjvxck.testnet`](https://testnet.nearblocks.io/address/market.paron-mwbjvxck.testnet). The swarm ran on-chain (README → *Live on NEAR testnet*) |
-| Hosted demo | https://paron-near.vercel.app (tour: `/tour`, live testnet state: `/api/testnet`) |
-| Demo | `npm run demo:swarm` (CLI) · `npm run dev` → `/tour` (60-second coded tour, no wallet) · terminal panel *Live on NEAR testnet* |
+| Hosted app | https://paron-near.vercel.app (landing `/`, dashboard `/dashboard`, guided demo `/demo`, live testnet state `/dashboard/testnet`) |
+| Demo | `npm run demo:swarm` (CLI) · `npm run dev` → `/demo` (60-second guided demo, no wallet) · `/dashboard/testnet` |
 | Stack | Rust `near-sdk` 5.30 · OutLayer SDK 0.2 (`wasm32-wasip2`) · TypeScript · near-api-js 7 · NEAR Intents 1Click · Chain Signatures · Next.js 15 · Tailwind · `@hot-labs/near-connect` |
 | Provenance | Every file in this repository was authored for this hackathon on a fresh git history. |
 
@@ -24,7 +24,7 @@ TEE-attested index (Mode A) or are redeemed as TEE-measured compute with automat
    → `orderbook.rs` → `settlement.rs` → `guardrails.rs` → `nep245.rs` → `lib.rs`; then `src/tests.rs`.
 3. `tee-worker/outlayer-cri-oracle/src/lib.rs` — the oracle/SLA algorithm; `tests/oracle_tests.rs`.
 4. `agents/src/swarm.ts` — the 5 acts; `agents/src/engine/` — the parity-tested contract mirror and signed runtime.
-5. `web/src/app/tour/page.tsx` and `web/src/components/*` — every button calls the engine (no mocked state).
+5. `web/src/components/demo/DemoTour.tsx` and `web/src/components/app/views/*`: every button calls the engine (no mocked state).
 6. `deployments/testnet.json` + `deployments/testnet-run.json`: the testnet deployment and the live swarm run. Every
    entry links to a transaction; `agents/src/testnet/{deploy,scenario}.ts` produced them.
 
@@ -77,7 +77,7 @@ competing with NEAR AI Cloud — it is the hedging and procurement desk *above* 
 * Genesis depth exists from block one, but withdrawals stay locked until its credit is repaid in real USDC.
 * Every attestation purges quotes more than 5% through the new index, protecting slow makers and the genesis book.
 
-**Demo script (60 s).** Open `/tour`, press *Run*: (1) agents bridge Base USDC and SOL into Paron via 1Click;
+**Demo script (60 s).** Open `/demo`, press *Play the demo*: (1) agents bridge Base USDC and SOL into Paron via 1Click;
 (2) the enclave rejects a spoofed feed, a Batam provider pre-sells with 25% margin; (3) the CFO agent hedges 500 CU,
 the chain rejects its over-eager price and a hijacked withdrawal; (4) the index spikes $2.80 → $4.10, a vault is
 liquidated, the CFO receives $2,050 (ΔV +$645.90); (5) one job is delivered, a throttled one and a ghosted one are
@@ -91,7 +91,7 @@ slashed. Download the receipt and run `npm run verify:receipt`.
 * Three autonomous agents with distinct mandates, each holding only a scoped **Function Call key** and bounded by an
   on-chain **AgentGuardrailPolicy** (`agents/src/*-agent.ts`, `guardrails.rs`).
 * Agents fund themselves cross-chain, hedge, quote, liquidate, redeem compute and enforce SLAs without a human click.
-* Live mode: `npm --prefix agents run agent:live -- cfo --execute`; the web terminal can delegate a Function Call key
+* Live mode: `npm --prefix agents run agent:live -- cfo --execute`; the dashboard's Agents page can delegate a Function Call key
   from a NEAR Connect wallet (`AddKey`) to an agent process.
 
 ### 01 · Unstoppable DeFi

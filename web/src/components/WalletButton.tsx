@@ -3,21 +3,30 @@
 import { LogOut, Wallet } from "lucide-react";
 import { NEAR_NETWORK, useWallet } from "@/lib/wallet";
 
+/** NEAR Connect wallet entry. Optional: the desk works without it; a wallet adds live testnet signing. */
 export function WalletButton() {
   const { accountId, connecting, connect, disconnect, error } = useWallet();
   if (accountId)
     return (
-      <div className="flex items-center gap-2">
-        <span className="hidden rounded-lg border border-near/40 bg-near/10 px-2.5 py-1.5 font-mono text-xs text-near sm:inline">{accountId}</span>
-        <button type="button" className="btn-ghost px-2 py-1.5" onClick={() => disconnect()} title="Sign out">
-          <LogOut className="h-4 w-4" />
+      <div className="flex items-center gap-2 rounded-field border border-hairline bg-canvas py-1 pl-3 pr-1">
+        <div className="min-w-0 flex-1">
+          <p className="text-[12px] text-body">NEAR {NEAR_NETWORK} wallet</p>
+          <p className="truncate font-mono text-[12.5px] text-ink" title={accountId}>
+            {accountId}
+          </p>
+        </div>
+        <button type="button" className="grid h-10 w-10 place-items-center rounded-field text-body hover:bg-strong hover:text-ink" onClick={() => disconnect()} aria-label="Disconnect wallet">
+          <LogOut className="h-4 w-4" aria-hidden />
         </button>
       </div>
     );
   return (
-    <button type="button" className="btn-ghost py-1.5" onClick={() => connect()} disabled={connecting} title={error ?? `Connect a NEAR ${NEAR_NETWORK} wallet via NEAR Connect`}>
-      <Wallet className="h-4 w-4" />
-      {connecting ? "Connecting…" : `Connect ${NEAR_NETWORK}`}
-    </button>
+    <div>
+      <button type="button" className="btn-outline btn-sm w-full" onClick={() => connect()} disabled={connecting}>
+        <Wallet className="h-4 w-4" aria-hidden />
+        {connecting ? "Opening wallet…" : `Connect ${NEAR_NETWORK} wallet`}
+      </button>
+      {error ? <p className="mt-1.5 text-[12px] text-down">{error}</p> : null}
+    </div>
   );
 }

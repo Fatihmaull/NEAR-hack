@@ -40,7 +40,7 @@ Agents: a CFO agent hedges its runway from a VaR model, an LP agent quotes and l
 
 How NEAR fits: Function Call keys make "can trade, cannot withdraw" a protocol rule. OutLayer turns the delivery oracle into cryptography. Intents and Chain Signatures give one-hop cross-chain funding, and NEP-245 gives one contract many fungible maturities.
 
-Proof: deployed on NEAR testnet (market.paron-mwbjvxck.testnet) with 58 real transactions, among them attestations, guardrail rejections, a keeper liquidation and SLA slashes. `npm run verify:all` runs 4 gates with zero config; /tour replays the 5-act swarm in 60 seconds.
+Proof: deployed on NEAR testnet (market.paron-mwbjvxck.testnet) with 58 real transactions, among them attestations, guardrail rejections, a keeper liquidation and SLA slashes. `npm run verify:all` runs 4 gates with zero config; /demo replays the 5-step agent run in 60 seconds.
 
 ## X demo post (attach `docs/media/paron-demo.mp4`)
 
@@ -71,20 +71,20 @@ Proof: deployed on NEAR testnet (market.paron-mwbjvxck.testnet) with 58 real tra
 
 **How to test (for judges)**
 1. `npm run verify:all`: expect `ALL 4 VERIFICATION GATES PASSED`.
-2. `npm run dev` → http://localhost:3000/tour → *Run*.
-3. Open the *Live on NEAR testnet* panel on `/`, or the nearblocks links in the README.
+2. https://paron-near.vercel.app/demo (or `npm run dev` → http://localhost:3000/demo) → *Play the demo*.
+3. Open `/dashboard/testnet`, or the nearblocks links in the README.
 
 ## Demo video script (≈ 2:30)
 
 | Time | Screen | Voice-over |
 | --- | --- | --- |
 | 0:00 | Title card, then the terminal | "AI agents pay for inference with fixed budgets, but GPU prices can double overnight. Paron is a forward market where agents lock in compute cost on NEAR." |
-| 0:15 | `/tour` → *Run*, act 1 | "Agents fund themselves from Base and Solana through NEAR Intents and Chain Signatures. The treasury gives each agent a Function Call key and an on-chain guardrail." |
+| 0:15 | `/demo` → *Play the demo*, step 1 | "Agents fund themselves from Base and Solana through NEAR Intents and Chain Signatures. The treasury gives each agent a Function Call key and an on-chain guardrail." |
 | 0:35 | Act 2, the TEE attestation card | "The OutLayer enclave computes the GPU price index. It rejects a spoofed feed at 500 sigma and signs the result, and the contract verifies that signature. A Batam data center pre-sells capacity with just 25% margin." |
 | 0:55 | Act 3 | "The CFO agent's VaR model says hedge. It proposes too high a price and the chain rejects it. It re-plans inside the band and fills. A prompt-injected withdrawal is blocked by the Function Call key itself." |
 | 1:15 | Act 4 | "The index spikes from $2.80 to $4.10. A short vault falls under 15% maintenance, the LP agent liquidates and re-hedges it, and at maturity the CFO receives $2,050 for a cost of $1,404." |
 | 1:35 | Act 5 | "Mode B: agents redeem forwards for real jobs. The enclave measures every job. A throttled job and a ghosted job are slashed automatically: 100% refund plus 15%." |
-| 1:55 | `/` → *Live on NEAR testnet* panel, click 2–3 nearblocks links | "This isn't only a simulation. The same agents ran against the contract deployed on NEAR testnet, and every line here is a real transaction: attestations, the guardrail rejection, the liquidation and the SLA slash." |
+| 1:55 | `/dashboard/testnet`, click 2–3 nearblocks links | "This isn't only a simulation. The same agents ran against the contract deployed on NEAR testnet, and every line here is a real transaction: attestations, the guardrail rejection, the liquidation and the SLA slash." |
 | 2:15 | Terminal running `npm run verify:all` | "One command verifies everything: contract, enclave worker, agent swarm and web build. Paron: runway hedging for the agent economy, only on NEAR." |
 
 Recording tips: use 1440×900 or larger, dark theme, browser zoom 90%, and start `npm run dev` before recording.

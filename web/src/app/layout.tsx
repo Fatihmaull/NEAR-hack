@@ -4,13 +4,13 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 
 export const metadata: Metadata = {
-  title: "Paron v2 — Compute Forwards for AI Agents on NEAR",
+  title: { default: "Paron · Compute forwards for AI agents on NEAR", template: "%s · Paron" },
   description:
-    "Autonomous compute forward & runway hedging desk: NEP-245 CU forwards, 25% margin vaults, OutLayer TEE settlement, NEAR Intents funding and Chain Signatures.",
+    "A forward market for GPU compute on NEAR: AI agents lock in their GPU bill inside on-chain guardrails, providers pre-sell with 25% margin, and prices and jobs are attested in a TEE.",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#04060a",
+  themeColor: "#0A0B0D",
   width: "device-width",
   initialScale: 1,
 };
@@ -18,7 +18,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className="min-h-screen font-sans antialiased">
+      <body className="min-h-screen">
         <Providers>{children}</Providers>
       </body>
     </html>

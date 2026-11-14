@@ -25,3 +25,9 @@ agents/latest-swarm-receipt.json
 *.log
 .vscode/
 .idea/
+
+# Impeccable runtime captures (regenerated during reviews)
+web/.impeccable/review/
+web/.impeccable/questions/
+web/.impeccable/mocks/
+web/.impeccable/config.local.json

@@ -1,73 +1,168 @@
+@import "@fontsource-variable/inter/index.css";
+@import "@fontsource-variable/jetbrains-mono/index.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
-}
+@layer base {
+  :root {
+    color-scheme: light;
+    --focus: #1652f0;
+  }
 
-html,
-body {
-  background: #04060a;
-  color: #e6ebf2;
-}
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 88px;
+  }
 
-body {
-  background-image:
-    radial-gradient(1200px 600px at 10% -10%, rgba(46, 230, 166, 0.07), transparent 60%),
-    radial-gradient(900px 500px at 100% 0%, rgba(76, 195, 255, 0.06), transparent 55%);
-  background-attachment: fixed;
-  -webkit-font-smoothing: antialiased;
+  body {
+    @apply bg-canvas font-sans text-[15px] leading-relaxed text-ink antialiased;
+    font-feature-settings: "cv11", "ss01";
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: #d6e1ff;
+    color: #0a0b0d;
+  }
+
+  /* Every enabled control shows it can be used (antislop R-39). */
+  a[href],
+  button:not(:disabled),
+  summary,
+  select:not(:disabled),
+  label[for],
+  [role="button"],
+  [role="tab"],
+  [role="switch"],
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled),
+  input[type="range"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  select:disabled,
+  input:disabled {
+    cursor: not-allowed;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  .dark-band :focus-visible {
+    outline-color: #7fa4ff;
+  }
+
+  input[type="range"] {
+    accent-color: #1652f0;
+  }
+
+  input[type="checkbox"] {
+    accent-color: #1652f0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #d4d8de;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Touch devices: every control reaches the 44px minimum tap target (antislop R-03). */
+  @media (pointer: coarse) {
+    .btn-sm,
+    [role="radio"],
+    nav a,
+    footer a,
+    button[aria-label] {
+      min-height: 44px;
+    }
+    button[aria-label] {
+      min-width: 44px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer components {
-  .panel {
-    @apply rounded-xl border border-ink-600/80 bg-ink-900/85 shadow-panel backdrop-blur;
-  }
-  .panel-header {
-    @apply flex items-center justify-between gap-3 border-b border-ink-600/70 px-4 py-3;
-  }
-  .panel-title {
-    @apply flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.12em] text-fg;
-  }
   .num {
-    @apply font-mono tabular-nums;
+    @apply font-mono tabular-nums tracking-tight;
   }
-  .chip {
-    @apply inline-flex items-center gap-1 rounded-md border border-ink-500/70 bg-ink-800 px-1.5 py-0.5 font-mono text-[10.5px] text-fg-muted;
+
+  .container-page {
+    @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-8;
   }
+
+  /* Buttons: pill geometry for actions, per DESIGN.md. Minimum 44px tap target. */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-40;
+    @apply inline-flex min-h-[44px] select-none items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 text-[15px] font-semibold transition-colors duration-150 disabled:opacity-45;
+  }
+  .btn-sm {
+    @apply min-h-[36px] px-4 text-[14px];
   }
   .btn-primary {
-    @apply btn bg-near text-ink-950 hover:bg-near/90;
+    @apply btn bg-primary text-white hover:bg-primary-hover active:bg-[#0B33A0];
   }
-  .btn-ghost {
-    @apply btn border border-ink-500 bg-ink-800 text-fg hover:border-ink-400 hover:bg-ink-700;
+  .btn-secondary {
+    @apply btn bg-strong text-ink hover:bg-[#E2E5EA] active:bg-[#D6DAE0];
+  }
+  .btn-outline {
+    @apply btn border border-hairline bg-canvas text-ink hover:border-hairline-strong active:bg-soft;
   }
   .btn-danger {
-    @apply btn border border-danger/50 bg-danger/10 text-danger hover:bg-danger/20;
+    @apply btn border border-down/40 bg-canvas text-down hover:bg-down-soft active:bg-[#F8D9DD];
   }
-  .input {
-    @apply w-full rounded-lg border border-ink-500 bg-ink-850 px-3 py-2 font-mono text-sm text-fg outline-none transition focus:border-near/70 focus:ring-1 focus:ring-near/40;
+  .btn-on-dark {
+    @apply btn bg-white text-ink hover:bg-[#E6E8EC] active:bg-[#D6DAE0];
   }
-  .label {
-    @apply mb-1 block text-[11px] font-medium uppercase tracking-wider text-fg-dim;
+  .btn-outline-dark {
+    @apply btn border border-white/40 text-white hover:border-white hover:bg-white/5 active:bg-white/10;
   }
-}
 
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-thumb {
-  background: #1d2636;
-  border-radius: 8px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+  .field {
+    @apply block w-full min-h-[44px] rounded-field border border-hairline-strong bg-canvas px-3.5 text-[15px] text-ink outline-none transition-colors placeholder:text-muted hover:border-ink/60 focus:border-primary focus:ring-2 focus:ring-primary/20;
+  }
+  .field-label {
+    @apply mb-1.5 block text-[13px] font-medium text-body;
+  }
 
-input[type="range"] {
-  accent-color: #2ee6a6;
+  .link {
+    @apply font-medium text-primary underline decoration-primary/30 underline-offset-[3px] transition-colors hover:decoration-primary;
+  }
+
+  .panel {
+    @apply rounded-panel border border-hairline bg-canvas;
+  }
 }
