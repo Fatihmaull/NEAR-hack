@@ -32,12 +32,12 @@ ALL 4 VERIFICATION GATES PASSED  (31s total)
 
 ### See it in 60 seconds
 
-🌐 **Hosted demo:** https://paron-near.vercel.app (no wallet needed). The tour is at https://paron-near.vercel.app/tour.
-🎬 **Demo video (101 s):** [`docs/media/paron-demo.mp4`](docs/media/paron-demo.mp4)
+🌐 **Hosted app:** https://paron-near.vercel.app (no wallet needed). Landing at `/`, the dashboard at `/dashboard`, the guided demo at `/demo`.
+🎬 **Demo video (106 s):** [`docs/media/paron-demo.mp4`](docs/media/paron-demo.mp4)
 
 ```bash
 npm run demo:swarm   # CLI: 5 acts, 58 Ed25519-signed txs, 8 OutLayer attestations, audit receipt
-npm run dev          # http://localhost:3000/tour — the 60-second coded judge tour (no wallet needed)
+npm run dev          # http://localhost:3000/demo: the 60-second guided demo (no wallet needed)
 ```
 
 The tour runs the **same engine in your browser** and produces a receipt whose `receipt_sha256`
@@ -50,13 +50,14 @@ Open https://paron-near.vercel.app, or run `npm run dev` and open http://localho
 
 | Do | See |
 | --- | --- |
-| Open `/tour` and press **Run** | 5 acts play in about 60 s. The final panel shows a receipt hash `b0b1ce8f…22fa785` and offers **Download receipt** |
+| Open `/demo` and press **Play the demo** | 5 steps play in about 60 s. The final section shows the receipt hash `b0b1ce8f…22fa785`, four passed checks and **Download receipt** |
 | `npm run verify:receipt` | every signature and TDX quote hash in the receipt re-verifies (`✔`) |
-| On `/`, **Order Book Desk**: set a buy limit above the shown *Guardrail ceiling*, then sign | a red toast reads "Rejected on-chain", with the contract's `slippage guard` message |
-| Same panel: set a limit inside the ceiling and sign | a green toast "Bought … CU @ …" with the fill count, and the signed tx under *Latest signed order transactions* |
-| **OutLayer TEE Attestation** card: keep the manipulated feed on, press **+32%** | the toast reads "OutLayer TWAP … verified on-chain · purged N stale quotes · flagged M vaults". The feed table marks the spoofed feed as rejected, and the badge reads "quote hash + Ed25519 verified in-browser" |
-| **Settlement & Redemption**: press the happy, throttled and ghosted job buttons | the provider is paid; then "slashed — agent refunded 100% + 15%" twice |
-| **Live on NEAR testnet** panel (or the links below) | the same flows as real testnet transactions on nearblocks |
+| `/dashboard/trade`: set a max price above the shown *guardrail ceiling*, then press **Buy** | the field warns first. Then a toast reads "Rejected by the contract", with the ceiling in dollars and the signed tx |
+| Same page: set a price inside the ceiling and press **Buy** | a toast "Bought … CU at …" with the fill count, and the tx under *Latest signed orders* |
+| `/dashboard/oracle`: keep the manipulated feed on, press **+32%** | a toast "Index … verified on-chain" with the purged quotes and flagged vaults; the feed table marks the spoofed feed *Rejected*, and the badge reads "Signature verified in your browser" |
+| `/dashboard/settlement`: press the three Mode B job buttons | the provider is paid once; then "slashed, agent refunded 100% plus 15%" twice |
+| `/dashboard/testnet` (or the links below) | the same flows as real testnet transactions on nearblocks |
+| `/dashboard/audit` | the receipt explained, with the four verification checks recomputed in your browser |
 
 > **Big picture:** every feature and flow, with diagrams, is in [`docs/FEATURES.md`](docs/FEATURES.md). Submission material is in [`docs/SUBMISSION.md`](docs/SUBMISSION.md).
 
@@ -65,7 +66,7 @@ Open https://paron-near.vercel.app, or run `npm run dev` and open http://localho
 Paron v2 is deployed on NEAR testnet, and the agent swarm has run against it. Every link below opens a real transaction on
 [nearblocks](https://testnet.nearblocks.io). The full public record (accounts, code hashes and every transaction) is in
 [`deployments/testnet.json`](deployments/testnet.json) and [`deployments/testnet-run.json`](deployments/testnet-run.json).
-The web terminal shows the same state live, read straight from RPC (`GET /api/testnet`, panel *Live on NEAR testnet*).
+The dashboard shows the same state live, read straight from RPC (`GET /api/testnet`, page `/dashboard/testnet`).
 
 | Role | Account | Notes |
 | --- | --- | --- |
@@ -165,7 +166,7 @@ contracts/paron-core/        Rust smart contract (near-sdk 5.30): lib, nep245, o
 tee-worker/outlayer-cri-oracle/  Rust OutLayer worker: lib (oracle + SLA verifier), main (CLI / WASI stdin→stdout), outlayer.manifest, tests
 agents/src/                  TypeScript swarm: cfo-hedging-agent, market-maker-agent, compute-redeemer-agent, intents-bridge, chain-signatures,
                              run-swarm-demo, engine/ (contract mirror + signed local runtime), oracle/ (worker mirror), near-live, outlayer-client
-web/src/                     Next.js 15 terminal: app/page (terminal), app/tour (60 s tour), app/api/*, components/* (5 panels + tour banner)
+web/src/                     Next.js 15: app/page (landing), app/dashboard/* (8 feature pages), app/demo (guided demo), app/api/*
 shared/golden-vectors.json   Rust-generated attestation vectors the TypeScript mirror must reproduce byte-for-byte
 scripts/verify-all.sh        the 4-gate pipeline
 ```

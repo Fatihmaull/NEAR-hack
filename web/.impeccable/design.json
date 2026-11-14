@@ -1,0 +1,757 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-14T11:47:35Z",
+  "title": "Design System: Paron",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Desk Blue",
+        "canonical": "#1652F0",
+        "oklch": "oklch(51.6% 0.243 263.8)",
+        "tonalRamp": [
+          "#000038",
+          "#000777",
+          "#0026B3",
+          "#104AE6",
+          "#3F78FA",
+          "#71A1FF",
+          "#A5C9FF",
+          "#D8EFFF"
+        ]
+      },
+      "primary-hover": {
+        "role": "primary",
+        "displayName": "Desk Blue Deep",
+        "canonical": "#0F41C7",
+        "oklch": "oklch(44.6% 0.213 263.8)",
+        "tonalRamp": [
+          "#000232",
+          "#00136D",
+          "#0630A5",
+          "#1D51D6",
+          "#3D77FE",
+          "#70A1FF",
+          "#A4C9FF",
+          "#DBEFFF"
+        ]
+      },
+      "primary-pressed": {
+        "role": "primary",
+        "displayName": "Desk Blue Pressed",
+        "canonical": "#0B33A0",
+        "oklch": "oklch(38.0% 0.180 263.9)",
+        "tonalRamp": [
+          "#00052C",
+          "#031A62",
+          "#113796",
+          "#2A57C5",
+          "#497BEC",
+          "#70A1FF",
+          "#A5C9FF",
+          "#DBEFFF"
+        ]
+      },
+      "primary-soft": {
+        "role": "primary",
+        "displayName": "Blue Wash",
+        "canonical": "#EEF3FF",
+        "oklch": "oklch(96.4% 0.017 267.8)",
+        "tonalRamp": [
+          "#0A0B0E",
+          "#22252B",
+          "#3E424A",
+          "#5D616B",
+          "#7E828D",
+          "#A1A5AF",
+          "#C6C9D1",
+          "#ECEEF4"
+        ]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#A5A5A5",
+          "#C9C9C9",
+          "#EEEEEE"
+        ]
+      },
+      "soft": {
+        "role": "neutral",
+        "displayName": "Desk Grey",
+        "canonical": "#F5F6F8",
+        "oklch": "oklch(97.3% 0.003 264.5)",
+        "tonalRamp": [
+          "#0B0B0C",
+          "#242526",
+          "#414243",
+          "#606163",
+          "#818284",
+          "#A4A5A7",
+          "#C8C9CA",
+          "#EEEEEF"
+        ]
+      },
+      "strong": {
+        "role": "neutral",
+        "displayName": "Control Grey",
+        "canonical": "#EEF0F3",
+        "oklch": "oklch(95.4% 0.005 258.3)",
+        "tonalRamp": [
+          "#0B0B0C",
+          "#242527",
+          "#414244",
+          "#606164",
+          "#818285",
+          "#A3A5A8",
+          "#C8C9CB",
+          "#EEEEF0"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#DEE1E6",
+        "oklch": "oklch(90.9% 0.008 260.7)",
+        "tonalRamp": [
+          "#0A0B0D",
+          "#242528",
+          "#404246",
+          "#5F6166",
+          "#808287",
+          "#A3A5A9",
+          "#C7C9CD",
+          "#EDEEF1"
+        ]
+      },
+      "hairline-strong": {
+        "role": "neutral",
+        "displayName": "Hairline Strong",
+        "canonical": "#8C929C",
+        "oklch": "oklch(65.8% 0.016 260.7)",
+        "tonalRamp": [
+          "#090B0E",
+          "#22252B",
+          "#3E424A",
+          "#5C626B",
+          "#7D838C",
+          "#A0A5AF",
+          "#C5C9D1",
+          "#ECEFF3"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#0A0B0D",
+        "oklch": "oklch(14.9% 0.005 264.5)",
+        "tonalRamp": [
+          "#0B0B0C",
+          "#242527",
+          "#414244",
+          "#606164",
+          "#818285",
+          "#A4A5A8",
+          "#C8C9CB",
+          "#EEEEF0"
+        ]
+      },
+      "body": {
+        "role": "neutral",
+        "displayName": "Slate",
+        "canonical": "#5B616E",
+        "oklch": "oklch(49.2% 0.022 265.8)",
+        "tonalRamp": [
+          "#090B0F",
+          "#21252D",
+          "#3D424D",
+          "#5B616E",
+          "#7C8290",
+          "#9FA5B2",
+          "#C4C9D4",
+          "#EBEEF5"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Fog",
+        "canonical": "#6B7079",
+        "oklch": "oklch(54.4% 0.015 262.3)",
+        "tonalRamp": [
+          "#0A0B0E",
+          "#22252B",
+          "#3E424A",
+          "#5D616A",
+          "#7D838C",
+          "#A0A5AE",
+          "#C5C9D0",
+          "#ECEFF3"
+        ]
+      },
+      "up": {
+        "role": "semantic",
+        "displayName": "Settled Green",
+        "canonical": "#047A4A",
+        "oklch": "oklch(51.1% 0.120 157.4)",
+        "tonalRamp": [
+          "#001103",
+          "#003013",
+          "#00522A",
+          "#007545",
+          "#379766",
+          "#66B98A",
+          "#9ADBB3",
+          "#D2FAE1"
+        ]
+      },
+      "up-soft": {
+        "role": "semantic",
+        "displayName": "Green Wash",
+        "canonical": "#E8F5EE",
+        "oklch": "oklch(95.9% 0.017 162.7)",
+        "tonalRamp": [
+          "#080C0A",
+          "#202723",
+          "#3B4540",
+          "#59645E",
+          "#7A867F",
+          "#9DA8A2",
+          "#C3CCC7",
+          "#EAF0ED"
+        ]
+      },
+      "down": {
+        "role": "semantic",
+        "displayName": "Refusal Red",
+        "canonical": "#C8202F",
+        "oklch": "oklch(53.8% 0.200 23.6)",
+        "tonalRamp": [
+          "#200001",
+          "#510003",
+          "#800014",
+          "#B70422",
+          "#E03F44",
+          "#FF6F6D",
+          "#FFAEA9",
+          "#FFE5E2"
+        ]
+      },
+      "down-soft": {
+        "role": "semantic",
+        "displayName": "Red Wash",
+        "canonical": "#FCECEE",
+        "oklch": "oklch(95.6% 0.018 8.8)",
+        "tonalRamp": [
+          "#0E0A0A",
+          "#2B2324",
+          "#4A3F40",
+          "#6B5D5F",
+          "#8C7E80",
+          "#AFA1A3",
+          "#D1C6C7",
+          "#F4ECED"
+        ]
+      },
+      "warn": {
+        "role": "semantic",
+        "displayName": "Caution Amber",
+        "canonical": "#8A5A00",
+        "oklch": "oklch(50.8% 0.108 73.3)",
+        "tonalRamp": [
+          "#170700",
+          "#3B1D00",
+          "#603800",
+          "#855600",
+          "#A9772F",
+          "#CA9C5D",
+          "#E8C291",
+          "#FFEACC"
+        ]
+      },
+      "warn-soft": {
+        "role": "semantic",
+        "displayName": "Amber Wash",
+        "canonical": "#FFF5E0",
+        "oklch": "oklch(97.2% 0.030 85.6)",
+        "tonalRamp": [
+          "#0E0B05",
+          "#2A2419",
+          "#484132",
+          "#69604F",
+          "#8A816F",
+          "#ADA493",
+          "#CFC8BA",
+          "#F2EEE5"
+        ]
+      },
+      "night": {
+        "role": "neutral",
+        "displayName": "Night",
+        "canonical": "#0A0B0D",
+        "oklch": "oklch(14.9% 0.005 264.5)",
+        "tonalRamp": [
+          "#0B0B0C",
+          "#242527",
+          "#414244",
+          "#606164",
+          "#818285",
+          "#A4A5A8",
+          "#C8C9CB",
+          "#EEEEF0"
+        ]
+      },
+      "night-raised": {
+        "role": "neutral",
+        "displayName": "Night Raised",
+        "canonical": "#16181C",
+        "oklch": "oklch(20.9% 0.009 264.4)",
+        "tonalRamp": [
+          "#0A0B0D",
+          "#242528",
+          "#404246",
+          "#5F6166",
+          "#808288",
+          "#A3A5AA",
+          "#C7C9CD",
+          "#EDEEF1"
+        ]
+      },
+      "night-line": {
+        "role": "neutral",
+        "displayName": "Night Line",
+        "canonical": "#2A2D33",
+        "oklch": "oklch(29.7% 0.012 264.4)",
+        "tonalRamp": [
+          "#0A0B0D",
+          "#232529",
+          "#3F4248",
+          "#5E6168",
+          "#7F8289",
+          "#A2A5AC",
+          "#C6C9CF",
+          "#EDEEF2"
+        ]
+      },
+      "night-text": {
+        "role": "neutral",
+        "displayName": "Night Text",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#A5A5A5",
+          "#C9C9C9",
+          "#EEEEEE"
+        ]
+      },
+      "night-soft": {
+        "role": "neutral",
+        "displayName": "Night Soft",
+        "canonical": "#A8ACB3",
+        "oklch": "oklch(74.3% 0.011 261.8)",
+        "tonalRamp": [
+          "#0A0B0D",
+          "#232529",
+          "#3F4247",
+          "#5E6168",
+          "#7F8289",
+          "#A2A5AB",
+          "#C6C9CE",
+          "#EDEEF2"
+        ]
+      },
+      "night-muted": {
+        "role": "neutral",
+        "displayName": "Night Muted",
+        "canonical": "#8B919C",
+        "oklch": "oklch(65.5% 0.018 262.7)",
+        "tonalRamp": [
+          "#090B0F",
+          "#22252B",
+          "#3D424B",
+          "#5C616C",
+          "#7D838D",
+          "#A0A5AF",
+          "#C5C9D2",
+          "#ECEFF4"
+        ]
+      },
+      "night-accent": {
+        "role": "primary",
+        "displayName": "Night Accent",
+        "canonical": "#7FA4FF",
+        "oklch": "oklch(73.0% 0.139 266.3)",
+        "tonalRamp": [
+          "#020825",
+          "#0E1F55",
+          "#233B83",
+          "#3D5BAE",
+          "#5C7ED4",
+          "#81A2F3",
+          "#ABC8FF",
+          "#DBEEFF"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display-xl": {
+        "displayName": "Display XL",
+        "purpose": "Landing hero headline from 1024px."
+      },
+      "display-lg": {
+        "displayName": "Display Large",
+        "purpose": "Landing hero headline from 640px."
+      },
+      "display-md": {
+        "displayName": "Display Medium",
+        "purpose": "Marketing section headings from 640px; demo page title."
+      },
+      "display-sm": {
+        "displayName": "Display Small",
+        "purpose": "Marketing section headings on phones; demo step and receipt titles."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "The one h1 on each dashboard page."
+      },
+      "title-lg": {
+        "displayName": "Title Large",
+        "purpose": "Dialog titles and two-column band headings."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Panel titles, sentence case."
+      },
+      "body-lg": {
+        "displayName": "Body Large",
+        "purpose": "Marketing paragraphs and page purpose lines."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Default reading size."
+      },
+      "body-sm": {
+        "displayName": "Body Small",
+        "purpose": "Panel descriptions, helper and toast detail text."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Field and stat labels."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Table headers, sub-lines, hashes."
+      },
+      "badge": {
+        "displayName": "Badge",
+        "purpose": "Status pills."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Button labels."
+      },
+      "num-display": {
+        "displayName": "Numeric Display",
+        "purpose": "Headline balances and the hero price (32-36px)."
+      },
+      "num-stat": {
+        "displayName": "Numeric Stat",
+        "purpose": "Stat values."
+      },
+      "num": {
+        "displayName": "Numeric",
+        "purpose": "Prices, sizes and times in tables and rows."
+      }
+    },
+    "shadows": [
+      {
+        "name": "lift",
+        "value": "0 4px 12px rgba(10, 11, 13, 0.06)",
+        "purpose": "Active sidebar item and selected segmented option."
+      },
+      {
+        "name": "sheet",
+        "value": "0 24px 48px -12px rgba(10, 11, 13, 0.28)",
+        "purpose": "Dialogs, toasts, mobile drawer, focused skip link, the white card overlapping the hero product card."
+      },
+      {
+        "name": "scrim",
+        "value": "rgba(10, 11, 13, 0.5)",
+        "purpose": "Dialog backdrop (0.4 for the mobile drawer)."
+      }
+    ],
+    "focus": {
+      "outline": "2px solid #1652F0",
+      "outlineOffset": "2px",
+      "radius": "6px",
+      "onDark": "#7FA4FF",
+      "fieldRing": "0 0 0 2px rgba(22, 82, 240, 0.2)"
+    },
+    "selection": {
+      "background": "#D6E1FF",
+      "color": "#0A0B0D"
+    },
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Entrances, drawer slide and progress fills."
+      },
+      {
+        "name": "color-transition",
+        "value": "150ms",
+        "purpose": "Button and link colour changes."
+      },
+      {
+        "name": "sheet-in",
+        "value": "320ms ease-out-expo; from opacity 0, translateY(8px) scale(0.985)",
+        "purpose": "Dialog and toast entrance."
+      },
+      {
+        "name": "fade",
+        "value": "200ms ease-out",
+        "purpose": "Scrims and newly revealed demo events."
+      },
+      {
+        "name": "slide-in-left",
+        "value": "280ms ease-out-expo; from translateX(-100%)",
+        "purpose": "Mobile dashboard drawer."
+      },
+      {
+        "name": "progress",
+        "value": "500ms ease-out-expo on width",
+        "purpose": "Progress bars and the demo progress rule."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "all animation and transition durations 0.01ms",
+        "purpose": "prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ],
+    "layout": {
+      "marketingContainer": "1200px",
+      "appMain": "1280px",
+      "sidebar": "256px",
+      "marketingHeader": "72px",
+      "mobileTopBar": "64px"
+    },
+    "dials": {
+      "ENERGY": 2,
+      "RHYTHM": 2,
+      "MOTION": 1
+    },
+    "contrast": {
+      "body/canvas": "6.2:1",
+      "muted/canvas": "5.0:1",
+      "muted/soft": "4.6:1",
+      "primary/canvas": "6.0:1",
+      "canvas/primary": "6.0:1",
+      "up/canvas": "5.4:1",
+      "down/canvas": "5.7:1",
+      "warn/canvas": "5.9:1",
+      "night-soft/night": "8.6:1",
+      "night-muted/night": "6.2:1",
+      "night-accent/night": "8.1:1",
+      "hairline-strong/canvas (non-text)": "3.1:1"
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one main action per view or decision.",
+      "html": "<button class=\"ds-btn-primary\">Open the desk</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:9999px;font:600 15px/1 'Inter Variable', ui-sans-serif, system-ui, sans-serif;white-space:nowrap;cursor:pointer;transition:background-color 150ms,border-color 150ms,color 150ms;border:none;background:#1652F0;color:#FFFFFF;} .ds-btn-primary:hover{background:#0F41C7;} .ds-btn-primary:active{background:#0B33A0;} .ds-btn-primary:focus-visible{outline:2px solid #1652F0;outline-offset:2px;} .ds-btn-primary:disabled{opacity:.45;cursor:not-allowed;}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "The second action beside a primary.",
+      "html": "<button class=\"ds-btn-outline\">Pre-sell capacity</button>",
+      "css": ".ds-btn-outline{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:9999px;font:600 15px/1 'Inter Variable', ui-sans-serif, system-ui, sans-serif;white-space:nowrap;cursor:pointer;transition:background-color 150ms,border-color 150ms,color 150ms;border:1px solid #DEE1E6;background:#FFFFFF;color:#0A0B0D;} .ds-btn-outline:hover{border-color:#8C929C;} .ds-btn-outline:active{background:#F5F6F8;} .ds-btn-outline:focus-visible{outline:2px solid #1652F0;outline-offset:2px;}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A quiet filled action on a light surface.",
+      "html": "<button class=\"ds-btn-secondary\">Cancel order</button>",
+      "css": ".ds-btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:9999px;font:600 15px/1 'Inter Variable', ui-sans-serif, system-ui, sans-serif;white-space:nowrap;cursor:pointer;transition:background-color 150ms,border-color 150ms,color 150ms;border:none;background:#EEF0F3;color:#0A0B0D;} .ds-btn-secondary:hover{background:#E2E5EA;} .ds-btn-secondary:active{background:#D6DAE0;} .ds-btn-secondary:focus-visible{outline:2px solid #1652F0;outline-offset:2px;}"
+    },
+    {
+      "name": "Danger Button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Destructive or exit actions.",
+      "html": "<button class=\"ds-btn-danger\">Pause agent</button>",
+      "css": ".ds-btn-danger{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:9999px;font:600 15px/1 'Inter Variable', ui-sans-serif, system-ui, sans-serif;white-space:nowrap;cursor:pointer;transition:background-color 150ms,border-color 150ms,color 150ms;border:1px solid rgba(200,32,47,.4);background:#FFFFFF;color:#C8202F;} .ds-btn-danger:hover{background:#FCECEE;} .ds-btn-danger:active{background:#F8D9DD;} .ds-btn-danger:focus-visible{outline:2px solid #1652F0;outline-offset:2px;}"
+    },
+    {
+      "name": "Dark Band Actions",
+      "kind": "button",
+      "refersTo": "button-on-dark",
+      "description": "White and white-outlined pills on a Night band (56px hero size).",
+      "html": "<div class=\"ds-night\"><button class=\"ds-btn-on-dark\">Open the desk</button><button class=\"ds-btn-outline-dark\">Run the 60-second demo</button></div>",
+      "css": ".ds-night{background:#0A0B0D;padding:24px;display:flex;flex-wrap:wrap;gap:12px;border-radius:16px;} .ds-btn-on-dark{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:9999px;font:600 15px/1 'Inter Variable', ui-sans-serif, system-ui, sans-serif;white-space:nowrap;cursor:pointer;transition:background-color 150ms,border-color 150ms,color 150ms;min-height:56px;padding:0 32px;font-size:16px;border:none;background:#FFFFFF;color:#0A0B0D;} .ds-btn-on-dark:hover{background:#E6E8EC;} .ds-btn-outline-dark{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:9999px;font:600 15px/1 'Inter Variable', ui-sans-serif, system-ui, sans-serif;white-space:nowrap;cursor:pointer;transition:background-color 150ms,border-color 150ms,color 150ms;min-height:56px;padding:0 28px;font-size:16px;border:1px solid rgba(255,255,255,.4);background:transparent;color:#FFFFFF;} .ds-btn-outline-dark:hover{border-color:#FFFFFF;background:rgba(255,255,255,.05);} .ds-btn-on-dark:focus-visible,.ds-btn-outline-dark:focus-visible{outline:2px solid #7FA4FF;outline-offset:2px;}"
+    },
+    {
+      "name": "Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Text input with its label above.",
+      "html": "<label class=\"ds-field-wrap\"><span class=\"ds-field-label\">Quantity (CU)</span><input class=\"ds-field\" value=\"50\" /></label>",
+      "css": ".ds-field-wrap{display:block;max-width:240px;} .ds-field-label{display:block;margin-bottom:6px;font:500 13px/1.4 'Inter Variable', ui-sans-serif, system-ui, sans-serif;color:#5B616E;} .ds-field{display:block;width:100%;min-height:44px;padding:0 14px;border:1px solid #8C929C;border-radius:12px;background:#FFFFFF;color:#0A0B0D;font:400 15px/1.5 'JetBrains Mono Variable', ui-monospace, Menlo, monospace;outline:none;transition:border-color 150ms,box-shadow 150ms;} .ds-field::placeholder{color:#6B7079;} .ds-field:hover{border-color:rgba(10,11,13,.6);} .ds-field:focus{border-color:#1652F0;box-shadow:0 0 0 2px rgba(22,82,240,.2);}"
+    },
+    {
+      "name": "Status Badges",
+      "kind": "chip",
+      "refersTo": "badge-neutral",
+      "description": "Read-only status pills; colour always paired with a word.",
+      "html": "<span class=\"ds-badge ds-badge-up\">Filled</span> <span class=\"ds-badge ds-badge-down\">Rejected</span> <span class=\"ds-badge ds-badge-warn\">Near cap</span> <span class=\"ds-badge ds-badge-primary\">Attested</span> <span class=\"ds-badge\">Testnet beta</span>",
+      "css": ".ds-badge{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;border-radius:9999px;padding:2px 10px;font:600 12px/20px 'Inter Variable', ui-sans-serif, system-ui, sans-serif;background:#EEF0F3;color:#0A0B0D;} .ds-badge-up{background:#E8F5EE;color:#047A4A;} .ds-badge-down{background:#FCECEE;color:#C8202F;} .ds-badge-warn{background:#FFF5E0;color:#8A5A00;} .ds-badge-primary{background:#EEF3FF;color:#1652F0;}"
+    },
+    {
+      "name": "Segmented Control",
+      "kind": "custom",
+      "refersTo": "segmented",
+      "description": "Single choice for series or side; selected option is a raised white pill.",
+      "html": "<div class=\"ds-seg\" role=\"radiogroup\" aria-label=\"Series\"><button class=\"ds-seg-opt\" role=\"radio\" aria-checked=\"true\">2026-11</button><button class=\"ds-seg-opt\" role=\"radio\" aria-checked=\"false\">2026-12</button><button class=\"ds-seg-opt\" role=\"radio\" aria-checked=\"false\">2027-01</button></div>",
+      "css": ".ds-seg{display:inline-flex;padding:4px;border-radius:9999px;background:#EEF0F3;} .ds-seg-opt{min-height:36px;padding:0 14px;border:none;border-radius:9999px;background:transparent;color:#5B616E;font:500 13.5px/1 'Inter Variable', ui-sans-serif, system-ui, sans-serif;cursor:pointer;transition:color 150ms,background-color 150ms;} .ds-seg-opt:hover{color:#0A0B0D;} .ds-seg-opt[aria-checked=true]{background:#FFFFFF;color:#0A0B0D;box-shadow:0 4px 12px rgba(10,11,13,.06);} .ds-seg-opt:focus-visible{outline:2px solid #1652F0;outline-offset:2px;}"
+    },
+    {
+      "name": "Sidebar Navigation",
+      "kind": "nav",
+      "refersTo": "nav-item",
+      "description": "Dashboard sidebar group; the current page is a raised white tab with a blue icon.",
+      "html": "<nav class=\"ds-side\" aria-label=\"Dashboard\"><p class=\"ds-side-group\">Desk</p><a class=\"ds-nav\" href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m12 14 4-4\"/><path d=\"M3.34 19a10 10 0 1 1 17.32 0\"/></svg>Overview</a><a class=\"ds-nav\" href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 3v16a2 2 0 0 0 2 2h16\"/><path d=\"m7 11 4-4 4 4 6-6\"/></svg>Markets</a><a class=\"ds-nav\" href=\"#\" aria-current=\"page\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 22h18\"/><path d=\"M6 18v-7\"/><path d=\"M10 18v-7\"/><path d=\"M14 18v-7\"/><path d=\"M18 18v-7\"/><path d=\"m12 2 8 5H4z\"/></svg>Trade</a></nav>",
+      "css": ".ds-side{width:232px;padding:12px;background:#F5F6F8;border-radius:12px;} .ds-side-group{margin:0;padding:0 12px 4px;font:500 12px/1.4 'Inter Variable', ui-sans-serif, system-ui, sans-serif;color:#6B7079;} .ds-nav{display:flex;align-items:center;gap:12px;min-height:40px;padding:0 12px;border-radius:12px;color:#5B616E;font:400 14.5px/1 'Inter Variable', ui-sans-serif, system-ui, sans-serif;text-decoration:none;transition:background-color 150ms,color 150ms;} .ds-nav svg{color:#6B7079;flex-shrink:0;} .ds-nav:hover{background:#EEF0F3;color:#0A0B0D;} .ds-nav:hover svg{color:#0A0B0D;} .ds-nav[aria-current=page]{background:#FFFFFF;color:#0A0B0D;font-weight:600;box-shadow:0 4px 12px rgba(10,11,13,.06),0 0 0 1px #DEE1E6;} .ds-nav[aria-current=page] svg{color:#1652F0;} .ds-nav:focus-visible{outline:2px solid #1652F0;outline-offset:2px;}"
+    },
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "A titled work area with a hairline header; rows run edge to edge.",
+      "html": "<section class=\"ds-panel\"><header class=\"ds-panel-head\"><h2>Market</h2><p>Simulated desk engine.</p></header><ul class=\"ds-rows\"><li><span><b>CU-2026-11</b><small>500 CU open</small></span><span class=\"ds-r\"><span class=\"ds-num\">$4.1000</span><small class=\"ds-num ds-up\">+46.4% vs strike</small></span></li><li><span><b>CU-2026-12</b><small>60 CU open</small></span><span class=\"ds-r\"><span class=\"ds-num\">$2.9500</span><small class=\"ds-num\">at strike</small></span></li></ul></section>",
+      "css": ".ds-panel{max-width:420px;border:1px solid #DEE1E6;border-radius:16px;background:#FFFFFF;font-family:'Inter Variable', ui-sans-serif, system-ui, sans-serif;color:#0A0B0D;} .ds-panel-head{padding:16px 20px;border-bottom:1px solid #DEE1E6;} .ds-panel-head h2{margin:0;font:600 16px/24px 'Inter Variable', ui-sans-serif, system-ui, sans-serif;} .ds-panel-head p{margin:2px 0 0;font:400 13.5px/20px 'Inter Variable', ui-sans-serif, system-ui, sans-serif;color:#5B616E;} .ds-rows{list-style:none;margin:0;padding:4px 0;} .ds-rows li{display:flex;justify-content:space-between;gap:12px;padding:14px 20px;border-top:1px solid #DEE1E6;} .ds-rows li:first-child{border-top:none;} .ds-rows b{display:block;font-size:15px;font-weight:600;} .ds-rows small{display:block;font-size:12.5px;color:#5B616E;} .ds-r{text-align:right;} .ds-num{font-family:'JetBrains Mono Variable', ui-monospace, Menlo, monospace;font-variant-numeric:tabular-nums;letter-spacing:-0.025em;font-size:16px;} small.ds-num{font-size:12.5px;} .ds-up{color:#047A4A !important;}"
+    },
+    {
+      "name": "Forward Curve",
+      "kind": "custom",
+      "refersTo": "hero-product-card",
+      "description": "Signature motif: attested index (accent) over a dashed strike line at three maturities, inside the dark hero product card.",
+      "html": "<div class=\"ds-curve-card\"><p class=\"ds-curve-label\">CRI-H100 forward curve</p><p class=\"ds-curve-price\">$4.1000</p><svg viewBox=\"0 0 420 150\" role=\"img\" aria-label=\"Attested index against strike for three maturities\" class=\"ds-curve\"><line x1=\"34\" x2=\"386\" y1=\"26\" y2=\"26\" stroke=\"#2A2D33\"/><line x1=\"34\" x2=\"386\" y1=\"73\" y2=\"73\" stroke=\"#2A2D33\"/><line x1=\"34\" x2=\"386\" y1=\"120\" y2=\"120\" stroke=\"#2A2D33\"/><path d=\"M34,112 L210,104 L386,96\" fill=\"none\" stroke=\"#8B919C\" stroke-width=\"1.5\" stroke-dasharray=\"4 4\"/><path d=\"M34,34 L210,104 L386,90\" fill=\"none\" stroke=\"#7FA4FF\" stroke-width=\"2.25\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"34\" cy=\"34\" r=\"4\" fill=\"#7FA4FF\"/><circle cx=\"210\" cy=\"104\" r=\"4\" fill=\"#7FA4FF\"/><circle cx=\"386\" cy=\"90\" r=\"4\" fill=\"#7FA4FF\"/><g font-family=\"JetBrains Mono, monospace\" text-anchor=\"middle\"><text x=\"34\" y=\"24\" fill=\"#FFFFFF\" font-size=\"12\" font-weight=\"500\">$4.10</text><text x=\"210\" y=\"94\" fill=\"#FFFFFF\" font-size=\"12\" font-weight=\"500\">$2.95</text><text x=\"386\" y=\"80\" fill=\"#FFFFFF\" font-size=\"12\" font-weight=\"500\">$3.10</text><text x=\"34\" y=\"142\" fill=\"#A8ACB3\" font-size=\"11.5\">2026-11</text><text x=\"210\" y=\"142\" fill=\"#A8ACB3\" font-size=\"11.5\">2026-12</text><text x=\"386\" y=\"142\" fill=\"#A8ACB3\" font-size=\"11.5\">2027-01</text></g></svg></div>",
+      "css": ".ds-curve-card{max-width:480px;padding:28px;border-radius:24px;background:#16181C;color:#FFFFFF;font-family:'Inter Variable', ui-sans-serif, system-ui, sans-serif;} .ds-curve-label{margin:0;font-size:13px;color:#A8ACB3;} .ds-curve-price{margin:4px 0 16px;font:400 32px/1 'JetBrains Mono Variable', ui-monospace, Menlo, monospace;font-variant-numeric:tabular-nums;} .ds-curve{display:block;width:100%;height:auto;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Daylight Desk",
+    "overview": "Paron looks like a trading desk you work at in daylight: a white canvas, ink type, hairline rules and one blue accent that only ever means \"act here\" or \"this is the attested price\". The system was built in the spirit of an institutional exchange reference the owner chose, then made Paron's own: its signature is the forward curve, its numbers are all set in a tabular mono, and its proof (tx links, receipt hashes, contract messages) sits in the same quiet type as everything else. Calm is the point. A market for a new asset class earns trust by looking settled, not by looking loud.\n\nDensity follows the mode. The marketing page (Persuade) is spacious: large display headlines at weight 400 with tight negative tracking, full-bleed bands that alternate white, soft grey and near-black, and row lists instead of card grids. The dashboard (Operate) is denser and stays light: a soft grey sidebar, white work panels with 16px corners and hairline headers, and every figure aligned in mono columns. There is one theme, light, by decision: it matches the owner's reference and the daytime-desk use scene. Dark appears only as full-bleed bands on the marketing page and the demo's receipt card, never as an app theme.\n\nThe system rejects the crypto-landing default outright: no gradients, no glass, no glow, no eyebrow labels above headings, no invented stats. Depth is tonal (white on soft grey on near-black); shadows exist only to say \"this sits above the page\".\n\nDial: ENERGY 2 / RHYTHM 2 / MOTION 1",
+    "keyCharacteristics": [
+      "White canvas, ink text, one blue accent for actions and the attested-index line.",
+      "Display type at weight 400 with negative tracking; every number in JetBrains Mono, tabular.",
+      "Pills for actions, 12px fields, 16px panels, 24px cards and dialogs.",
+      "Light/soft/dark band rhythm on marketing; a persistent soft-grey sidebar in the app.",
+      "Up/down/warn are text colours that always travel with a word.",
+      "Flat by default; shadows only for real elevation."
+    ],
+    "rules": [
+      {
+        "name": "The One Accent Rule",
+        "body": "Desk Blue is the only hue that is not a status. It marks what you can do (primary actions, links, focus) and the one line that matters on a chart (the attested index). Nothing decorative is ever blue.",
+        "section": "colors"
+      },
+      {
+        "name": "The Word-With-Colour Rule",
+        "body": "Green, red and amber are text colours and soft tints, never the only signal. Every coloured state carries a word (\"Filled\", \"Rejected\", \"+4.6% vs strike\", \"Slashed: SLA missed\").",
+        "section": "colors"
+      },
+      {
+        "name": "The Light Display Rule",
+        "body": "Headlines are weight 400 with negative tracking, never bold. Weight 600 is reserved for small titles, labels inside rows and buttons, where it aids scanning.",
+        "section": "typography"
+      },
+      {
+        "name": "The Mono Number Rule",
+        "body": "Every number a user might compare (prices, sizes, CU, margins, percentages, hashes, clock times) is set in JetBrains Mono with tabular figures. Prose never carries a bare proportional figure where a column would.",
+        "section": "typography"
+      },
+      {
+        "name": "The No Kicker Rule",
+        "body": "No eyebrow or kicker label sits above a heading. A heading stands on its own; context goes in the line below it.",
+        "section": "typography"
+      },
+      {
+        "name": "The Rows Not Cards Rule",
+        "body": "Collections are ruled rows with hairline dividers. A card is earned only by a distinct work area (a panel) or a live product sample (the hero cards).",
+        "section": "layout"
+      },
+      {
+        "name": "The Earned Shadow Rule",
+        "body": "A shadow means \"above the page\": a dialog, a toast, a drawer, the overlapping hero card or the current navigation choice. Panels, cards and buttons at rest carry none.",
+        "section": "elevation"
+      },
+      {
+        "name": "The No Glow Rule",
+        "body": "No gradients, glass panels, glows or coloured shadows. The order book's depth bars are flat, hard-edged tint fills sized by volume, not gradients.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Pill Means Action Rule",
+        "body": "Round-ended shapes are for things you press or read as a status. Containers are never pills; buttons are never square.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** keep Desk Blue (#1652F0) for primary actions, links, focus and the attested-index line only; use Night Accent (#7FA4FF) for the same roles on Night bands.",
+      "**Do** set every comparable number in JetBrains Mono with tabular figures.",
+      "**Do** pair every green, red or amber state with a word, and keep semantic colours as text or soft tints.",
+      "**Do** set headlines at weight 400 with negative tracking (-0.015em to -0.025em).",
+      "**Do** give primary actions a 44px minimum height (56px for hero calls to action), a pointer cursor when enabled and a visible 2px focus outline.",
+      "**Do** lay collections out as ruled rows with Hairline dividers.",
+      "**Do** keep motion to colour transitions (150ms), dialog and toast entrances (320ms, out-expo), drawer slides (280ms) and fades (200ms), all collapsing under reduced motion.",
+      "**Do** show live or clearly labelled simulated data in product cards, with a real tx link where a claim is made."
+    ],
+    "donts": [
+      "**Don't** add a second accent hue or use blue decoratively.",
+      "**Don't** put an eyebrow or kicker label above a heading.",
+      "**Don't** use gradients, glass panels, glows or coloured shadows.",
+      "**Don't** put shadows on panels, cards or buttons at rest; shadows are for dialogs, toasts, drawers, the overlapping hero card and the active navigation choice.",
+      "**Don't** build a dark app theme; dark is a marketing band, not a mode.",
+      "**Don't** set headlines bold or numbers in a proportional face.",
+      "**Don't** turn collections into grids of identical cards.",
+      "**Don't** rely on colour alone for up/down, ok/rejected or any status."
+    ]
+  }
+}

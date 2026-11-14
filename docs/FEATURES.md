@@ -14,7 +14,7 @@ flowchart LR
     PRV["Compute provider node<br/>(e.g. Batam H100 DC)"]
     TRE["Swarm treasury<br/>(full-access key)"]
     REL["OutLayer relayer"]
-    USER["Human / judge<br/>web terminal + NEAR Connect"]
+    USER["Human / judge<br/>web app + NEAR Connect"]
   end
 
   subgraph TEE["OutLayer · Intel TDX"]
@@ -97,8 +97,17 @@ A test USDC with 6 decimals and no value. It has `mint` for the owner and a publ
 
 | Page / API | Contents |
 | --- | --- |
-| `/` Terminal | protocol strip; Series Matrix + forward curve + hardware→CU calculator; Order Book Desk (buy/short, margin slider, guardrail check, sign on testnet); **Live on NEAR testnet** (live RPC data + run timeline with nearblocks links, test-USDC faucet); Agent Swarm (activity stream, Function Call key delegation from a wallet); OutLayer TEE Attestation (attest a custom index, spoofed feed); Settlement & Redemption (Mode A at a chosen TWAP, Mode B happy/throttled/ghost jobs) |
-| `/tour` | 60-second coded tour of the 5 acts (autoplay/step), downloadable receipt with the same hash as the CLI |
+| `/` Landing | live forward curve and a real guardrail rejection from testnet; markets table from the contract; buyer and provider value; Mode A and Mode B; agent safety rules with their rejected testnet txs; ways to verify; demo chooser dialog |
+| `/dashboard` | sidebar shell (grouped Desk / Automation / Verify, active marker, mobile sheet, wallet at the foot); first-visit dialog offering the demo or the dashboard |
+| `/dashboard` Overview | desk agent margin, spend against its cap, market by maturity, protocol health, recent agent activity |
+| `/dashboard/markets` | series table, forward curve, GPU-hours → CU cost calculator |
+| `/dashboard/trade` | order book, order ticket (buy forwards or pre-sell with a margin slider, inline guardrail warning, testnet signing), short vaults with health, latest signed orders |
+| `/dashboard/agents` | each agent's mandate, margin, holdings, spend against its cap, policy, Function Call key and Chain Signatures addresses; activity log; key delegation from a wallet |
+| `/dashboard/oracle` | latest attestation with the feed table and in-browser signature check; attest a new index (optionally with a manipulated feed) |
+| `/dashboard/settlement` | Mode A settlement at maturity with its receipt; Mode B jobs (within SLA, throttled, silent provider) with lifecycles |
+| `/dashboard/testnet` | contract state from RPC, the testnet run with phase filter and nearblocks links, accounts, test-USDC faucet |
+| `/dashboard/audit` | the receipt explained: hash, contents, four checks recomputed in the browser, outcomes, the five steps, intentional rejections, download |
+| `/demo` | 60-second guided demo of the 5 steps (play, pause, next step, restart), ends with the verifiable receipt |
 | `GET /api/state?acts=N` | protocol snapshot after N acts |
 | `GET /api/receipt` | deterministic audit receipt |
 | `POST /api/oracle/attest` | attestation from the worker mirror |
@@ -204,7 +213,7 @@ sequenceDiagram
 ### 3.5 Judge flow (no wallet)
 
 1. `npm run verify:all`: 4 gates.
-2. `npm run dev` → `/tour` → *Run*: 5 acts, then download the receipt and run `npm run verify:receipt`.
-3. `/`: try the Order Book Desk (set a price above the guardrail to watch it get rejected), then the TEE card (spoofed
+2. `/demo` → *Play the demo*: 5 steps, then download the receipt and run `npm run verify:receipt`.
+3. `/dashboard/trade`: set a price above the guardrail to watch it get rejected; then `/dashboard/oracle` (spoofed
    feed) and Mode B jobs.
-4. *Live on NEAR testnet* panel / README: the nearblocks links prove it on a real network.
+4. `/dashboard/testnet` or the README: the nearblocks links prove it on a real network.
