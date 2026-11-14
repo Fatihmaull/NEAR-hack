@@ -32,6 +32,8 @@ ALL 4 VERIFICATION GATES PASSED  (31s total)
 
 ### See it in 60 seconds
 
+🎬 **Demo video (101 s):** [`docs/media/paron-demo.mp4`](docs/media/paron-demo.mp4)
+
 ```bash
 npm run demo:swarm   # CLI: 5 acts, 58 Ed25519-signed txs, 8 OutLayer attestations, audit receipt
 npm run dev          # http://localhost:3000/tour — the 60-second coded judge tour (no wallet needed)
@@ -40,6 +42,20 @@ npm run dev          # http://localhost:3000/tour — the 60-second coded judge 
 The tour runs the **same engine in your browser** and produces a receipt whose `receipt_sha256`
 (`b0b1ce8f…22fa785`) is byte-identical to the CLI and to `GET /api/receipt`. `npm run verify:receipt`
 re-verifies every transaction signature, every TDX quote hash and every enclave signature in it.
+
+### Try it: do X → see Y
+
+Run `npm run dev` first, then open http://localhost:3000.
+
+| Do | See |
+| --- | --- |
+| Open `/tour` and press **Run** | 5 acts play in about 60 s. The final panel shows a receipt hash `b0b1ce8f…22fa785` and offers **Download receipt** |
+| `npm run verify:receipt` | every signature and TDX quote hash in the receipt re-verifies (`✔`) |
+| On `/`, **Order Book Desk**: set a buy limit above the shown *Guardrail ceiling*, then sign | a red toast reads "Rejected on-chain", with the contract's `slippage guard` message |
+| Same panel: set a limit inside the ceiling and sign | a green toast "Bought … CU @ …" with the fill count, and the signed tx under *Latest signed order transactions* |
+| **OutLayer TEE Attestation** card: keep the manipulated feed on, press **+32%** | the toast reads "OutLayer TWAP … verified on-chain · purged N stale quotes · flagged M vaults". The feed table marks the spoofed feed as rejected, and the badge reads "quote hash + Ed25519 verified in-browser" |
+| **Settlement & Redemption**: press the happy, throttled and ghosted job buttons | the provider is paid; then "slashed — agent refunded 100% + 15%" twice |
+| **Live on NEAR testnet** panel (or the links below) | the same flows as real testnet transactions on nearblocks |
 
 > **Big picture:** every feature and flow, with diagrams, is in [`docs/FEATURES.md`](docs/FEATURES.md). Submission material is in [`docs/SUBMISSION.md`](docs/SUBMISSION.md).
 
@@ -299,6 +315,26 @@ Function Call keys. For mainnet, point `usdc_token_id` at native USDC and use th
 * Storage staking (NEP-145) is not implemented; growth is bounded by order/vault caps and minimum sizes.
 * As with any oracle-settled market, a signed attestation can be front-run between signing and inclusion; frequent attestations, the ±5% band and the 100% circuit breaker bound the impact.
 
+## Hackathon notes (NEAR HACKATHON, 1–14 Nov 2026)
+
+* **Built in the window.** The repository was created for this hackathon. The first commit is dated
+  2026-11-05, and all code in it was written during the development window.
+* **Prior work (Q-002 / Q-004).** An earlier, separate EVM prototype of the Paron idea, "Paron v1", targeted the Robinhood
+  Chain testnet. v2 is a ground-up NEAR rewrite. No code, contracts, configuration or history from v1 is reused; the
+  section *Why this design* explains what changed.
+* **Third-party libraries (Q-005).**
+  * Rust: `near-sdk` / `near-contract-standards` 5.30, OutLayer SDK `outlayer` 0.2.1, `ed25519-dalek`, `sha2`, `hex`,
+    `bs58`, `serde`.
+  * TypeScript: `near-api-js` 7.4, `@noble/curves`, `@noble/hashes`, `@scure/base`.
+  * Web: Next.js 15, React 19, Tailwind CSS 3, `lucide-react`, `@hot-labs/near-connect` 0.12.
+  * Tools: `cargo-near`, `tsx`, TypeScript 5.9.
+  * No templates or boilerplate repositories were used.
+* **AI assistance (Q-005).** The code and documentation were written with an AI coding agent under the author's direction and review.
+* **Network scope (Q-007 / Q-010).** Everything runs on NEAR testnet except NEAR Intents 1Click, which has no testnet.
+  For 1Click the repository verifies the live API with a `dry: true` quote
+  ([`deployments/1click-live-dry-quote.json`](deployments/1click-live-dry-quote.json)).
+* **Suggested tracks.** `agents` (primary), `defi`, `security`, `swarms`, `privacy`. See [`HACKATHON.md`](HACKATHON.md) for how each track maps to the code.
+
 ## License
 
-MIT
+[MIT](LICENSE) © 2026 Fatih Maulana

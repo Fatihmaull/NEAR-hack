@@ -6,7 +6,8 @@ TEE-attested index (Mode A) or are redeemed as TEE-measured compute with automat
 
 | | |
 | --- | --- |
-| Tracks | **07 · Agent Economy (primary)** · 01 · Unstoppable DeFi · 05 · AI Swarms · 03 · Privacy & Private AI |
+| Tracks | **07 · Agent Economy (`agents`, primary)** · 01 · Unstoppable DeFi (`defi`) · 06 · AI Security & Defense (`security`) · 05 · AI Swarms (`swarms`) · 03 · Privacy & Private AI (`privacy`) |
+| Demo video | [`docs/media/paron-demo.mp4`](docs/media/paron-demo.mp4) (101 s, recorded from the app) |
 | Verify | `npm run verify:all` — 4 gates, zero configuration, ~30 s warm |
 | Live | **NEAR testnet**: `paron-core` at [`market.paron-mwbjvxck.testnet`](https://testnet.nearblocks.io/address/market.paron-mwbjvxck.testnet). The swarm ran on-chain (README → *Live on NEAR testnet*) |
 | Demo | `npm run demo:swarm` (CLI) · `npm run dev` → `/tour` (60-second coded tour, no wallet) · terminal panel *Live on NEAR testnet* |
@@ -97,6 +98,17 @@ slashed. Download the receipt and run `npm run verify:receipt`.
   insurance pool, cash settlement, conservation invariants (`contracts/paron-core`).
 * Cross-chain collateral through **NEAR Intents 1Click** and **Chain Signatures** (`agents/src/intents-bridge.ts`,
   `agents/src/chain-signatures.ts`).
+
+### 06 · AI Security & Defense
+* **Spending limits and a policy engine on-chain.** `AgentGuardrailPolicy` (`guardrails.rs`) enforces a daily spend cap
+  with UTC reset, a slippage band around the TEE-attested TWAP, a series allowlist and a pause switch. The policy owner
+  is the treasury, the agent's parent account. All three rejections were exercised on testnet
+  (`deployments/testnet-run.json`, phase `drill`).
+* **Sandboxed agent wallets.** Each agent signs only with a **Function Call key** scoped to `paron-core`, with zero
+  deposit rights. Every value-exit method (`withdraw_usdc`, `mt_transfer*`) requires 1 yoctoNEAR, so a prompt-injected
+  withdrawal is refused by NEAR itself (`DepositWithFunctionCall`), not by app code.
+* **TEE attestation.** Prices and SLA verdicts are accepted only with a valid Ed25519 enclave signature, a fresh window,
+  a replay check and the 100% circuit breaker. The worker rejects manipulated feeds at ±2σ.
 
 ### 05 · AI Swarms
 * A coordinated swarm: the CFO agent creates hedging demand, the LP agent provides two-sided liquidity and acts as
