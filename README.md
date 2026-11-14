@@ -32,6 +32,7 @@ ALL 4 VERIFICATION GATES PASSED  (31s total)
 
 ### See it in 60 seconds
 
+🌐 **Hosted demo:** https://paron-near.vercel.app (no wallet needed). The tour is at https://paron-near.vercel.app/tour.
 🎬 **Demo video (101 s):** [`docs/media/paron-demo.mp4`](docs/media/paron-demo.mp4)
 
 ```bash
@@ -45,7 +46,7 @@ re-verifies every transaction signature, every TDX quote hash and every enclave 
 
 ### Try it: do X → see Y
 
-Run `npm run dev` first, then open http://localhost:3000.
+Open https://paron-near.vercel.app, or run `npm run dev` and open http://localhost:3000.
 
 | Do | See |
 | --- | --- |

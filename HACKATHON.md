@@ -10,6 +10,7 @@ TEE-attested index (Mode A) or are redeemed as TEE-measured compute with automat
 | Demo video | [`docs/media/paron-demo.mp4`](docs/media/paron-demo.mp4) (101 s, recorded from the app) |
 | Verify | `npm run verify:all` — 4 gates, zero configuration, ~30 s warm |
 | Live | **NEAR testnet**: `paron-core` at [`market.paron-mwbjvxck.testnet`](https://testnet.nearblocks.io/address/market.paron-mwbjvxck.testnet). The swarm ran on-chain (README → *Live on NEAR testnet*) |
+| Hosted demo | https://paron-near.vercel.app (tour: `/tour`, live testnet state: `/api/testnet`) |
 | Demo | `npm run demo:swarm` (CLI) · `npm run dev` → `/tour` (60-second coded tour, no wallet) · terminal panel *Live on NEAR testnet* |
 | Stack | Rust `near-sdk` 5.30 · OutLayer SDK 0.2 (`wasm32-wasip2`) · TypeScript · near-api-js 7 · NEAR Intents 1Click · Chain Signatures · Next.js 15 · Tailwind · `@hot-labs/near-connect` |
 | Provenance | Every file in this repository was authored for this hackathon on a fresh git history. |
