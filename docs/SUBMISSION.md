@@ -13,7 +13,7 @@ team can make: personal details, the payout wallet and the post link.
     attaches the video. A video is needed because judges cannot open a local-only demo (Q-012).
 * **Judging:** Claude Code and Codex screen every project first ("does it run and do what the README says"), and human
   judges decide. The criteria are technical implementation, design, impact, originality and sustainability.
-* **Hosted demo:** a plus. Keep it up until at least 2026-11-18, ideally 2026-11-25.
+* **Hosted demo:** a plus. Keep it up until at least 2026-11-18, ideally 2026-11-25. ✅ https://paron-near.vercel.app
 
 ## Form fields (https://nearhackathon.com/#apply)
 
@@ -27,7 +27,7 @@ team can make: personal details, the payout wallet and the post link.
 | NEAR wallet address | **TODO(owner)**: a *mainnet* account you control (e.g. `yourname.near`). Prizes are paid there |
 | Repository link | https://github.com/Fatihmaull/NEAR-hack |
 | Demo post link | **TODO(owner)**: the URL of your X post |
-| Website | leave empty unless you deploy the web app (e.g. the Vercel URL) |
+| Website | https://paron-near.vercel.app |
 | Consent | tick the box |
 
 **What did you build? (1903 / 2000 characters)**
@@ -89,23 +89,14 @@ Proof: deployed on NEAR testnet (market.paron-mwbjvxck.testnet) with 58 real tra
 
 Recording tips: use 1440×900 or larger, dark theme, browser zoom 90%, and start `npm run dev` before recording.
 
-## Deploying the web app (Vercel) + CD
+## Hosted demo and CD (live)
 
-1. Import `Fatihmaull/NEAR-hack` at https://vercel.com/new and set **Root Directory** to `web`. Vercel detects
-   Next.js and installs the npm workspace from the repository root. No environment variables are required: the
-   terminal defaults to the testnet deployment in `deployments/testnet.json`.
-2. Choose **one** continuous-deployment route:
-   * **Vercel Git integration** (simplest). Leave the project connected to GitHub: every push to `main` deploys to
-     production and every PR gets a preview.
-   * **GitHub Actions** (`.github/workflows/verify.yml`, job `deploy`). This route deploys only after the 4
-     verification gates pass. In the Vercel project, turn off automatic Git deployments (Settings → Git), then add
-     these repository secrets (GitHub → Settings → Secrets and variables → Actions):
-     * `VERCEL_TOKEN`: create it at https://vercel.com/account/tokens.
-     * `VERCEL_ORG_ID`: your team or user id.
-     * `VERCEL_PROJECT_ID`: from Vercel project → Settings → General.
-
-     Until the secrets exist, the deploy job is skipped, not failed.
-3. Optional environment variables:
-   * `ONE_CLICK_JWT`: live 1Click quotes in `/api/intents/quote`.
-   * `NEAR_RPC_URL`: a different testnet RPC for `/api/testnet`.
-4. Paste the production URL into the form and the README.
+* **Production:** https://paron-near.vercel.app (Vercel project `paron-near`, Root Directory `web`, Node 22.x,
+  public: Vercel Authentication off).
+* **CD:** the Vercel GitHub integration is connected. Every push to `main` deploys to production and every PR gets a
+  preview URL. GitHub Actions (`ci-cd`) runs the 4 verification gates on the same pushes.
+* The optional Actions `deploy` job stays skipped because no `VERCEL_*` secrets are set. Leave it that way to avoid
+  deploying twice. Use it only if you turn off the Git integration and want deployments gated on the verification run.
+* Optional environment variables (Vercel → Project → Settings → Environment Variables):
+  * `ONE_CLICK_JWT`: live 1Click quotes in `/api/intents/quote`.
+  * `NEAR_RPC_URL`: a different testnet RPC for `/api/testnet`.
