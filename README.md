@@ -6,7 +6,7 @@
 > compute**, funded cross-chain through **NEAR Intents** and **Chain Signatures**, and traded only inside
 > on-chain **guardrails** enforced by **NEAR Function Call keys**.
 
-## ⚡ One-command verification (Stage-1 AI judges start here)
+## One-command verification (Stage-1 AI judges start here)
 
 ```bash
 npm run verify:all
@@ -32,8 +32,8 @@ ALL 4 VERIFICATION GATES PASSED  (31s total)
 
 ### See it in 60 seconds
 
-🌐 **Hosted app:** https://paron-near.vercel.app (no wallet needed). Landing at `/`, the dashboard at `/dashboard`, the guided demo at `/demo`.
-🎬 **Demo video (106 s):** [`docs/media/paron-demo.mp4`](docs/media/paron-demo.mp4)
+ **Hosted app:** https://paron-near.vercel.app (no wallet needed). Landing at `/`, the dashboard at `/dashboard`, the guided demo at `/demo`.
+ **Demo video (106 s):** [`docs/media/paron-demo.mp4`](docs/media/paron-demo.mp4)
 
 ```bash
 npm run demo:swarm   # CLI: 5 acts, 58 Ed25519-signed txs, 8 OutLayer attestations, audit receipt
@@ -61,7 +61,7 @@ Open https://paron-near.vercel.app, or run `npm run dev` and open http://localho
 
 > **Big picture:** every feature and flow, with diagrams, is in [`docs/FEATURES.md`](docs/FEATURES.md). Submission material is in [`docs/SUBMISSION.md`](docs/SUBMISSION.md).
 
-### 🛰 Live on NEAR testnet
+###  Live on NEAR testnet
 
 Paron v2 is deployed on NEAR testnet, and the agent swarm has run against it. Every link below opens a real transaction on
 [nearblocks](https://testnet.nearblocks.io). The full public record (accounts, code hashes and every transaction) is in
