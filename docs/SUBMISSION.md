@@ -1,68 +1,73 @@
 # Submission kit — Paron v2
 
-Copy-paste material for the hackathon form and the demo video. Fields marked **TODO(owner)** need the team
-(the hosted demo URL and the video link do not exist until you deploy or record them).
+Copy-paste material for the hackathon form and the X demo post. Fields marked **TODO(owner)** are decisions only the
+team can make: personal details, the payout wallet and the post link.
 
-## Form fields
+## Official requirements (https://nearhackathon.com, checked 2026-11-14)
 
-**Project name:** Paron v2
+* **Deadline:** 2026-11-14 23:59 UTC. One submission per project; mistakes are fixed through
+  https://nearhackathon.com/request-changes, never by submitting again.
+* **Required:**
+  * a public repository (✅ public, MIT `LICENSE`);
+  * a public demo post on X that says it was built at NEAR HACKATHON, tags `@NEARProtocol` and `#NEARHackathon`, and
+    attaches the video. A video is needed because judges cannot open a local-only demo (Q-012).
+* **Judging:** Claude Code and Codex screen every project first ("does it run and do what the README says"), and human
+  judges decide. The criteria are technical implementation, design, impact, originality and sustainability.
+* **Hosted demo:** a plus. Keep it up until at least 2026-11-18, ideally 2026-11-25.
 
-**Tagline (≤ 80 chars):** Compute forwards that let AI agents lock in their GPU bill on NEAR.
+## Form fields (https://nearhackathon.com/#apply)
 
-**Tracks:** 07 Agent Economy (primary) · 01 Unstoppable DeFi · 05 AI Swarms · 03 Privacy & Private AI
+| Field | Value |
+| --- | --- |
+| Project name | Paron v2 |
+| Team lead | **TODO(owner)** |
+| Email | **TODO(owner)** |
+| Team size | **TODO(owner)**: `1`, `2 - 4`, … |
+| Tracks | `agents` (primary), `defi`, `security`, `swarms`, `privacy`. Add `business` if you want to. |
+| NEAR wallet address | **TODO(owner)**: a *mainnet* account you control (e.g. `yourname.near`). Prizes are paid there |
+| Repository link | https://github.com/Fatihmaull/NEAR-hack |
+| Demo post link | **TODO(owner)**: the URL of your X post |
+| Website | leave empty unless you deploy the web app (e.g. the Vercel URL) |
+| Consent | tick the box |
 
-**Links**
-* Repository: https://github.com/Fatihmaull/NEAR-hack
-* Live contract (NEAR testnet): https://testnet.nearblocks.io/address/market.paron-mwbjvxck.testnet
-* Hosted terminal + 60-second tour: **TODO(owner)**, the Vercel URL (see *Deploying the web app* below)
-* Demo video: **TODO(owner)**
+**What did you build? (1903 / 2000 characters)**
 
-**Short description (≈ 50 words)**
+Problem: AI agents run on fixed USDC budgets, but GPU prices can double overnight. Nothing lets an autonomous agent hedge its inference bill, and compute presale markets need 1.5x cash bonds, humans to confirm delivery, and fragmented city/chip/month markets.
 
-AI agents run on fixed USDC budgets while GPU prices can double overnight. Paron is a forward market for
-compute on NEAR. Agents buy NEP-245 compute forwards inside on-chain guardrails, with Function Call keys that can trade but
-never withdraw. Forwards settle against an OutLayer TEE-attested GPU price index, or are redeemed as TEE-measured compute
-with automatic SLA slashing.
+Product: Paron is a forward market for compute on NEAR. 1 CU = 1 hour of H100, and other GPUs convert by weight, so there are only three liquid NEP-245 maturities. Providers pre-sell capacity with 25% margin (15% maintenance). Permissionless liquidation re-hedges at the attested mark, and an insurance pool backs it. Forwards settle in cash at maturity against an OutLayer TEE-attested GPU price index; spoofed feeds are rejected at 2 sigma, and the contract verifies the Ed25519 signature, freshness, replays and a 100% circuit breaker. Forwards can also be redeemed for real jobs: the enclave measures latency and throughput, and a breach or timeout refunds 100% + 15% automatically.
 
-**Long description**
+Agents: a CFO agent hedges its runway from a VaR model, an LP agent quotes and liquidates, and a consumer agent buys and redeems compute. Each holds only a NEAR Function Call key, which can trade but never withdraw, inside an on-chain guardrail: daily cap, slippage band and series allowlist. Agents on Base or Solana fund margin through NEAR Intents 1Click (customRecipientMsg into ft_on_transfer) and Chain Signatures.
 
-*Problem.* An autonomous business that pays for inference has a runway problem. When the H100 hour moves from $2.80 to
-$4.10, its burn rises 46% and nothing hedges it. Existing compute presale markets break in three ways:
+How NEAR fits: Function Call keys make "can trade, cannot withdraw" a protocol rule. OutLayer turns the delivery oracle into cryptography. Intents and Chain Signatures give one-hop cross-chain funding, and NEP-245 gives one contract many fungible maturities.
 
-* They demand 1.5× cash bonds from providers.
-* They rely on humans to confirm "delivery".
-* They split liquidity into city × chip × month micro-markets.
+Proof: deployed on NEAR testnet (market.paron-mwbjvxck.testnet) with 58 real transactions, among them attestations, guardrail rejections, a keeper liquidation and SLA slashes. `npm run verify:all` runs 4 gates with zero config; /tour replays the 5-act swarm in 60 seconds.
 
-*Solution.* Paron v2 is the hedging and procurement desk above GPU clouds like NEAR AI Cloud.
+## X demo post (attach `docs/media/paron-demo.mp4`)
 
-* **One canonical unit.** 1 CU = 1 hour of H100 SXM. Every chip is normalised by weight, and only three liquid NEP-245
-  maturities exist.
-* **Margin instead of bonds.** Providers pre-sell capacity with 25% initial and 15% maintenance margin, 4× more
-  capital-efficient than a 1.5× bond. Underwater vaults are liquidated permissionlessly and re-hedged at the attested
-  mark, with an insurance pool behind them.
-* **Mode A: cash settlement.** At maturity, longs receive Q × P_index against an OutLayer TEE-attested CRI-H100 TWAP.
-  The enclave rejects manipulated feeds at ±2σ, and the contract checks the Ed25519 signature, freshness, replay and a
-  100% circuit breaker.
-* **Mode B: compute redemption.** Agents redeem CU for real jobs. The enclave measures TTFT and throughput and signs the
-  verdict. An SLA breach or a missed deadline refunds 100% plus a 15% penalty, automatically.
-* **Agents first.** Each agent holds only a Function Call key and is bounded by an on-chain AgentGuardrailPolicy:
-  daily spend cap, slippage band around the attested TWAP, series allowlist, pause switch. Agents fund themselves from
-  Base or Solana through NEAR Intents 1Click (`customRecipientMsg` → `ft_on_transfer`) and Chain Signatures.
+**Single post (278 / 280 characters, links count as 23):**
 
-*What is built.*
+> AI agents pay for GPUs from fixed budgets. One price spike kills their runway.
+>
+> Built at NEAR HACKATHON: Paron lets agents lock in compute cost. Function Call keys trade but can't withdraw; OutLayer TEE slashes SLA breaches.
+>
+> github.com/Fatihmaull/NEAR-hack
+> @NEARProtocol #NEARHackathon
 
-* A Rust contract with 39 tests.
-* A Rust OutLayer worker (wasm32-wasip2) with 10 tests and golden vectors shared with TypeScript.
-* Three TypeScript agents, a provider node and a 5-act swarm (19 tests).
-* A Next.js 15 terminal with a 60-second coded judge tour.
+**Longer version** (X Premium, or as a reply thread under the post above):
 
-`npm run verify:all` checks all of it in about 30 seconds with zero configuration. The contract is **deployed on NEAR
-testnet** and the agent swarm ran against it: attestations, a 25%-margin pre-sale, a guardrail-checked hedge, an index
-spike with a keeper liquidation, and Mode B delivery and slashing. Every step links to a nearblocks transaction.
-
-*Why NEAR.* Function Call keys make "can trade, cannot withdraw" a protocol property. OutLayer turns the
-physical-delivery oracle into a cryptographic one. Intents and Chain Signatures let agents on other chains fund NEAR
-margin in one hop. NEP-245 gives one contract many fungible maturities.
+> AI agents pay for GPUs out of fixed budgets, and a single price spike can kill their runway.
+>
+> I built Paron at NEAR HACKATHON: a compute forward market where agents lock in their GPU cost.
+>
+> 🔒 Each agent gets a NEAR Function Call key. It can trade but can never withdraw, and on-chain guardrails reject bad orders.
+> 🛡 OutLayer TEE attests the GPU price index and measures every job, so SLA breaches slash automatically.
+> 🌉 Agents fund margin from Base/Solana via NEAR Intents.
+>
+> Live on testnet, 58 real txs: github.com/Fatihmaull/NEAR-hack
+>
+> What would you hedge first: inference, training, or storage?
+>
+> @NEARProtocol #NEARHackathon @NearBuilders @NearLegion
 
 **How to test (for judges)**
 1. `npm run verify:all`: expect `ALL 4 VERIFICATION GATES PASSED`.
